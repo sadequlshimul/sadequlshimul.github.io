@@ -15,14 +15,24 @@ button.g{background:#ffffff14;color:#fdf3e4;border:1px solid #ffffff30}
 #e{color:#ff9db8;margin-top:6px}
 </style></head><body><div class="w">
 <h1>💌 চিঠির বাক্স</h1>
-<div id="lg"><input id="em" type="email" placeholder="অ্যাডমিন ইমেইল"><input id="pw" type="password" placeholder="পাসওয়ার্ড"><button id="in">ঢুকুন</button><div id="e"></div></div>
+<div id="lg"><input id="em" type="email" placeholder="অ্যাডমিন ইমেইল" autocapitalize="none" autocomplete="username"><input id="pw" type="password" placeholder="পাসওয়ার্ড" autocomplete="current-password"><button id="in">ঢুকুন</button><div id="e"></div></div>
 <div id="ap" style="display:none"><div class="top"><button class="g" id="f">শুধু অপঠিত</button><button class="g" id="r">রিফ্রেশ</button><button class="g" id="o">বের হন</button><span id="ct"></span></div><div id="ls"></div></div>
 </div>
 <script>
 var U='https://ujpenevdzvferrmxesbd.supabase.co',K='sb_publishable_excsOgo4mpXthu4ZzFJ4aQ_-htayOUY',tok=sessionStorage.getItem('t'),all=[],only=false,$=function(i){return document.getElementById(i)};
 function H(){return{apikey:K,Authorization:'Bearer '+tok,'Content-Type':'application/json'}}
 function bn(n){return n.toLocaleString('bn-BD',{useGrouping:false})}
-async function login(){$('e').textContent='';try{var r=await fetch(U+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify({email:$('em').value,password:$('pw').value})}),j=await r.json();if(!r.ok)throw 0;tok=j.access_token;sessionStorage.setItem('t',tok);load()}catch(x){$('e').textContent='ইমেইল বা পাসওয়ার্ড ভুল।'}}
+async function login(){
+$('e').textContent='';
+var r,j;
+try{
+r=await fetch(U+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify({email:$('em').value.trim().toLowerCase(),password:$('pw').value})});
+j=await r.json();
+if(!r.ok)throw 0;
+tok=j.access_token;sessionStorage.setItem('t',tok);load();
+}catch(x){
+$('e').textContent=((j&&(j.msg||j.error_description||j.message))||'সংযোগ হয়নি')+' ('+(r?r.status:'no response')+')';
+}}
 function out(){sessionStorage.removeItem('t');tok=null;$('ap').style.display='none';$('lg').style.display='block'}
 async function load(){var r=await fetch(U+'/rest/v1/letters?select=*&order=created_at.desc',{headers:H()});if(r.status==401){out();return}all=await r.json();$('lg').style.display='none';$('ap').style.display='block';draw()}
 function draw(){var L=$('ls');L.textContent='';var list=all.filter(function(x){return!only||!x.is_read});$('ct').textContent=bn(all.filter(function(x){return!x.is_read}).length)+'টি অপঠিত';
