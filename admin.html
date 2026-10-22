@@ -19,7 +19,7 @@ button.g{background:#ffffff14;color:#fdf3e4;border:1px solid #ffffff30}
 <div id="ap" style="display:none"><div class="top"><button class="g" id="f">শুধু অপঠিত</button><button class="g" id="r">রিফ্রেশ</button><button class="g" id="o">বের হন</button><span id="ct"></span></div><div id="ls"></div></div>
 </div>
 <script>
-var U='YOUR-SUPABASE-URL',K='YOUR-ANON-KEY',tok=sessionStorage.getItem('t'),all=[],only=false,$=function(i){return document.getElementById(i)};
+var U='https://ujpenevdzvferrmxesbd.supabase.co',K='sb_publishable_excsOgo4mpXthu4ZzFJ4aQ_-htayOUY',tok=sessionStorage.getItem('t'),all=[],only=false,$=function(i){return document.getElementById(i)};
 function H(){return{apikey:K,Authorization:'Bearer '+tok,'Content-Type':'application/json'}}
 function bn(n){return n.toLocaleString('bn-BD',{useGrouping:false})}
 async function login(){$('e').textContent='';try{var r=await fetch(U+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify({email:$('em').value,password:$('pw').value})}),j=await r.json();if(!r.ok)throw 0;tok=j.access_token;sessionStorage.setItem('t',tok);load()}catch(x){$('e').textContent='ইমেইল বা পাসওয়ার্ড ভুল।'}}
