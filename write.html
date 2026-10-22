@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>আমাকে একটা চিঠি লিখুন | সাদেকুল</title>
+<meta name="description" content="নাম লাগবে না। যা বলতে চান নির্ভয়ে লিখুন। চিঠিটা শুধু আমি পড়ব।">
+<meta property="og:title" content="আমাকে একটা নামহীন চিঠি লিখুন 💌">
+<meta property="og:description" content="নাম লাগবে না। যা বলতে চান নির্ভয়ে লিখুন। চিঠিটা শুধু আমি পড়ব।">
+<meta property="og:url" content="https://sadequl.me/write.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Noto+Serif+Bengali:wght@500;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#fdf3e4;--mute:#b9a9c9;--gold:#ffc36b;--rose:#ff7aa2}
+*{box-sizing:border-box;margin:0}
+body{min-height:100vh;min-height:100svh;background:linear-gradient(180deg,#0b0818 0%,#1b1038 55%,#4a1f4d 100%);background-attachment:fixed;color:var(--ink);font-family:'Hind Siliguri',sans-serif;font-size:17px;line-height:1.85;overflow-x:hidden}
+.star{position:fixed;background:#fff;border-radius:50%;animation:tw 3s ease-in-out infinite;z-index:0}
+@keyframes tw{50%{opacity:.15;transform:scale(.5)}}
+.wrap{position:relative;z-index:1;max-width:600px;margin:auto;padding:46px 22px 30px}
+.top{text-align:center;margin-bottom:26px}
+.top .em{font-size:52px;display:inline-block;animation:fl 4s ease-in-out infinite;filter:drop-shadow(0 10px 20px #ff7aa2)}
+@keyframes fl{50%{transform:translateY(-10px) rotate(-5deg)}}
+h1{font-family:'Noto Serif Bengali',serif;font-weight:800;font-size:clamp(30px,7vw,44px);line-height:1.4;margin:6px 0;background:linear-gradient(100deg,#ffe0a8,var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
+.top p{color:var(--mute)}
+.pad{background:#fff8ec;color:#4a3326;border-radius:10px;padding:22px 24px 26px;box-shadow:0 30px 60px -25px #000;transform:rotate(-.8deg)}
+.pad input,.pad textarea{width:100%;font-family:'Noto Serif Bengali',serif;font-size:16px;color:#4a3326;border:0;border-bottom:1px solid #d8c3a5;background:transparent;padding:6px 2px;outline:none;line-height:2}
+.pad textarea{height:190px;resize:none;background:repeating-linear-gradient(transparent,transparent 31px,#e6d3b8 32px);margin:4px 0 14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.pad small{color:#a07a5c}
+.btn{display:inline-block;padding:12px 28px;border-radius:40px;font:inherit;font-weight:600;color:#2a1330;background:linear-gradient(90deg,#ffd58a,#ff9db8);border:0;cursor:pointer;transition:.3s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px -10px #ff9db8}
+.btn:disabled{opacity:.6}
+.safe{text-align:center;color:var(--mute);font-size:14px;margin-top:22px}
+footer{text-align:center;color:var(--mute);font-size:15px;margin-top:26px}
+footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div class="em">💌</div><h1>আমাকে একটা চিঠি লিখুন</h1><p>নাম লাগবে না। যা বলতে চান নির্ভয়ে লিখুন।<br>চিঠিটা শুধু আমি পড়ব।</p></div>
+<div class="pad">
+<div id="frm">
+<textarea id="tx" maxlength="2000" placeholder="এখানে লিখুন…"></textarea>
+<input id="nm" maxlength="40" placeholder="ছদ্মনাম (ইচ্ছা হলে, না দিলেও চলবে)">
+<input id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+<div class="row"><small id="cnt">০ / ২০০০</small><button class="btn" id="go">চিঠি ফেলে দিন ✉️</button></div>
+<small id="msg" style="display:block;margin-top:8px"></small>
+</div>
+<div id="ok" style="display:none;text-align:center;padding:30px 0"><div style="font-size:50px">🕊️</div><div style="font-family:'Noto Serif Bengali',serif;font-size:24px;margin:6px 0">চিঠি পৌঁছে গেছে</div><small>আপনার কথা শোনার জন্য ধন্যবাদ।</small><br><button class="btn" id="again" style="margin-top:16px">আরেকটা লিখুন</button></div>
+</div>
+<div class="safe">🔒 নাম, ইমেইল বা নম্বর কিছুই চাওয়া হয় না</div>
+<footer><a href="https://sadequl.me">সাদেকুল</a> · ভালোবাসা আর নীরবতা দিয়ে তৈরি</footer>
+</div>
+<script>
+for(var i=0;i<60;i++){var s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';var z=Math.random()*2+1;s.style.width=s.style.height=z+'px';document.body.appendChild(s)}
+var SB_URL='https://ujpenevdzvferrmxesbd.supabase.co',SB_KEY='sb_publishable_excsOgo4mpXthu4ZzFJ4aQ_-htayOUY';
+var tx=document.getElementById('tx'),msg=document.getElementById('msg'),bn=function(n){return n.toLocaleString('bn-BD',{useGrouping:false})};
+tx.oninput=function(){document.getElementById('cnt').textContent=bn(tx.value.length)+' / '+bn(2000)};
+function done(){document.getElementById('frm').style.display='none';document.getElementById('ok').style.display='block'}
+document.getElementById('again').onclick=function(){tx.value='';document.getElementById('nm').value='';tx.oninput();document.getElementById('ok').style.display='none';document.getElementById('frm').style.display='block'};
+document.getElementById('go').onclick=async function(){
+var t=tx.value.trim(),n=document.getElementById('nm').value.trim(),b=this;
+if(!t){tx.focus();msg.textContent='আগে কিছু লিখুন।';return}
+if(document.getElementById('hp').value){done();return}
+try{if(Date.now()-(+localStorage.getItem('lt')||0)<60000){msg.textContent='একটু অপেক্ষা করে আবার পাঠান।';return}}catch(e){}
+b.disabled=true;msg.textContent='';
+try{var r=await fetch(SB_URL+'/rest/v1/letters',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({body:t,pen_name:n||null})});
+if(!r.ok)throw 0;try{localStorage.setItem('lt',Date.now())}catch(e){}done()}
+catch(e){msg.textContent='পাঠানো গেল না, একটু পরে আবার চেষ্টা করুন।'}
+b.disabled=false};
+</script>
+</body>
+</html>
