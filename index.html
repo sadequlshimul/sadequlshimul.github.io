@@ -174,20 +174,60 @@ main{max-width:1040px}
 <footer>© Jabir Wegs · Deutsch lernen mit Freude</footer>
 <script>
 var SUPABASE_URL='PASTE_PROJECT_URL',SUPABASE_KEY='PASTE_ANON_KEY';
-var SB=null,SBP=null,NE={message:'network'};
-var STUB={rpc:async function(){return{data:null,error:NE}},from:function(){var q={select:function(){return q},order:async function(){return{data:null,error:NE}},update:function(){return q},eq:async function(){return{error:NE}}};return q},auth:{getSession:async function(){return{data:{session:null}}},signInWithPassword:async function(){return{error:NE}},signOut:async function(){return{}}}};
-var SBURLS=['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js','https://unpkg.com/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js','https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.45.4/supabase.min.js'];
-function loadScript(u){return new Promise(function(res,rej){var t=document.createElement('script');t.src=u;t.onload=res;t.onerror=rej;setTimeout(rej,8000);document.head.appendChild(t)})}
-function getSb(){
-  if(SB)return Promise.resolve(SB);
-  if(!SBP)SBP=(async function(){
-    for(var i=0;i<SBURLS.length;i++){
-      try{if(!window.supabase)await loadScript(SBURLS[i]);if(window.supabase){SB=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);return SB}}catch(e){}
-    }
-    SBP=null;return STUB;
-  })();
-  return SBP;
+var NE={message:'network'};
+function tok(){try{return JSON.parse(localStorage.getItem('jw_sess'))}catch(e){return null}}
+function setTok(v){try{if(v)localStorage.setItem('jw_sess',JSON.stringify(v));else localStorage.removeItem('jw_sess')}catch(e){}}
+function saveSess(j){setTok({access_token:j.access_token,refresh_token:j.refresh_token,expires_at:Math.floor(Date.now()/1000)+(j.expires_in||3600)})}
+async function bearer(){
+  var t=tok();if(!t)return null;
+  if(t.expires_at*1000-Date.now()>60000)return t.access_token;
+  try{
+    var r=await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:t.refresh_token})});
+    var j=await r.json();
+    if(!r.ok){setTok(null);return null}
+    saveSess(j);return j.access_token;
+  }catch(e){return t.access_token}
 }
+async function http(path,opt){
+  opt=opt||{};
+  var h={apikey:SUPABASE_KEY,'Content-Type':'application/json'};
+  var t=await bearer();
+  if(t)h.Authorization='Bearer '+t;else if(SUPABASE_KEY.indexOf('sb_')!==0)h.Authorization='Bearer '+SUPABASE_KEY;
+  try{
+    var r=await fetch(SUPABASE_URL+path,{method:opt.method||'GET',headers:h,body:opt.body?JSON.stringify(opt.body):undefined});
+    var txt=await r.text(),j=null;
+    try{j=txt?JSON.parse(txt):null}catch(e){}
+    if(!r.ok)return{data:null,error:{message:(j&&(j.message||j.msg||j.error_description))||('http '+r.status)}};
+    return{data:j,error:null};
+  }catch(e){return{data:null,error:NE}}
+}
+var SB={
+  rpc:function(fn,args){return http('/rest/v1/rpc/'+fn,{method:'POST',body:args||{}})},
+  from:function(tbl){
+    var st={m:'GET',q:[],b:null};
+    var o={
+      select:function(c){st.q.push('select='+encodeURIComponent(c||'*'));return o},
+      order:function(c,op){st.q.push('order='+c+(op&&op.ascending===false?'.desc':'.asc'));return o},
+      update:function(b){st.m='PATCH';st.b=b;return o},
+      eq:function(c,v){st.q.push(c+'=eq.'+encodeURIComponent(v));return o},
+      then:function(res,rej){return http('/rest/v1/'+tbl+(st.q.length?'?'+st.q.join('&'):''),{method:st.m,body:st.b}).then(res,rej)}
+    };
+    return o;
+  },
+  auth:{
+    getSession:async function(){var t=await bearer();return{data:{session:t?{access_token:t}:null}}},
+    signInWithPassword:async function(c){
+      try{
+        var r=await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({email:c.email,password:c.password})});
+        var j=await r.json();
+        if(!r.ok)return{error:{message:j.error_description||j.msg||'invalid'}};
+        saveSess(j);return{error:null};
+      }catch(e){return{error:NE}}
+    },
+    signOut:async function(){setTok(null);return{}}
+  }
+};
+function getSb(){return Promise.resolve(SB)}
 var MAX=30,cur='',lastNo='',taken={A1:0,A2:0,B1:0},rows=[];
 var LV={
  a1:{n:'A1',t:'Anfänger',d:'একদম শূন্য থেকে শুরু',l:['জার্মান বর্ণমালা ও সঠিক উচ্চারণ','নিজের পরিচয় দেওয়া ও সহজ প্রশ্ন করা','দৈনন্দিন প্রয়োজনীয় শব্দ ও সহজ বাক্য']},
