@@ -6,6 +6,7 @@
 <title>Jabirs Weg – Deutsch Registration</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap">
 <style>
+
 :root{--bg:#f4f1ea;--card:#fff;--ink:#14213d;--mute:#6a7385;--line:#e3ded2;--yel:#ffda1a;--p:#0058a3;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1625;--card:#16213a;--ink:#f1f4fa;--mute:#9aa6bf;--line:#2a3860}}
 body[data-lv=a1]{--p:#1e8e5a}body[data-lv=a2]{--p:#e8590c}body[data-lv=b1]{--p:#6f42c1}
@@ -71,8 +72,6 @@ main{max-width:1040px}
 .hi{font-size:28px}.big{font-size:100px}
 #home:not(.hide){display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 #home>*{margin-top:0!important}
-#home>:first-child{grid-column:1/-1}
-#home>:nth-child(6){grid-column:span 2}
 .cc{flex-direction:column;text-align:center;padding:28px 16px;border-left:0;border-top:8px solid var(--c);gap:10px}
 .cc span.go{margin:0}
 #course:not(.hide){display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
@@ -95,6 +94,10 @@ main{max-width:1040px}
 .seats i{display:block;min-width:0}
 .cc small{display:block}
 .cc .bdg{margin:6px 0 0;display:inline-block;font-size:14px;font-weight:700}
+.wide{grid-column:1/-1}
+textarea.t{resize:vertical;margin-top:8px;display:block}
+select.t{margin-top:0}
+@media(min-width:900px){#cards>.cc{margin-top:0}}
 </style>
 </head>
 <body>
@@ -116,25 +119,20 @@ main{max-width:1040px}
 <div class="stripe"></div>
 <main>
   <section id="home">
-    <div class="card" style="margin-top:14px"><h2>কোর্স বেছে নিন</h2><p class="sub">তোমার লেভেল অনুযায়ী একটি কোর্স ট্যাপ করো</p></div>
-    <button class="cc" id="cc_a1" style="--c:#1e8e5a" onclick="go('a1')"><em>A1</em><span><b>A1 Registration</b><small>Anfänger · একদম শূন্য থেকে শুরু</small><span class="bdg" id="bd_a1"></span></span><span class="go">›</span></button>
-    <button class="cc" id="cc_a2" style="--c:#e8590c" onclick="go('a2')"><em>A2</em><span><b>A2 Registration</b><small>Grundlagen · দৈনন্দিন কথাবার্তা</small><span class="bdg" id="bd_a2"></span></span><span class="go">›</span></button>
-    <button class="cc" id="cc_b1" style="--c:#6f42c1" onclick="go('b1')"><em>B1</em><span><b>B1 Registration</b><small>Mittelstufe · স্বাধীনভাবে বলা ও লেখা</small><span class="bdg" id="bd_b1"></span></span><span class="go">›</span></button>
-    <div class="card">
-      <div id="fsub0" style="display:flex;flex-wrap:wrap;gap:8px"></div>
-    </div>
-    <div class="card">
+    <div class="card wide" style="margin-top:14px"><h2>কোর্স বেছে নিন</h2><p class="sub">তোমার পছন্দের একটি কোর্স ট্যাপ করো</p></div>
+    <div id="cards" style="display:contents"><div class="card wide"><p class="sub">লোড হচ্ছে…</p></div></div>
+    <div class="card wide hide" id="chipCard"><div id="fsub0" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
+    <div class="card wide">
       <h2>বুকিং চেক করো</h2>
       <p class="sub">বুকিং নম্বর বা মোবাইল নম্বর দিয়ে স্ট্যাটাস দেখো</p>
-      <div class="chk"><input class="t" id="ck" placeholder="JW563834 বা 01XXXXXXXXX"><button onclick="check()">খোঁজো</button></div>
+      <div class="chk"><input class="t" id="ck" placeholder="JW123456 বা 01XXXXXXXXX"><button onclick="check()">খোঁজো</button></div>
       <div class="res" id="res"></div>
     </div>
   </section>
 
   <section id="course" class="hide">
     <div class="card">
-      <h2>এই কোর্সে কী শিখবে</h2>
-      <ul class="lrn" id="cList"></ul>
+      <div id="learnWrap"><h2>এই কোর্সে কী শিখবে</h2><ul class="lrn" id="cList"></ul></div>
       <div id="cInfo"></div>
     </div>
     <div class="card">
@@ -174,12 +172,11 @@ main{max-width:1040px}
       <label class="f">পাসওয়ার্ড<input class="t" id="pw" type="password" autocomplete="current-password"></label>
       <button class="w" onclick="login()">লগইন</button>
       <div class="msg" id="lerr"></div>
-      
     </div>
     <div class="card hide" id="panel">
       <div id="newBanner" class="hide" onclick="markSeen()" style="background:#fff0b3;color:#6b5200;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-weight:600;cursor:pointer"></div>
       <div id="sum" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:12px"></div>
-      <h2 style="font-size:16px;margin:6px 0 8px">রেজিস্ট্রেশন নিয়ন্ত্রণ</h2>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin:6px 0 8px"><h2 style="font-size:16px;margin:0">কোর্স ও রেজিস্ট্রেশন নিয়ন্ত্রণ</h2><button class="y" onclick="addCourse()">+ নতুন কোর্স</button></div>
       <div id="ctl"></div>
       <h2 style="font-size:16px;margin:14px 0 6px">সব বুকিং</h2>
       <div class="tools">
@@ -189,20 +186,21 @@ main{max-width:1040px}
       </div>
       <div class="tools">
         <span class="sub" style="align-self:center">ফিল্টার:</span>
-        <select class="t" id="fl" onchange="renderT()"><option value="">সব লেভেল</option><option>A1</option><option>A2</option><option>B1</option></select>
+        <select class="t" id="fc" onchange="renderT()"><option value="">সব কোর্স</option></select>
         <select class="t" id="fb" onchange="renderT()"><option value="">সব ব্যাচ</option></select>
         <select class="t" id="fp" onchange="renderT()"><option value="">সব পেমেন্ট</option><option value="paid">Paid</option><option value="pending">Pending</option></select>
         <select class="t" id="fs" onchange="renderT()"><option value="">সব স্ট্যাটাস</option><option value="active">Active</option><option value="cancelled">Cancelled</option></select>
         <button class="g" onclick="clearF()">রিসেট</button>
       </div>
       <div class="sub" id="shown" style="margin:2px 0 6px"></div>
-      <div class="sc"><table><thead><tr><th>বুকিং</th><th>লেভেল</th><th>ব্যাচ নং</th><th>নাম</th><th>মোবাইল</th><th>ইমেইল</th><th>সময়</th><th>পেমেন্ট</th><th>স্ট্যাটাস</th><th></th></tr></thead><tbody id="tb"></tbody></table></div>
+      <div class="sc"><table><thead><tr><th>বুকিং</th><th>কোর্স</th><th>ব্যাচ নং</th><th>নাম</th><th>মোবাইল</th><th>ইমেইল</th><th>সময়</th><th>পেমেন্ট</th><th>স্ট্যাটাস</th><th></th></tr></thead><tbody id="tb"></tbody></table></div>
     </div>
   </section>
 </main>
 <footer>© Jabirs Weg · Deutsch lernen mit Freude</footer>
 <script src="config.js"></script>
 <script>
+/*CLIENT_START*/
 var SUPABASE_URL=window.JW_URL||'https://tnxamkcdlutigzwigipu.supabase.co',SUPABASE_KEY=window.JW_KEY||'PASTE_PUBLISHABLE_KEY';
 var NE={message:'network'};
 function tok(){try{return JSON.parse(localStorage.getItem('jw_sess'))}catch(e){return null}}
@@ -257,75 +255,84 @@ var SB={
     signOut:async function(){setTok(null);return{}}
   }
 };
-function getSb(){return Promise.resolve(SB)}
-var MAX=30,cur='',lastNo='',taken={A1:0,A2:0,B1:0},bno={A1:1,A2:1,B1:1},ctl={A1:dc(),A2:dc(),B1:dc()},CC={A1:'#1e8e5a',A2:'#e8590c',B1:'#6f42c1'},rows=[];
-var LV={
- a1:{n:'A1',t:'Anfänger',d:'একদম শূন্য থেকে শুরু',l:['জার্মান বর্ণমালা ও সঠিক উচ্চারণ','নিজের পরিচয় দেওয়া ও সহজ প্রশ্ন করা','দৈনন্দিন প্রয়োজনীয় শব্দ ও সহজ বাক্য']},
- a2:{n:'A2',t:'Grundlagen',d:'দৈনন্দিন কথাবার্তা',l:['কেনাকাটা, দিকনির্দেশ ও রুটিন নিয়ে কথা বলা','অতীতের ঘটনা নিয়ে সহজ বাক্য','ছোট মেসেজ ও ইমেইল লেখা']},
- b1:{n:'B1',t:'Mittelstufe',d:'স্বাধীনভাবে বলা ও লেখা',l:['নিজের মতামত ও যুক্তি তুলে ধরা','চিঠি ও ইমেইল গুছিয়ে লেখা','পরীক্ষার প্রস্তুতির দিকে এগোনো']}
-};
+/*CLIENT_END*/
+var cur='',lastNo='',PC=[],CBY={},loaded=false,AC=[],rows=[],dirty={},draft=false,qT=0;
+var COLORS=[['সবুজ','#1e8e5a'],['কমলা','#e8590c'],['বেগুনি','#6f42c1'],['নীল','#0058a3'],['লাল','#c92a2a'],['টিল','#0c8599'],['গোলাপি','#c2255c']];
 var greets=['Hallo!','Guten Tag!','Willkommen!','Los geht’s!','Viel Erfolg!'],gi=0;
 function $(id){return document.getElementById(id)}
-setInterval(function(){if(document.hidden||$('home').classList.contains('hide'))return;var a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='SELECT'))return;gi=(gi+1)%greets.length;$('hi').textContent=greets[gi]},2200);
 function show(id,on){$(id).classList.toggle('hide',!on)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function lat(t){return String(t).replace(/[০-৯]/g,function(d){return '০১২৩৪৫৬৭৮৯'.indexOf(d)})}
+setInterval(function(){if(document.hidden||$('home').classList.contains('hide'))return;var a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='SELECT'))return;gi=(gi+1)%greets.length;$('hi').textContent=greets[gi]},2200);
 function go(v){location.hash=v}
+window.addEventListener('hashchange',route);
+
+/* ---------- public ---------- */
+function norm(x){return{slug:x.slug,code:x.code,title:x.title,subtitle:x.subtitle||'',learn:String(x.learn||'').split('\n').map(function(t){return t.trim()}).filter(Boolean),color:x.color||'#0058a3',cnt:x.cnt||0,bt:x.bt||1,op:x.op!==false,cap:x.cap||30,nt:x.nt||'',i:{mode:x.i_mode||'',dur:x.i_dur||'',time:x.i_time||'',days:x.i_days||'',start:x.i_start||'',extra:x.i_extra||''}}}
+async function loadCourses(first){
+  var r=await SB.rpc('public_courses');
+  if(!r.error&&Array.isArray(r.data)){
+    PC=r.data.map(norm);CBY={};PC.forEach(function(c){CBY[c.slug]=c});loaded=true;
+    if(first)route();else render();
+  }else if(!loaded){
+    $('cards').innerHTML='<div class="card wide"><p class="sub">'+(r.error&&r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, পেজ রিফ্রেশ করো।':'কোর্সের তথ্য আনা যায়নি, একটু পরে আবার চেষ্টা করো।')+'</p></div>';
+  }
+}
 function route(){
-  var v=(location.hash||'').replace('#','');
-  var view=LV[v]?'course':(v==='admin'?'adm':'home');
-  document.body.setAttribute('data-lv',LV[v]?v:'');
+  var v=(location.hash||'').replace('#',''),c=CBY[v];
+  if(v&&v!=='admin'&&!c&&loaded){location.hash='';return}
+  var view=v==='admin'?'adm':(c?'course':'home');
+  cur=c?v:'';
+  if(c)document.body.style.setProperty('--p',c.color);else document.body.style.removeProperty('--p');
   show('home',view==='home');show('course',view==='course');show('adm',view==='adm');
   show('hHome',view==='home');show('hCourse',view==='course');show('hAdm',view==='adm');
   show('bk',view!=='home');
-  if(view==='course'){
-    cur=v;var L=LV[v];
-    $('cBig').textContent=L.n;$('cTitle').textContent=L.n+' Registration · '+L.t;$('cDesc').textContent=L.d;
-    $('cList').innerHTML=L.l.map(function(x){return '<li>'+x+'</li>'}).join('');
-    $('fTitle').textContent=L.n+' কোর্সে রেজিস্ট্রেশন';
-    show('okCard',false);$('err').textContent='';
-  }
+  if(view==='course'){show('okCard',false);$('err').textContent=''}
   if(view==='adm')initAdmin();
-  render();loadCounts();window.scrollTo(0,0);
+  render();
+  if(loaded&&view!=='adm')loadCourses(false);
+  window.scrollTo(0,0);
 }
-window.addEventListener('hashchange',route);
-async function loadCounts(){
-  var r=await (await getSb()).rpc('seat_counts');
-  if(!r.error&&r.data){taken={A1:0,A2:0,B1:0};r.data.forEach(function(x){taken[x.lvl]=x.cnt;bno[x.lvl]=x.bt||1;ctl[x.lvl]={op:x.op!==false,cap:x.cap||30,nt:x.nt||'',hd:x.hd===true,i:{mode:x.i_mode||'',time:x.i_time||'',days:x.i_days||'',start:x.i_start||'',extra:x.i_extra||'',dur:x.i_dur||''}}});render();if(!$('panel').classList.contains('hide'))renderStat()}
+function render(){renderHome();renderCourse()}
+function renderHome(){
+  if(!loaded)return;
+  var codes={};PC.forEach(function(c){codes[c.code]=(codes[c.code]||0)+1});
+  $('cards').innerHTML=PC.map(function(c){
+    var left=Math.max(0,c.cap-c.cnt),off=!c.op||left<=0;
+    return '<button class="cc" style="--c:'+esc(c.color)+'" data-s="'+esc(c.slug)+'"><em'+(c.code.length>2?' style="font-size:20px"':'')+'>'+esc(c.code)+'</em><span><b>'+esc(c.title)+'</b><small>'+esc(lat(c.subtitle))+'</small><span class="bdg'+(off?' off':'')+'">'+(!c.op?'রেজিস্ট্রেশন বন্ধ':(left<=0?'পূর্ণ':left+'টি খালি'))+'</span></span><span class="go">›</span></button>';
+  }).join('')||'<div class="card wide"><p class="sub">বর্তমানে কোনো কোর্সের রেজিস্ট্রেশন চালু নেই। নতুন ব্যাচ শুরু হলে এখানে জানানো হবে।</p></div>';
+  $('fsub0').innerHTML=PC.map(function(c){
+    var left=Math.max(0,c.cap-c.cnt),off=!c.op||left<=0;
+    return '<span class="bdg'+(off?' off':'')+'" style="font-size:14px;padding:4px 14px">'+esc(codes[c.code]>1?c.title:c.code)+' = '+(!c.op?'বন্ধ':(left<=0?'পূর্ণ':left+' খালি'))+'</span>';
+  }).join('');
+  show('chipCard',PC.length>0);
 }
-function dc(){return{op:true,cap:30,nt:'',hd:false,i:{}}}
-function lat(t){return String(t).replace(/[০-৯]/g,function(d){return '০১২৩৪৫৬৭৮৯'.indexOf(d)})}
-function bn(n){return String(n).replace(/\d/g,function(d){return '০১২৩৪৫৬৭৮৯'.charAt(d)})}
-function render(){
-  var chips=[];
-  Object.keys(LV).forEach(function(k){
-    var l=LV[k].n,c=ctl[l],left=Math.max(0,c.cap-taken[l]),off=!c.op||left<=0;
-    var btn=$('cc_'+k),bd=$('bd_'+k);
-    btn.style.display=c.hd?'none':'';
-    bd.textContent=!c.op?'রেজিস্ট্রেশন বন্ধ':(left<=0?'পূর্ণ':left+'টি খালি');
-    bd.className='bdg'+(off?' off':'');
-    if(!c.hd)chips.push('<span class="bdg'+(off?' off':'')+'" style="font-size:14px;padding:4px 14px">'+l+' = '+(!c.op?'বন্ধ':(left<=0?'পূর্ণ':left+' খালি'))+'</span>');
-  });
-  $('fsub0').innerHTML=chips.length?chips.join(''):'<span class="sub">বর্তমানে কোনো কোর্সের রেজিস্ট্রেশন চালু নেই। নতুন ব্যাচ শুরু হলে এখানে জানানো হবে।</span>';
-  if(!cur||!LV[cur])return;
-  var l=LV[cur].n,c=ctl[l],n=taken[l],left=Math.max(0,c.cap-n),h='';
-  if(c.hd){cur='';go('');return}
-  for(var i=0;i<c.cap;i++)h+='<i class="'+(i<n?'t':'')+'"></i>';
+function renderCourse(){
+  var c=CBY[cur];if(!c)return;
+  var left=Math.max(0,c.cap-c.cnt),h='';
+  $('cBig').textContent=c.code;$('cBig').style.fontSize=c.code.length>3?'48px':'';
+  $('cTitle').textContent=c.title;$('cDesc').textContent=lat(c.subtitle);
+  show('learnWrap',c.learn.length>0);
+  $('cList').innerHTML=c.learn.map(function(x){return '<li>'+esc(x)+'</li>'}).join('');
+  $('fTitle').textContent=c.title+' – রেজিস্ট্রেশন';
+  for(var i=0;i<c.cap;i++)h+='<i class="'+(i<c.cnt?'t':'')+'"></i>';
   $('seats').innerHTML=h;$('fn').textContent=left;
   $('fsub').textContent=left>0&&left<=10?'তাড়াতাড়ি করো, আসন প্রায় শেষ!':c.cap+'টি আসন';
-  var I=c.i||{},ri=[['ধরন',I.mode],['সময়কাল',I.dur],['সময়',I.time],['বার',I.days],['কবে থেকে শুরু',I.start],['বিস্তারিত',I.extra]].filter(function(x){return x[1]});
+  var I=c.i,ri=[['ধরন',I.mode],['সময়কাল',I.dur],['সময়',I.time],['বার',I.days],['কবে থেকে শুরু',I.start],['বিস্তারিত',I.extra]].filter(function(x){return x[1]});
   $('cInfo').innerHTML=ri.length?'<h2 style="font-size:16px;margin:14px 0 4px">কোর্সের বিস্তারিত</h2>'+ri.map(function(x){return '<div class="irow"><span>'+x[0]+'</span><b>'+esc(lat(x[1]))+'</b></div>'}).join(''):'';
-  var ok=!$('okCard').classList.contains('hide'),off=!c.op,full=c.op&&n>=c.cap;
+  var ok=!$('okCard').classList.contains('hide'),off=!c.op,full=c.op&&c.cnt>=c.cap;
   show('closedCard',(off||full)&&!ok);show('formCard',!off&&!full&&!ok);
   if(off||full){
     $('clTitle').textContent=off?'রেজিস্ট্রেশন এখন বন্ধ':'Registration Closed';
     $('clMsg').textContent=(off?'এই ব্যাচের রেজিস্ট্রেশন এখন বন্ধ আছে।':'দুঃখিত, এই ব্যাচের '+c.cap+'টি বুকিং পূর্ণ হয়েছে।')+' '+(lat(c.nt)||'চালু হলে এখানেই রেজিস্ট্রেশন খুলবে।');
   }
 }
+$('cards').onclick=function(e){var t=e.target,b=t&&t.closest?t.closest('button[data-s]'):null;if(b)go(b.getAttribute('data-s'))};
 function msgOf(e){
   var m=(e&&e.message)||'';
   if(m==='network')return 'ইন্টারনেট সংযোগ সমস্যা, আবার চেষ্টা করো।';
   if(m.indexOf('reg_off')>=0)return 'এই ব্যাচের রেজিস্ট্রেশন এখন বন্ধ আছে।';
-  if(m.indexOf('closed')>=0)return 'দুঃখিত, এই ব্যাচের ৩০টি বুকিং পূর্ণ হয়েছে।';
+  if(m.indexOf('closed')>=0)return 'দুঃখিত, এই ব্যাচের সব বুকিং পূর্ণ হয়েছে।';
   if(m.indexOf('duplicate')>=0)return 'এই নম্বর দিয়ে আগেই বুকিং আছে।';
   if(m.indexOf('invalid_name')>=0)return 'সঠিক নাম লেখো।';
   if(m.indexOf('invalid_phone')>=0)return 'সঠিক মোবাইল নম্বর দাও।';
@@ -333,132 +340,98 @@ function msgOf(e){
   return 'একটু সমস্যা হয়েছে, আবার চেষ্টা করো।';
 }
 async function submitReg(){
+  var c=CBY[cur];if(!c)return;
   var err=$('err');err.textContent='';
   var nm=$('nm').value.trim(),ph=$('ph').value.trim().replace(/[\s-]/g,''),em=$('em').value.trim();
   if(nm.length<2){err.textContent='সঠিক নাম লেখো।';return}
   if(!/^(\+?88)?01[3-9]\d{8}$/.test(ph)){err.textContent='সঠিক মোবাইল নম্বর দাও।';return}
   if(!/^\S+@\S+\.\S+$/.test(em)){err.textContent='সঠিক ইমেইল দাও।';return}
   var b=$('subBtn');b.disabled=true;b.textContent='অপেক্ষা করো…';
-  var r=await (await getSb()).rpc('register_booking',{p_level:LV[cur].n,p_name:nm,p_phone:ph,p_email:em});
+  var r=await SB.rpc('register_booking',{p_slug:c.slug,p_name:nm,p_phone:ph,p_email:em});
   b.disabled=false;b.textContent='আমার আসন বুক করো →';
-  if(r.error){err.textContent=msgOf(r.error);loadCounts();return}
+  if(r.error){err.textContent=msgOf(r.error);loadCourses(false);return}
   lastNo=r.data;
-  $('okNo').textContent=lastNo;$('okLv').textContent=LV[cur].n+' · ব্যাচ '+bno[LV[cur].n];$('okNm').textContent=nm;
+  $('okNo').textContent=lastNo;$('okLv').textContent=c.title+' · ব্যাচ '+c.bt;$('okNm').textContent=nm;
   show('okCard',true);$('cpBtn').textContent='বুকিং নম্বর কপি করো';
-  await loadCounts();render();window.scrollTo({top:0,behavior:'smooth'});
+  await loadCourses(false);window.scrollTo({top:0,behavior:'smooth'});
 }
 function copyNo(){try{navigator.clipboard.writeText(lastNo);$('cpBtn').textContent='কপি হয়েছে ✓'}catch(e){$('cpBtn').textContent=lastNo}}
 async function check(){
   var v=$('ck').value.trim().replace(/[\s-]/g,''),r=$('res');
   if(!v){r.textContent='';return}
-  var x=await (await getSb()).rpc('check_booking',{p_key:v});
+  var x=await SB.rpc('check_booking',{p_key:v});
   if(x.error||!x.data||!x.data.length){r.textContent='কোনো বুকিং পাওয়া যায়নি।';return}
-  r.innerHTML=x.data.map(function(s){return '<div style="margin-bottom:6px"><b>'+esc(s.r_no)+'</b> · '+esc(s.r_level)+' (ব্যাচ '+s.r_batch+') · '+esc(s.r_initial)+'***<br>পেমেন্ট: <span class="pill '+(s.r_paid?'pd':'pen')+'">'+(s.r_paid?'Paid':'Pending')+'</span> বুকিং: <span class="pill '+(s.r_active?'pd':'cx')+'">'+(s.r_active?'Active':'Cancelled')+'</span></div>'}).join('');
+  r.innerHTML=x.data.map(function(s){return '<div style="margin-bottom:6px"><b>'+esc(s.r_no)+'</b> · '+esc(s.r_course||s.r_level)+' (ব্যাচ '+s.r_batch+') · '+esc(s.r_initial)+'***<br>পেমেন্ট: <span class="pill '+(s.r_paid?'pd':'pen')+'">'+(s.r_paid?'Paid':'Pending')+'</span> বুকিং: <span class="pill '+(s.r_active?'pd':'cx')+'">'+(s.r_active?'Active':'Cancelled')+'</span></div>'}).join('');
 }
-/* ---------- Admin ---------- */
-async function isAdmin(){var a=await (await getSb()).rpc('is_admin');return a.data===true}
+
+/* ---------- admin ---------- */
+async function isAdmin(){var a=await SB.rpc('is_admin');return a.data===true}
 async function initAdmin(){
-  var s=await (await getSb()).auth.getSession();
+  var s=await SB.auth.getSession();
   if(s.data&&s.data.session&&await isAdmin()){show('loginCard',false);show('panel',true);loadAdmin()}
   else{show('panel',false);show('loginCard',true)}
 }
 async function login(){
-  var r=await (await getSb()).auth.signInWithPassword({email:$('ae').value.trim(),password:$('pw').value});
+  var r=await SB.auth.signInWithPassword({email:$('ae').value.trim(),password:$('pw').value});
   if(r.error){$('lerr').textContent=r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, আবার চেষ্টা করো।':'ইমেইল বা পাসওয়ার্ড ভুল।';return}
-  if(!(await isAdmin())){await (await getSb()).auth.signOut();$('lerr').textContent='তুমি অনুমোদিত অ্যাডমিন নও।';return}
+  if(!(await isAdmin())){await SB.auth.signOut();$('lerr').textContent='তুমি অনুমোদিত অ্যাডমিন নও।';return}
   $('lerr').textContent='';$('pw').value='';show('loginCard',false);show('panel',true);loadAdmin();
 }
-async function logout(){await (await getSb()).auth.signOut();rows=[];show('panel',false);show('loginCard',true)}
-async function loadAdmin(){
-  var r=await (await getSb()).from('bookings').select('*').order('created_at',{ascending:false});
-  rows=r.data||[];fillBatches();renderT();renderStat();renderNew();
+async function logout(){await SB.auth.signOut();rows=[];AC=[];show('panel',false);show('loginCard',true)}
+function cby(k){for(var i=0;i<AC.length;i++)if(AC[i].id===k)return AC[i];return null}
+async function loadAdmin(force,except){
+  var a=await SB.from('courses').select('*').order('sort');
+  var b=await SB.from('bookings').select('*').order('created_at',{ascending:false});
+  AC=a.data||[];rows=b.data||[];
+  fillFilters();renderT();renderSum();renderNew();renderCtl(force,except);
 }
-function renderT(){
-  var h='',V=vis();
-  V.forEach(function(s){
-    h+='<tr><td>'+esc(s.booking_no)+(isNew(s)?' <span class="pill pen">নতুন</span>':'')+'</td><td>'+s.level+'</td><td>'+s.batch+'</td><td>'+esc(s.name)+'</td><td>'+esc(s.phone)+'</td><td>'+esc(s.email)+'</td><td>'+new Date(s.created_at).toLocaleString('en-GB')+'</td>'
-     +'<td><span class="pill '+(s.paid?'pd':'pen')+'">'+(s.paid?'Paid':'Pending')+'</span></td>'
-     +'<td><span class="pill '+(s.active?'pd':'cx')+'">'+(s.active?'Active':'Cancelled')+'</span></td>'
-     +'<td><button onclick="tog(\''+s.id+'\',\'paid\')">'+(s.paid?'Pending করো':'Paid করো')+'</button><button class="g" onclick="tog(\''+s.id+'\',\'active\')">'+(s.active?'বাতিল':'সক্রিয়')+'</button></td></tr>';
-  });
-  $('shown').textContent=V.length+'টি বুকিং দেখাচ্ছে';$('tb').innerHTML=h||'<tr><td colspan="10">কিছু পাওয়া যায়নি</td></tr>';
+function fillFilters(){
+  var sc=$('fc'),vc=sc.value,hc='<option value="">সব কোর্স</option>';
+  AC.forEach(function(c){hc+='<option value="'+c.id+'">'+esc(c.title)+'</option>'});
+  sc.innerHTML=hc;sc.value=vc;
+  var mx=1;rows.forEach(function(s){if(s.batch>mx)mx=s.batch});AC.forEach(function(c){if(c.current_batch>mx)mx=c.current_batch});
+  var sb=$('fb'),vb=sb.value,hb='<option value="">সব ব্যাচ</option>';
+  for(var i=1;i<=mx;i++)hb+='<option value="'+i+'">ব্যাচ '+i+'</option>';
+  sb.innerHTML=hb;sb.value=vb;
 }
-
 function vis(){
-  var q=$('q').value.trim().toLowerCase(),l=$('fl').value,b=$('fb').value,pf=$('fp').value,sf=$('fs').value;
+  var q=$('q').value.trim().toLowerCase(),fc=$('fc').value,fb=$('fb').value,pf=$('fp').value,sf=$('fs').value;
   return rows.filter(function(s){
-    if(l&&s.level!==l)return false;
-    if(b&&String(s.batch)!==b)return false;
+    if(fc&&s.course_id!==fc)return false;
+    if(fb&&String(s.batch)!==fb)return false;
     if(pf==='paid'&&!s.paid)return false;if(pf==='pending'&&s.paid)return false;
     if(sf==='active'&&!s.active)return false;if(sf==='cancelled'&&s.active)return false;
     if(q&&s.booking_no.toLowerCase().indexOf(q)<0&&s.phone.indexOf(q)<0)return false;
     return true;
   });
 }
-function fillBatches(){
-  var mx=1;rows.forEach(function(s){if(s.batch>mx)mx=s.batch});
-  Object.keys(bno).forEach(function(l){if(bno[l]>mx)mx=bno[l]});
-  var sel=$('fb'),v=sel.value,h='<option value="">সব ব্যাচ</option>';
-  for(var i=1;i<=mx;i++)h+='<option value="'+i+'">ব্যাচ '+i+'</option>';
-  sel.innerHTML=h;sel.value=v;
+function qIn(){clearTimeout(qT);qT=setTimeout(renderT,180)}
+function clearF(){$('q').value='';$('fc').value='';$('fb').value='';$('fp').value='';$('fs').value='';renderT()}
+function cname(s){var c=cby(s.course_id);return c?c.title:s.level}
+function renderT(){
+  var h='',V=vis();
+  V.forEach(function(s){
+    h+='<tr><td>'+esc(s.booking_no)+(isNew(s)?' <span class="pill pen">নতুন</span>':'')+'</td><td>'+esc(cname(s))+'</td><td>'+s.batch+'</td><td>'+esc(s.name)+'</td><td>'+esc(s.phone)+'</td><td>'+esc(s.email)+'</td><td>'+new Date(s.created_at).toLocaleString('en-GB')+'</td>'
+     +'<td><span class="pill '+(s.paid?'pd':'pen')+'">'+(s.paid?'Paid':'Pending')+'</span></td>'
+     +'<td><span class="pill '+(s.active?'pd':'cx')+'">'+(s.active?'Active':'Cancelled')+'</span></td>'
+     +'<td><button data-i="'+s.id+'" data-k="paid">'+(s.paid?'Pending করো':'Paid করো')+'</button> <button class="g" data-i="'+s.id+'" data-k="active">'+(s.active?'বাতিল':'সক্রিয়')+'</button></td></tr>';
+  });
+  $('shown').textContent=V.length+'টি বুকিং দেখাচ্ছে';
+  $('tb').innerHTML=h||'<tr><td colspan="10">কিছু পাওয়া যায়নি</td></tr>';
 }
-function renderStat(){renderCtl();renderSum()}
+$('tb').onclick=function(e){var t=e.target,b=t&&t.closest?t.closest('button[data-i]'):null;if(b)tog(b.getAttribute('data-i'),b.getAttribute('data-k'))};
+async function tog(id,k){
+  var row=rows.filter(function(x){return x.id===id})[0];if(!row)return;
+  var u={};u[k]=!row[k];
+  await SB.from('bookings').update(u).eq('id',id);
+  loadAdmin();loadCourses(false);
+}
 function renderSum(){
   var act=rows.filter(function(s){return s.active}),paid=act.filter(function(s){return s.paid}).length;
   var today=new Date().toDateString(),td=rows.filter(function(s){return new Date(s.created_at).toDateString()===today}).length;
   var t=[['মোট বুকিং',act.length],['Paid',paid],['Pending',act.length-paid],['আজকের নতুন',td]];
   $('sum').innerHTML=t.map(function(x){return '<div class="tile"><b>'+x[1]+'</b>'+x[0]+'</div>'}).join('');
 }
-var dirty={A1:false,A2:false,B1:false};
-function renderCtl(force,except){
-  var a=document.activeElement,keep={};
-  if(!force&&(dirty.A1||dirty.A2||dirty.B1||(a&&a.tagName==='INPUT'&&$('ctl').contains(a))))return;
-  if(force&&$('ctl').querySelectorAll){Array.prototype.forEach.call($('ctl').querySelectorAll('input'),function(el){var lv=el.id.slice(-2);if(dirty[lv]&&lv!==except)keep[el.id]=el.value})}
-  var h='';
-  function f(p,l,ph,val,ml){return '<input class="t" autocomplete="off" spellcheck="false" id="'+p+'_'+l+'" maxlength="'+ml+'" placeholder="'+ph+'" value="'+esc(val||'')+'">'}
-  function bt(a,l,cls,txt){return '<button'+(cls?' class="'+cls+'"':'')+' data-a="'+a+'" data-l="'+l+'">'+txt+'</button>'}
-  Object.keys(LV).forEach(function(k){
-    var l=LV[k].n,c=ctl[l],b=bno[l],I=c.i||{},cnt=rows.filter(function(s){return s.level===l&&s.batch===b&&s.active}).length;
-    h+='<div class="lc" style="border-left:6px solid '+CC[l]+'">'
-     +'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><b>'+l+' · ব্যাচ '+b+'</b><span>'
-       +(c.hd?'<span class="pill pen">হোমে লুকানো</span> ':'')+'<span class="pill '+(c.op?'pd':'cx')+'">'+(c.op?'রেজিস্ট্রেশন চালু':'রেজিস্ট্রেশন বন্ধ')+'</span></span></div>'
-     +'<div class="sub">বুকিং '+cnt+'/'+c.cap+'</div>'
-     +'<div class="tools"><input class="t" type="number" min="1" max="100" id="cap_'+l+'" value="'+c.cap+'" style="max-width:90px" title="আসন সংখ্যা">'+f('nt',l,'বন্ধ/পূর্ণ হলে যে মেসেজ দেখাবে (ঐচ্ছিক)',c.nt,200)+'</div>'
-     +'<div class="sub" style="margin-top:6px;font-weight:600">কোর্সের বিস্তারিত (শিক্ষার্থীরা দেখবে)</div>'
-     +'<div class="tools">'+f('im',l,'অনলাইন / অফলাইন',I.mode,60)+f('ic',l,'কোর্স কতদিনের (যেমন ৩ মাস)',I.dur,60)+'</div>'
-     +'<div class="tools">'+f('it',l,'সময় (যেমন রাত ৮টা)',I.time,60)+f('id',l,'বার (যেমন শনি, সোম, বুধ)',I.days,80)+'</div>'
-     +'<div class="tools">'+f('is',l,'কবে থেকে শুরু',I.start,60)+f('ix',l,'অন্যান্য তথ্য (ঐচ্ছিক)',I.extra,300)+'</div>'
-     +'<div class="tools">'+bt('save',l,'','সংরক্ষণ')
-       +bt('open',l,'g',c.op?'রেজিস্ট্রেশন বন্ধ করো':'রেজিস্ট্রেশন চালু করো')
-       +bt('hide',l,'g',c.hd?'হোমে দেখাও':'হোম থেকে লুকাও')
-       +bt('batch',l,'y','+ নতুন ব্যাচ')+'</div></div>';
-  });
-  $('ctl').innerHTML=h;
-  Object.keys(keep).forEach(function(id){var e=$(id);if(e)e.value=keep[id]});
-  if(except)dirty[except]=false;
-}
-function ctlClick(e){
-  var t=e.target,b=t&&t.closest?t.closest('button[data-a]'):null;
-  if(!b)return;
-  var l=b.getAttribute('data-l'),a=b.getAttribute('data-a');
-  if(a==='open')toggleOpen(l);else if(a==='hide')toggleHide(l);else if(a==='save')saveCtl(l);else if(a==='batch')newBatch(l);
-}
-$('ctl').onclick=ctlClick;
-$('ctl').oninput=function(e){var id=e.target&&e.target.id;if(id&&dirty[id.slice(-2)]!==undefined)dirty[id.slice(-2)]=true};
-function readCap(l){var v=parseInt($('cap_'+l).value,10);return(v>=1&&v<=100)?v:null}
-async function pushAll(l,over){
-  over=over||{};var c=ctl[l],cap=readCap(l);
-  if(!cap){alert('আসন সংখ্যা ১ থেকে ১০০-এর মধ্যে দাও।');return false}
-  function v(p){return $(p+'_'+l).value.trim()}
-  var r=await (await getSb()).rpc('set_level_all',{p_level:l,p_open:over.open!==undefined?over.open:c.op,p_hidden:over.hidden!==undefined?over.hidden:c.hd,p_capacity:cap,p_note:v('nt'),p_mode:v('im'),p_time:v('it'),p_days:v('id'),p_start:v('is'),p_extra:v('ix'),p_duration:v('ic')});
-  if(r.error){alert('সমস্যা হয়েছে: '+(r.error.message==='network'?'ইন্টারনেট সংযোগ নেই':r.error.message));return false}
-  await loadCounts();renderCtl(true,l);renderSum();return true;
-}
-function toggleOpen(l){pushAll(l,{open:!ctl[l].op})}
-function toggleHide(l){pushAll(l,{hidden:!ctl[l].hd})}
-function saveCtl(l){pushAll(l).then(function(ok){if(ok)alert(l+' সংরক্ষিত হয়েছে।')})}
-var qT=0;function qIn(){clearTimeout(qT);qT=setTimeout(renderT,180)}
-function clearF(){$('q').value='';$('fl').value='';$('fb').value='';$('fp').value='';$('fs').value='';renderT()}
 function seenAt(){try{return localStorage.getItem('jw_seen')}catch(e){return null}}
 function isNew(s){var v=seenAt();return !!v&&new Date(s.created_at)>new Date(v)}
 function renderNew(){
@@ -474,27 +447,92 @@ function markSeen(){
   try{localStorage.setItem('jw_seen',new Date(Math.max(mx,pv)||Date.now()).toISOString())}catch(e){}
   renderT();renderNew();
 }
-setInterval(function(){if(!$('panel').classList.contains('hide')&&!document.hidden){loadAdmin();loadCounts()}},30000);
-async function newBatch(l){
-  if(!confirm(l+'-এর জন্য নতুন ব্যাচ শুরু হবে। আগের সব বুকিং থাকবে, নতুন রেজিস্ট্রেশন নতুন ব্যাচে যাবে। চালিয়ে যাবে?'))return;
-  var r=await (await getSb()).rpc('start_new_batch',{p_level:l});
-  if(r.error){alert('সমস্যা হয়েছে: '+(r.error.message==='network'?'ইন্টারনেট সংযোগ নেই':r.error.message));return}
-  await loadCounts();await loadAdmin();
-  alert(l+'-এর ব্যাচ '+r.data+' শুরু হয়েছে।');
-}
-async function tog(id,k){
-  var row=rows.filter(function(x){return x.id===id})[0];if(!row)return;
-  var u={};u[k]=!row[k];
-  await (await getSb()).from('bookings').update(u).eq('id',id);
-  loadAdmin();loadCounts();
-}
 function csv(){
-  var out=[['Booking No','Level','Batch','Name','Mobile','Email','Registered At','Payment','Booking']];
-  vis().forEach(function(s){out.push([s.booking_no,s.level,s.batch,s.name,'\t'+s.phone,s.email,new Date(s.created_at).toLocaleString('en-GB'),s.paid?'Paid':'Pending',s.active?'Active':'Cancelled'])});
+  var out=[['Booking No','Course','Code','Batch','Name','Mobile','Email','Registered At','Payment','Booking']];
+  vis().forEach(function(s){out.push([s.booking_no,cname(s),s.level,s.batch,s.name,'\t'+s.phone,s.email,new Date(s.created_at).toLocaleString('en-GB'),s.paid?'Paid':'Pending',s.active?'Active':'Cancelled'])});
   var t='\uFEFF'+out.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"'}).join(',')}).join('\r\n');
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/csv;charset=utf-8'}));a.download='students.csv';document.body.appendChild(a);a.click();a.remove();
 }
-route();
+
+/* course cards (admin) */
+function fld(p,k,ph,val,ml){return '<input class="t" autocomplete="off" spellcheck="false" id="'+p+'_'+k+'" maxlength="'+ml+'" placeholder="'+ph+'" value="'+esc(val||'')+'">'}
+function bt(a,k,cls,txt){return '<button'+(cls?' class="'+cls+'"':'')+' data-a="'+a+'" data-k="'+k+'">'+txt+'</button>'}
+function blank(){return{id:null,code:'',title:'',subtitle:'',learn:'',color:'#1e8e5a',capacity:30,note:'',info_mode:'',info_duration:'',info_time:'',info_days:'',info_start:'',info_extra:'',is_open:true,is_hidden:false,current_batch:1}}
+function cardHtml(c,k){
+  var nw=k==='new',cnt=nw?0:rows.filter(function(s){return s.course_id===c.id&&s.batch===c.current_batch&&s.active}).length;
+  var cs=COLORS.map(function(x){return '<option value="'+x[1]+'"'+(x[1]===c.color?' selected':'')+'>'+x[0]+'</option>'}).join('');
+  return '<div class="lc" style="border-left:6px solid '+esc(c.color)+'">'
+   +'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><b>'+(nw?'নতুন কোর্স':esc(c.title)+' · ব্যাচ '+c.current_batch)+'</b><span>'
+     +(nw?'':(c.is_hidden?'<span class="pill pen">হোমে লুকানো</span> ':'')+'<span class="pill '+(c.is_open?'pd':'cx')+'">'+(c.is_open?'রেজিস্ট্রেশন চালু':'রেজিস্ট্রেশন বন্ধ')+'</span>')+'</span></div>'
+   +(nw?'':'<div class="sub">বুকিং '+cnt+'/'+c.capacity+'</div>')
+   +'<div class="tools">'+fld('cd',k,'কোড (যেমন A1)',c.code,6)+fld('ti',k,'কোর্সের নাম (যেমন A1 অনলাইন)',c.title,80)+'</div>'
+   +'<div class="tools">'+fld('su',k,'ছোট বর্ণনা (ঐচ্ছিক)',c.subtitle,120)+'<select class="t" id="co_'+k+'">'+cs+'</select></div>'
+   +'<textarea class="t" id="le_'+k+'" rows="3" maxlength="600" spellcheck="false" placeholder="কী শিখবে — প্রতি লাইনে একটা করে লেখো">'+esc(c.learn||'')+'</textarea>'
+   +'<div class="tools"><input class="t" type="number" min="1" max="100" id="cap_'+k+'" value="'+c.capacity+'" style="max-width:90px" title="আসন সংখ্যা">'+fld('nt',k,'বন্ধ/পূর্ণ হলে যে মেসেজ দেখাবে (ঐচ্ছিক)',c.note,200)+'</div>'
+   +'<div class="sub" style="margin-top:6px;font-weight:600">কোর্সের বিস্তারিত (শিক্ষার্থীরা দেখবে)</div>'
+   +'<div class="tools">'+fld('im',k,'অনলাইন / অফলাইন',c.info_mode,60)+fld('ic',k,'কোর্স কতদিনের (যেমন ৩ মাস)',c.info_duration,60)+'</div>'
+   +'<div class="tools">'+fld('it',k,'সময় (যেমন রাত ৮টা)',c.info_time,60)+fld('dy',k,'বার (যেমন শনি, সোম, বুধ)',c.info_days,80)+'</div>'
+   +'<div class="tools">'+fld('st',k,'কবে থেকে শুরু',c.info_start,60)+fld('ix',k,'অন্যান্য তথ্য (ঐচ্ছিক)',c.info_extra,300)+'</div>'
+   +'<div class="tools">'+(nw?bt('save',k,'','তৈরি করো')+bt('cancelnew',k,'g','বাতিল')
+      :bt('save',k,'','সংরক্ষণ')+bt('open',k,'g',c.is_open?'রেজিস্ট্রেশন বন্ধ করো':'রেজিস্ট্রেশন চালু করো')+bt('hide',k,'g',c.is_hidden?'হোমে দেখাও':'হোম থেকে লুকাও')+bt('batch',k,'y','+ নতুন ব্যাচ')+bt('del',k,'g','মুছে ফেলো'))+'</div></div>';
+}
+function dirtyAny(){for(var k in dirty)if(dirty[k])return true;return false}
+function renderCtl(force,except){
+  var a=document.activeElement,keep={},box=$('ctl');
+  var typing=a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA'||a.tagName==='SELECT')&&box.contains(a);
+  if(!force&&(dirtyAny()||typing))return;
+  if(box.querySelectorAll){Array.prototype.forEach.call(box.querySelectorAll('input,textarea,select'),function(el){var k=el.id.slice(el.id.indexOf('_')+1);if(dirty[k]&&k!==except)keep[el.id]=el.value})}
+  var h=draft?cardHtml(blank(),'new'):'';
+  AC.forEach(function(c){h+=cardHtml(c,c.id)});
+  box.innerHTML=h||'<p class="sub">কোনো কোর্স নেই। "+ নতুন কোর্স" চাপো।</p>';
+  Object.keys(keep).forEach(function(id){var e=$(id);if(e)e.value=keep[id]});
+  if(except)dirty[except]=false;
+}
+$('ctl').onclick=function(e){
+  var t=e.target,b=t&&t.closest?t.closest('button[data-a]'):null;if(!b)return;
+  var k=b.getAttribute('data-k'),a=b.getAttribute('data-a'),c=cby(k);
+  if(a==='save')pushCourse(k);
+  else if(a==='open'&&c)pushCourse(k,{open:!c.is_open});
+  else if(a==='hide'&&c)pushCourse(k,{hidden:!c.is_hidden});
+  else if(a==='batch')newBatch(k);
+  else if(a==='del')delCourse(k);
+  else if(a==='cancelnew'){draft=false;dirty['new']=false;renderCtl(true)}
+};
+$('ctl').oninput=function(e){var id=e.target&&e.target.id;if(id&&id.indexOf('_')>0)dirty[id.slice(id.indexOf('_')+1)]=true};
+function addCourse(){draft=true;renderCtl(true)}
+function fv(p,k){return $(p+'_'+k).value.trim()}
+function aerr(e){return e.message==='network'?'ইন্টারনেট সংযোগ নেই':e.message}
+async function pushCourse(k,over){
+  over=over||{};var nw=k==='new',c=nw?blank():cby(k);if(!c)return false;
+  var cap=parseInt(fv('cap',k),10);
+  if(!(cap>=1&&cap<=100)){alert('আসন সংখ্যা ১ থেকে ১০০-এর মধ্যে দাও।');return false}
+  if(!fv('cd',k)||!fv('ti',k)){alert('কোড ও কোর্সের নাম দিতে হবে।');return false}
+  var r=await SB.rpc('save_course',{p_id:c.id,p_code:fv('cd',k),p_title:fv('ti',k),p_subtitle:fv('su',k),p_learn:$('le_'+k).value.trim(),p_color:$('co_'+k).value,
+    p_open:over.open!==undefined?over.open:c.is_open,p_hidden:over.hidden!==undefined?over.hidden:c.is_hidden,p_capacity:cap,p_note:fv('nt',k),
+    p_mode:fv('im',k),p_duration:fv('ic',k),p_time:fv('it',k),p_days:fv('dy',k),p_start:fv('st',k),p_extra:fv('ix',k)});
+  if(r.error){alert('সমস্যা হয়েছে: '+aerr(r.error));return false}
+  if(nw)draft=false;
+  await loadAdmin(true,k);loadCourses(false);
+  alert(nw?'নতুন কোর্স তৈরি হয়েছে।':'সংরক্ষিত হয়েছে।');
+  return true;
+}
+async function newBatch(k){
+  var c=cby(k);if(!c)return;
+  if(!confirm(c.title+'-এর জন্য নতুন ব্যাচ শুরু হবে। আগের সব বুকিং থাকবে, নতুন রেজিস্ট্রেশন নতুন ব্যাচে যাবে। চালিয়ে যাবে?'))return;
+  var r=await SB.rpc('new_batch',{p_id:k});
+  if(r.error){alert('সমস্যা হয়েছে: '+aerr(r.error));return}
+  await loadAdmin(true,k);loadCourses(false);
+  alert(c.title+'-এর ব্যাচ '+r.data+' শুরু হয়েছে।');
+}
+async function delCourse(k){
+  var c=cby(k);if(!c)return;
+  if(!confirm('"'+c.title+'" কোর্সটি মুছে ফেলবে? এটা আর ফেরানো যাবে না।'))return;
+  var r=await SB.rpc('delete_course',{p_id:k});
+  if(r.error){alert(r.error.message.indexOf('has_bookings')>=0?'এই কোর্সে বুকিং আছে, মুছা যাবে না। চাইলে "হোম থেকে লুকাও" ব্যবহার করো।':'সমস্যা হয়েছে: '+aerr(r.error));return}
+  await loadAdmin(true,k);loadCourses(false);
+}
+setInterval(function(){if(!$('panel').classList.contains('hide')&&!document.hidden){loadAdmin();loadCourses(false)}},30000);
+route();loadCourses(true);
 </script>
 </body>
 </html>
