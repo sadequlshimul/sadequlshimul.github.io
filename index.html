@@ -88,6 +88,13 @@ main{max-width:1040px}
 .tile b{display:block;font-size:22px;color:var(--p)}
 .lc{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px}
 @media(min-width:900px){.cc .bdg,.cc span.go{margin:0}}
+.irow{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.irow span{color:var(--mute);flex:none}.irow b{text-align:right;font-weight:600}
+.bdg{white-space:nowrap}
+.seats{grid-template-columns:repeat(10,minmax(0,1fr))}
+.seats i{display:block;min-width:0}
+.cc small{display:block}
+.cc .bdg{margin:6px 0 0;display:inline-block;font-size:14px;font-weight:700}
 </style>
 </head>
 <body>
@@ -110,11 +117,11 @@ main{max-width:1040px}
 <main>
   <section id="home">
     <div class="card" style="margin-top:14px"><h2>কোর্স বেছে নিন</h2><p class="sub">তোমার লেভেল অনুযায়ী একটি কোর্স ট্যাপ করো</p></div>
-    <button class="cc" style="--c:#1e8e5a" onclick="go('a1')"><em>A1</em><span><b>A1 Registration</b><small>Anfänger · একদম শূন্য থেকে শুরু</small></span><span class="go">›</span></button>
-    <button class="cc" style="--c:#e8590c" onclick="go('a2')"><em>A2</em><span><b>A2 Registration</b><small>Grundlagen · দৈনন্দিন কথাবার্তা</small></span><span class="go">›</span></button>
-    <button class="cc" style="--c:#6f42c1" onclick="go('b1')"><em>B1</em><span><b>B1 Registration</b><small>Mittelstufe · স্বাধীনভাবে বলা ও লেখা</small></span><span class="go">›</span></button>
+    <button class="cc" id="cc_a1" style="--c:#1e8e5a" onclick="go('a1')"><em>A1</em><span><b>A1 Registration</b><small>Anfänger · একদম শূন্য থেকে শুরু</small><span class="bdg" id="bd_a1"></span></span><span class="go">›</span></button>
+    <button class="cc" id="cc_a2" style="--c:#e8590c" onclick="go('a2')"><em>A2</em><span><b>A2 Registration</b><small>Grundlagen · দৈনন্দিন কথাবার্তা</small><span class="bdg" id="bd_a2"></span></span><span class="go">›</span></button>
+    <button class="cc" id="cc_b1" style="--c:#6f42c1" onclick="go('b1')"><em>B1</em><span><b>B1 Registration</b><small>Mittelstufe · স্বাধীনভাবে বলা ও লেখা</small><span class="bdg" id="bd_b1"></span></span><span class="go">›</span></button>
     <div class="card">
-      <h2>আসন পরিস্থিতি</h2><p class="sub" id="fsub0"></p>
+      <div id="fsub0" style="display:flex;flex-wrap:wrap;gap:8px"></div>
     </div>
     <div class="card">
       <h2>বুকিং চেক করো</h2>
@@ -128,6 +135,7 @@ main{max-width:1040px}
     <div class="card">
       <h2>এই কোর্সে কী শিখবে</h2>
       <ul class="lrn" id="cList"></ul>
+      <div id="cInfo"></div>
     </div>
     <div class="card">
       <div class="free"><div><h2>আসন পরিস্থিতি</h2><p class="sub" id="fsub"></p></div><div><b id="fn">30</b> <span class="sub">টি খালি</span></div></div>
@@ -135,7 +143,7 @@ main{max-width:1040px}
     </div>
     <div class="card" id="formCard">
       <h2 id="fTitle"></h2>
-      <label class="f">নাম<input class="t" id="nm" autocomplete="name"></label>
+      <label class="f">নাম<input class="t" id="nm" autocomplete="name" spellcheck="false"></label>
       <label class="f">মোবাইল নম্বর<input class="t" id="ph" inputmode="tel" placeholder="01XXXXXXXXX" autocomplete="tel"></label>
       <label class="f">ইমেইল<input class="t" id="em" type="email" autocomplete="email"></label>
       <button class="w" id="subBtn" onclick="submitReg()">আমার আসন বুক করো →</button>
@@ -175,7 +183,7 @@ main{max-width:1040px}
       <div id="ctl"></div>
       <h2 style="font-size:16px;margin:14px 0 6px">সব বুকিং</h2>
       <div class="tools">
-        <input class="t" id="q" placeholder="বুকিং নম্বর বা ফোন নম্বর খোঁজো" oninput="renderT()">
+        <input class="t" id="q" placeholder="বুকিং নম্বর বা ফোন নম্বর খোঁজো" oninput="qIn()">
         <button onclick="csv()">CSV ডাউনলোড</button>
         <button class="g" onclick="logout()">লগআউট</button>
       </div>
@@ -188,7 +196,7 @@ main{max-width:1040px}
         <button class="g" onclick="clearF()">রিসেট</button>
       </div>
       <div class="sub" id="shown" style="margin:2px 0 6px"></div>
-      <div class="sc"><table><thead><tr><th>বুকিং</th><th>লেভেল</th><th>ব্যাচ</th><th>নাম</th><th>মোবাইল</th><th>ইমেইল</th><th>সময়</th><th>পেমেন্ট</th><th>স্ট্যাটাস</th><th></th></tr></thead><tbody id="tb"></tbody></table></div>
+      <div class="sc"><table><thead><tr><th>বুকিং</th><th>লেভেল</th><th>ব্যাচ নং</th><th>নাম</th><th>মোবাইল</th><th>ইমেইল</th><th>সময়</th><th>পেমেন্ট</th><th>স্ট্যাটাস</th><th></th></tr></thead><tbody id="tb"></tbody></table></div>
     </div>
   </section>
 </main>
@@ -250,7 +258,7 @@ var SB={
   }
 };
 function getSb(){return Promise.resolve(SB)}
-var MAX=30,cur='',lastNo='',taken={A1:0,A2:0,B1:0},bno={A1:1,A2:1,B1:1},ctl={A1:{op:true,cap:30,nt:''},A2:{op:true,cap:30,nt:''},B1:{op:true,cap:30,nt:''}},CC={A1:'#1e8e5a',A2:'#e8590c',B1:'#6f42c1'},rows=[];
+var MAX=30,cur='',lastNo='',taken={A1:0,A2:0,B1:0},bno={A1:1,A2:1,B1:1},ctl={A1:dc(),A2:dc(),B1:dc()},CC={A1:'#1e8e5a',A2:'#e8590c',B1:'#6f42c1'},rows=[];
 var LV={
  a1:{n:'A1',t:'Anfänger',d:'একদম শূন্য থেকে শুরু',l:['জার্মান বর্ণমালা ও সঠিক উচ্চারণ','নিজের পরিচয় দেওয়া ও সহজ প্রশ্ন করা','দৈনন্দিন প্রয়োজনীয় শব্দ ও সহজ বাক্য']},
  a2:{n:'A2',t:'Grundlagen',d:'দৈনন্দিন কথাবার্তা',l:['কেনাকাটা, দিকনির্দেশ ও রুটিন নিয়ে কথা বলা','অতীতের ঘটনা নিয়ে সহজ বাক্য','ছোট মেসেজ ও ইমেইল লেখা']},
@@ -258,7 +266,7 @@ var LV={
 };
 var greets=['Hallo!','Guten Tag!','Willkommen!','Los geht’s!','Viel Erfolg!'],gi=0;
 function $(id){return document.getElementById(id)}
-setInterval(function(){gi=(gi+1)%greets.length;$('hi').textContent=greets[gi]},2200);
+setInterval(function(){if(document.hidden||$('home').classList.contains('hide'))return;var a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='SELECT'))return;gi=(gi+1)%greets.length;$('hi').textContent=greets[gi]},2200);
 function show(id,on){$(id).classList.toggle('hide',!on)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function go(v){location.hash=v}
@@ -282,33 +290,35 @@ function route(){
 window.addEventListener('hashchange',route);
 async function loadCounts(){
   var r=await (await getSb()).rpc('seat_counts');
-  if(!r.error&&r.data){taken={A1:0,A2:0,B1:0};r.data.forEach(function(x){taken[x.lvl]=x.cnt;bno[x.lvl]=x.bt||1;ctl[x.lvl]={op:x.op!==false,cap:x.cap||30,nt:x.nt||''}});render();if(!$('panel').classList.contains('hide'))renderStat()}
+  if(!r.error&&r.data){taken={A1:0,A2:0,B1:0};r.data.forEach(function(x){taken[x.lvl]=x.cnt;bno[x.lvl]=x.bt||1;ctl[x.lvl]={op:x.op!==false,cap:x.cap||30,nt:x.nt||'',hd:x.hd===true,i:{mode:x.i_mode||'',time:x.i_time||'',days:x.i_days||'',start:x.i_start||'',extra:x.i_extra||'',dur:x.i_dur||''}}});render();if(!$('panel').classList.contains('hide'))renderStat()}
 }
+function dc(){return{op:true,cap:30,nt:'',hd:false,i:{}}}
+function lat(t){return String(t).replace(/[০-৯]/g,function(d){return '০১২৩৪৫৬৭৮৯'.indexOf(d)})}
+function bn(n){return String(n).replace(/\d/g,function(d){return '০১২৩৪৫৬৭৮৯'.charAt(d)})}
 function render(){
-  var h0=Object.keys(LV).map(function(k){
-    var l=LV[k].n,c=ctl[l],left=Math.max(0,c.cap-taken[l]);
-    return l+' (ব্যাচ '+bno[l]+'): '+(!c.op?'বন্ধ':(left>0?left+' খালি':'পূর্ণ'));
-  });
-  $('fsub0').textContent=h0.join(' · ');
+  var chips=[];
   Object.keys(LV).forEach(function(k){
-    var l=LV[k].n,c=ctl[l],btn=document.querySelector('.cc[onclick="go(\''+k+'\')"]');
-    if(!btn)return;
-    var bd=btn.querySelector('.bdg');
-    if(!bd){bd=document.createElement('span');bd.className='bdg';btn.insertBefore(bd,btn.querySelector('.go'))}
-    var off=!c.op||taken[l]>=c.cap;
-    bd.textContent=!c.op?'রেজিস্ট্রেশন বন্ধ':(taken[l]>=c.cap?'পূর্ণ':(c.cap-taken[l])+'টি খালি');
+    var l=LV[k].n,c=ctl[l],left=Math.max(0,c.cap-taken[l]),off=!c.op||left<=0;
+    var btn=$('cc_'+k),bd=$('bd_'+k);
+    btn.style.display=c.hd?'none':'';
+    bd.textContent=!c.op?'রেজিস্ট্রেশন বন্ধ':(left<=0?'পূর্ণ':left+'টি খালি');
     bd.className='bdg'+(off?' off':'');
+    if(!c.hd)chips.push('<span class="bdg'+(off?' off':'')+'" style="font-size:14px;padding:4px 14px">'+l+' = '+(!c.op?'বন্ধ':(left<=0?'পূর্ণ':left+' খালি'))+'</span>');
   });
+  $('fsub0').innerHTML=chips.length?chips.join(''):'<span class="sub">বর্তমানে কোনো কোর্সের রেজিস্ট্রেশন চালু নেই। নতুন ব্যাচ শুরু হলে এখানে জানানো হবে।</span>';
   if(!cur||!LV[cur])return;
   var l=LV[cur].n,c=ctl[l],n=taken[l],left=Math.max(0,c.cap-n),h='';
+  if(c.hd){cur='';go('');return}
   for(var i=0;i<c.cap;i++)h+='<i class="'+(i<n?'t':'')+'"></i>';
   $('seats').innerHTML=h;$('fn').textContent=left;
-  $('fsub').textContent='ব্যাচ '+bno[l]+' · '+(left>0&&left<=10?'তাড়াতাড়ি করো, আসন প্রায় শেষ!':c.cap+'টি আসন');
+  $('fsub').textContent=left>0&&left<=10?'তাড়াতাড়ি করো, আসন প্রায় শেষ!':c.cap+'টি আসন';
+  var I=c.i||{},ri=[['ধরন',I.mode],['সময়কাল',I.dur],['সময়',I.time],['বার',I.days],['কবে থেকে শুরু',I.start],['বিস্তারিত',I.extra]].filter(function(x){return x[1]});
+  $('cInfo').innerHTML=ri.length?'<h2 style="font-size:16px;margin:14px 0 4px">কোর্সের বিস্তারিত</h2>'+ri.map(function(x){return '<div class="irow"><span>'+x[0]+'</span><b>'+esc(lat(x[1]))+'</b></div>'}).join(''):'';
   var ok=!$('okCard').classList.contains('hide'),off=!c.op,full=c.op&&n>=c.cap;
   show('closedCard',(off||full)&&!ok);show('formCard',!off&&!full&&!ok);
   if(off||full){
     $('clTitle').textContent=off?'রেজিস্ট্রেশন এখন বন্ধ':'Registration Closed';
-    $('clMsg').textContent=(off?'এই ব্যাচের রেজিস্ট্রেশন এখন বন্ধ আছে।':'দুঃখিত, এই ব্যাচের '+c.cap+'টি বুকিং পূর্ণ হয়েছে।')+' '+(c.nt||'চালু হলে এখানেই রেজিস্ট্রেশন খুলবে।');
+    $('clMsg').textContent=(off?'এই ব্যাচের রেজিস্ট্রেশন এখন বন্ধ আছে।':'দুঃখিত, এই ব্যাচের '+c.cap+'টি বুকিং পূর্ণ হয়েছে।')+' '+(lat(c.nt)||'চালু হলে এখানেই রেজিস্ট্রেশন খুলবে।');
   }
 }
 function msgOf(e){
@@ -364,14 +374,14 @@ async function loadAdmin(){
   rows=r.data||[];fillBatches();renderT();renderStat();renderNew();
 }
 function renderT(){
-  var h='';
-  vis().forEach(function(s){
+  var h='',V=vis();
+  V.forEach(function(s){
     h+='<tr><td>'+esc(s.booking_no)+(isNew(s)?' <span class="pill pen">নতুন</span>':'')+'</td><td>'+s.level+'</td><td>'+s.batch+'</td><td>'+esc(s.name)+'</td><td>'+esc(s.phone)+'</td><td>'+esc(s.email)+'</td><td>'+new Date(s.created_at).toLocaleString('en-GB')+'</td>'
      +'<td><span class="pill '+(s.paid?'pd':'pen')+'">'+(s.paid?'Paid':'Pending')+'</span></td>'
      +'<td><span class="pill '+(s.active?'pd':'cx')+'">'+(s.active?'Active':'Cancelled')+'</span></td>'
      +'<td><button onclick="tog(\''+s.id+'\',\'paid\')">'+(s.paid?'Pending করো':'Paid করো')+'</button><button class="g" onclick="tog(\''+s.id+'\',\'active\')">'+(s.active?'বাতিল':'সক্রিয়')+'</button></td></tr>';
   });
-  $('shown').textContent=vis().length+'টি বুকিং দেখাচ্ছে';$('tb').innerHTML=h||'<tr><td colspan="10">কিছু পাওয়া যায়নি</td></tr>';
+  $('shown').textContent=V.length+'টি বুকিং দেখাচ্ছে';$('tb').innerHTML=h||'<tr><td colspan="10">কিছু পাওয়া যায়নি</td></tr>';
 }
 
 function vis(){
@@ -399,35 +409,55 @@ function renderSum(){
   var t=[['মোট বুকিং',act.length],['Paid',paid],['Pending',act.length-paid],['আজকের নতুন',td]];
   $('sum').innerHTML=t.map(function(x){return '<div class="tile"><b>'+x[1]+'</b>'+x[0]+'</div>'}).join('');
 }
-function renderCtl(force){
-  var a=document.activeElement;
-  if(!force&&a&&a.tagName==='INPUT'&&$('ctl').contains(a))return;
+var dirty={A1:false,A2:false,B1:false};
+function renderCtl(force,except){
+  var a=document.activeElement,keep={};
+  if(!force&&(dirty.A1||dirty.A2||dirty.B1||(a&&a.tagName==='INPUT'&&$('ctl').contains(a))))return;
+  if(force&&$('ctl').querySelectorAll){Array.prototype.forEach.call($('ctl').querySelectorAll('input'),function(el){var lv=el.id.slice(-2);if(dirty[lv]&&lv!==except)keep[el.id]=el.value})}
   var h='';
+  function f(p,l,ph,val,ml){return '<input class="t" autocomplete="off" spellcheck="false" id="'+p+'_'+l+'" maxlength="'+ml+'" placeholder="'+ph+'" value="'+esc(val||'')+'">'}
+  function bt(a,l,cls,txt){return '<button'+(cls?' class="'+cls+'"':'')+' data-a="'+a+'" data-l="'+l+'">'+txt+'</button>'}
   Object.keys(LV).forEach(function(k){
-    var l=LV[k].n,c=ctl[l],b=bno[l],cnt=rows.filter(function(s){return s.level===l&&s.batch===b&&s.active}).length;
+    var l=LV[k].n,c=ctl[l],b=bno[l],I=c.i||{},cnt=rows.filter(function(s){return s.level===l&&s.batch===b&&s.active}).length;
     h+='<div class="lc" style="border-left:6px solid '+CC[l]+'">'
-     +'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>'+l+' · ব্যাচ '+b+'</b><span class="pill '+(c.op?'pd':'cx')+'">'+(c.op?'রেজিস্ট্রেশন চালু':'রেজিস্ট্রেশন বন্ধ')+'</span></div>'
+     +'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><b>'+l+' · ব্যাচ '+b+'</b><span>'
+       +(c.hd?'<span class="pill pen">হোমে লুকানো</span> ':'')+'<span class="pill '+(c.op?'pd':'cx')+'">'+(c.op?'রেজিস্ট্রেশন চালু':'রেজিস্ট্রেশন বন্ধ')+'</span></span></div>'
      +'<div class="sub">বুকিং '+cnt+'/'+c.cap+'</div>'
-     +'<div class="tools"><input class="t" type="number" min="1" max="100" id="cap_'+l+'" value="'+c.cap+'" style="max-width:90px" title="আসন সংখ্যা">'
-     +'<input class="t" id="nt_'+l+'" maxlength="200" placeholder="বন্ধ/পূর্ণ হলে যে মেসেজ দেখাবে (ঐচ্ছিক)" value="'+esc(c.nt)+'"></div>'
-     +'<div class="tools"><button onclick="toggleOpen(\''+l+'\')">'+(c.op?'রেজিস্ট্রেশন বন্ধ করো':'রেজিস্ট্রেশন চালু করো')+'</button>'
-     +'<button class="g" onclick="saveCtl(\''+l+'\')">সংরক্ষণ</button>'
-     +'<button class="y" onclick="newBatch(\''+l+'\')">+ নতুন ব্যাচ</button></div></div>';
+     +'<div class="tools"><input class="t" type="number" min="1" max="100" id="cap_'+l+'" value="'+c.cap+'" style="max-width:90px" title="আসন সংখ্যা">'+f('nt',l,'বন্ধ/পূর্ণ হলে যে মেসেজ দেখাবে (ঐচ্ছিক)',c.nt,200)+'</div>'
+     +'<div class="sub" style="margin-top:6px;font-weight:600">কোর্সের বিস্তারিত (শিক্ষার্থীরা দেখবে)</div>'
+     +'<div class="tools">'+f('im',l,'অনলাইন / অফলাইন',I.mode,60)+f('ic',l,'কোর্স কতদিনের (যেমন ৩ মাস)',I.dur,60)+'</div>'
+     +'<div class="tools">'+f('it',l,'সময় (যেমন রাত ৮টা)',I.time,60)+f('id',l,'বার (যেমন শনি, সোম, বুধ)',I.days,80)+'</div>'
+     +'<div class="tools">'+f('is',l,'কবে থেকে শুরু',I.start,60)+f('ix',l,'অন্যান্য তথ্য (ঐচ্ছিক)',I.extra,300)+'</div>'
+     +'<div class="tools">'+bt('save',l,'','সংরক্ষণ')
+       +bt('open',l,'g',c.op?'রেজিস্ট্রেশন বন্ধ করো':'রেজিস্ট্রেশন চালু করো')
+       +bt('hide',l,'g',c.hd?'হোমে দেখাও':'হোম থেকে লুকাও')
+       +bt('batch',l,'y','+ নতুন ব্যাচ')+'</div></div>';
   });
   $('ctl').innerHTML=h;
+  Object.keys(keep).forEach(function(id){var e=$(id);if(e)e.value=keep[id]});
+  if(except)dirty[except]=false;
 }
+function ctlClick(e){
+  var t=e.target,b=t&&t.closest?t.closest('button[data-a]'):null;
+  if(!b)return;
+  var l=b.getAttribute('data-l'),a=b.getAttribute('data-a');
+  if(a==='open')toggleOpen(l);else if(a==='hide')toggleHide(l);else if(a==='save')saveCtl(l);else if(a==='batch')newBatch(l);
+}
+$('ctl').onclick=ctlClick;
+$('ctl').oninput=function(e){var id=e.target&&e.target.id;if(id&&dirty[id.slice(-2)]!==undefined)dirty[id.slice(-2)]=true};
 function readCap(l){var v=parseInt($('cap_'+l).value,10);return(v>=1&&v<=100)?v:null}
-async function pushCtl(l,open,cap,note){
-  var r=await (await getSb()).rpc('set_level_control',{p_level:l,p_open:open,p_capacity:cap,p_note:note});
+async function pushAll(l,over){
+  over=over||{};var c=ctl[l],cap=readCap(l);
+  if(!cap){alert('আসন সংখ্যা ১ থেকে ১০০-এর মধ্যে দাও।');return false}
+  function v(p){return $(p+'_'+l).value.trim()}
+  var r=await (await getSb()).rpc('set_level_all',{p_level:l,p_open:over.open!==undefined?over.open:c.op,p_hidden:over.hidden!==undefined?over.hidden:c.hd,p_capacity:cap,p_note:v('nt'),p_mode:v('im'),p_time:v('it'),p_days:v('id'),p_start:v('is'),p_extra:v('ix'),p_duration:v('ic')});
   if(r.error){alert('সমস্যা হয়েছে: '+(r.error.message==='network'?'ইন্টারনেট সংযোগ নেই':r.error.message));return false}
-  await loadCounts();renderCtl(true);renderSum();return true;
+  await loadCounts();renderCtl(true,l);renderSum();return true;
 }
-function toggleOpen(l){var c=ctl[l];pushCtl(l,!c.op,readCap(l)||c.cap,$('nt_'+l).value.trim())}
-function saveCtl(l){
-  var cap=readCap(l);
-  if(!cap){alert('আসন সংখ্যা ১ থেকে ১০০-এর মধ্যে দাও।');return}
-  pushCtl(l,ctl[l].op,cap,$('nt_'+l).value.trim()).then(function(ok){if(ok)alert(l+' সংরক্ষিত হয়েছে।')});
-}
+function toggleOpen(l){pushAll(l,{open:!ctl[l].op})}
+function toggleHide(l){pushAll(l,{hidden:!ctl[l].hd})}
+function saveCtl(l){pushAll(l).then(function(ok){if(ok)alert(l+' সংরক্ষিত হয়েছে।')})}
+var qT=0;function qIn(){clearTimeout(qT);qT=setTimeout(renderT,180)}
 function clearF(){$('q').value='';$('fl').value='';$('fb').value='';$('fp').value='';$('fs').value='';renderT()}
 function seenAt(){try{return localStorage.getItem('jw_seen')}catch(e){return null}}
 function isNew(s){var v=seenAt();return !!v&&new Date(s.created_at)>new Date(v)}
