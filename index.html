@@ -9,7 +9,6 @@
 
 :root{--bg:#f4f1ea;--card:#fff;--ink:#14213d;--mute:#6a7385;--line:#e3ded2;--yel:#ffda1a;--p:#0058a3;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1625;--card:#16213a;--ink:#f1f4fa;--mute:#9aa6bf;--line:#2a3860}}
-body[data-lv=a1]{--p:#1e8e5a}body[data-lv=a2]{--p:#e8590c}body[data-lv=b1]{--p:#6f42c1}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Hind Siliguri',system-ui,sans-serif;line-height:1.5;--soft:color-mix(in srgb,var(--p) 12%,var(--card))}
 .hero{background:var(--p);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 56px;position:relative;text-align:center;overflow:hidden}
@@ -138,6 +137,47 @@ select.t{margin-top:0}
 .dvn button{padding:12px 16px}
 .dvn .mid{flex:1}
 button:disabled{opacity:.4}
+
+.chs{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}.chs u{text-decoration:none;font-size:12px;background:var(--soft);padding:2px 8px;border-radius:20px}
+.cc>span:nth-child(2){flex:1;min-width:0}
+.bar{display:block;height:6px;border-radius:6px;background:var(--soft);margin-top:8px;overflow:hidden}.bar s{display:block;height:100%;background:var(--c);border-radius:6px}
+.bdg.hot{background:#ffe0e0;color:#a31919}
+@media(min-width:900px){.chs{justify-content:center}.cc>span:nth-child(2){align-self:stretch;flex:none}}
+.wg{display:flex;justify-content:space-between;margin-top:16px;position:relative}
+.wg:before{content:"";position:absolute;left:8%;right:8%;top:26px;border-top:3px dashed var(--line)}
+.wg a{position:relative;z-index:1;text-align:center;flex:1;cursor:pointer}
+.wg i{font-style:normal;display:grid;place-items:center;width:52px;height:52px;margin:0 auto;border-radius:50%;background:var(--c);color:#fff;font-weight:700;box-shadow:0 0 0 5px var(--card)}
+.wg .fin i{font-size:24px}.wg small{display:block;color:var(--mute);font-size:12px;margin-top:6px}
+.abt{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.abt span{background:var(--soft);border-radius:20px;padding:4px 12px;font-size:13px;font-weight:600}
+.fb{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:50%;background:#1877f2;color:#fff;margin:4px 0 8px}
+
+.mt{background:var(--soft);border-radius:12px;padding:12px;margin-top:12px;font-size:14px;line-height:1.7}.mt small{display:block;color:var(--mute);margin-top:6px;font-size:12px;line-height:1.5}
+.tl{margin:16px 0 0;padding:0;list-style:none}
+.tl li{position:relative;padding:2px 0 16px 40px;font-size:15px;line-height:1.5;opacity:0;animation:tlin .4s ease forwards}
+.tl li:before{content:"";position:absolute;left:12px;top:28px;bottom:0;border-left:3px dashed var(--line)}
+.tl li:last-child{padding-bottom:0}.tl li:last-child:before{display:none}
+.tl li i{position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--soft);border:2px solid var(--line);font-style:normal;font-size:13px;font-weight:700;display:grid;place-items:center}
+.tl li.me i{background:var(--yel);border-color:var(--yel);color:#0b2447}.tl li.me b{display:block}
+.tl .tg{display:inline-block;background:var(--yel);color:#0b2447;font-size:12px;font-weight:700;border-radius:20px;padding:1px 10px;margin-top:2px}
+.tl small{display:block;color:var(--mute);font-size:12px;margin-top:10px}
+.gt{background:var(--soft);border-radius:14px;padding:14px;margin-top:12px;text-align:center}.gt .de{font-size:22px;font-weight:700;color:var(--p)}.gt .pr{font-size:15px;margin-top:4px}.gt .mn{color:var(--mute);font-size:14px;margin-top:2px}.gt small{display:block;margin-top:10px;color:var(--mute);font-size:12px}
+.tl{margin:16px 0 0;padding:0;list-style:none}
+.tl li{position:relative;padding:2px 0 16px 40px;font-size:15px;line-height:1.5;opacity:0;animation:tlin .4s ease forwards}
+.tl li:before{content:"";position:absolute;left:12px;top:30px;bottom:2px;border-left:3px dashed var(--line)}
+.tl li:last-child{padding-bottom:0}.tl li:last-child:before{display:none}
+.tl li i{position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--soft);border:2px solid var(--line);font-style:normal;font-size:13px;font-weight:700;display:grid;place-items:center}
+.tl li.me i{background:var(--yel);border-color:var(--yel);color:#0b2447}.tl li.me b{display:block}
+.tl .tg{display:inline-block;background:var(--yel);color:#0b2447;font-size:12px;font-weight:700;border-radius:20px;padding:1px 10px;margin-top:2px}
+.tn{display:block;color:var(--mute);font-size:12px;margin-top:12px}
+.mv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.mv button{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--soft);color:var(--ink);border-radius:16px;padding:12px 6px;font-size:13px;line-height:1.3}.mv button span{font-size:30px;line-height:1}.mv button.on{background:var(--p);color:#fff}.mv button.on+*{}
+@keyframes tlin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){.tl li{animation:none;opacity:1}}
+.fbw{display:flex;align-items:center;gap:10px;max-width:340px;margin:8px auto 10px;color:var(--ink);text-decoration:none;font-size:14px;font-weight:600}.fbl{flex:1;border-top:3px dashed var(--line)}.fbw .fb{margin:0;flex:none}
+.sws{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px}
+.sw{width:34px;height:34px;border-radius:50%;padding:0;border:3px solid var(--card);box-shadow:0 0 0 1px var(--line)}
+.sw.on{box-shadow:0 0 0 3px var(--ink)}
+.swc{position:relative;width:34px;height:34px;border-radius:50%;border:2px dashed var(--mute);display:grid;place-items:center;cursor:pointer;font-weight:700;overflow:hidden;color:var(--mute)}
+.swc input{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.dc{width:44px;height:44px;border-radius:12px;color:#fff;font-weight:700;display:grid;place-items:center;flex:none;font-size:15px}
 </style>
 </head>
 <body>
@@ -160,13 +200,20 @@ button:disabled{opacity:.4}
 <div class="stripe"></div>
 <main>
   <section id="home">
+    <div class="card wide" id="pathCard" style="margin-top:14px"><h2>🛤️ তোমার লক্ষ্য কী?</h2><p class="sub">লক্ষ্যটা বেছে নাও, পথের স্টেশনগুলো একে একে খুলে যাবে</p><div class="mv" id="mv"></div><div id="mvTxt"></div></div>
     <div class="card wide" style="margin-top:14px"><h2>কোর্স বেছে নিন</h2><p class="sub">তোমার পছন্দের একটি কোর্স ট্যাপ করো</p></div>
     <div id="cards" style="display:contents"><div class="card wide"><p class="sub">লোড হচ্ছে…</p></div></div>
     <div class="card wide hide" id="chipCard"><div id="fsub0" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
+    <div class="card wide hide" id="doneCard"><h2>✅ সম্পন্ন কোর্স</h2><p class="sub">যে ব্যাচগুলো সফলভাবে শেষ হয়েছে</p><div id="doneList"></div></div>
     <div class="card wide">
       <h2>আমার ব্যাচ</h2>
       <p class="sub">বুকিং আইডি অথবা মোবাইল নম্বর দিয়ে তোমার কোর্স, ব্যাচ কোড, ক্লাসের সময় ও টিকিট দেখো</p>
       <button class="w" id="myBtn" onclick="go('my')">আমার ব্যাচ দেখো →</button>
+    </div>
+    <div class="card wide" id="aboutCard">
+      <h2>Jabirs Weg সম্পর্কে</h2>
+      <p style="font-size:15px;line-height:1.7;margin:6px 0 0">Jabirs Weg মানে “জাবিরের পথ”। জার্মান ভাষা শেখার এই পথে আমরা সহজ বাংলায়, ধাপে ধাপে তোমার পাশে আছি। একদম শূন্য থেকে শুরু করে স্বাধীনভাবে কথা বলা ও লেখা পর্যন্ত, নিয়মিত ক্লাস আর অনুশীলনের মাধ্যমে।</p>
+      <div class="abt"><span>ছোট ব্যাচ</span><span>বাংলায় সহজ ব্যাখ্যা</span><span>A1 থেকে B1</span></div>
     </div>
   </section>
 
@@ -179,11 +226,25 @@ button:disabled{opacity:.4}
       <div class="free"><div><h2>আসন পরিস্থিতি</h2><p class="sub" id="fsub"></p></div><div><b id="fn">30</b> <span class="sub">টি খালি</span></div></div>
       <div class="seats" id="seats"></div>
     </div>
+    <div class="card hide" id="waitCard" style="text-align:center">
+      <h2>⏳ রেজিস্ট্রেশন এখনো শুরু হয়নি</h2>
+      <p class="sub">রেজিস্ট্রেশন শুরু হবে</p>
+      <div style="font-size:18px;font-weight:700;margin:4px 0" id="waitWhen"></div>
+      <div class="cd"><b id="waitCd" style="font-size:26px"></b></div>
+      <p class="sub" style="margin-top:10px">সময় হলে এই পেজেই ফর্ম নিজে থেকে খুলে যাবে। পেজটা খোলা রাখো।</p>
+    </div>
     <div class="card" id="formCard">
       <h2 id="fTitle"></h2>
       <label class="f">নাম<input class="t" id="nm" autocomplete="name" spellcheck="false"></label>
       <label class="f">মোবাইল নম্বর<input class="t" id="ph" inputmode="tel" placeholder="01XXXXXXXXX" autocomplete="tel"></label>
       <label class="f">ইমেইল<input class="t" id="em" type="email" autocomplete="email"></label>
+      <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>Website<input id="hp" tabindex="-1" autocomplete="off"></label></div>
+      <div style="background:var(--soft);border-radius:12px;padding:12px;margin-top:14px">
+        <span class="sub">তুমি মানুষ কি না নিশ্চিত হতে ছোট একটা প্রশ্নের উত্তর দাও:</span>
+        <div style="font-size:24px;font-weight:700;margin:6px 0" id="chQ">…</div>
+        <input class="t" id="chA" inputmode="numeric" autocomplete="off" placeholder="উত্তর লেখো">
+        <button class="g" style="padding:4px 12px;font-size:12px;margin-top:8px" onclick="loadChallenge(true)">অন্য প্রশ্ন</button>
+      </div>
       <button class="w" id="subBtn" onclick="submitReg()">আমার আসন বুক করো →</button>
       <div class="msg" id="err"></div>
     </div>
@@ -266,11 +327,14 @@ button:disabled{opacity:.4}
       <div id="tCo" class="hide">
         <button class="y w" style="margin-top:0" onclick="addCourse()">+ নতুন কোর্স যোগ করো</button>
         <div id="ctl" style="margin-top:12px"></div>
+        <h2 class="sh">✅ সম্পন্ন কোর্স</h2>
+        <p class="sub">"ব্যাচ সম্পন্ন করো" চাপলে এখানে জমা হয় আর হোম পেজেও দেখায়।</p>
+        <div id="doneAdm"></div>
       </div>
     </div>
   </section>
 </main>
-<footer>© Jabirs Weg · Deutsch lernen mit Freude</footer>
+<footer><a class="fbw" href="https://www.facebook.com/share/1PiMuePZN2/" target="_blank" rel="noopener" aria-label="Facebook পেজে যাও"><span>আমাদের সাথে পথ চলো</span><i class="fbl"></i><span class="fb"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg></span></a><div>© Jabirs Weg · Deutsch lernen mit Freude</div></footer>
 <div id="dv" class="hide"><div id="dvh" class="dvh"></div><div id="dvb" class="dvb"></div><div id="dvn" class="dvn"></div></div>
 <script src="config.js"></script>
 <script>
@@ -330,8 +394,8 @@ var SB={
   }
 };
 /*CLIENT_END*/
-var cur='',lastNo='',PC=[],CBY={},loaded=false,AC=[],rows=[],dirty={},draft=false,qT=0;
-var COLORS=[['সবুজ','#1e8e5a'],['কমলা','#e8590c'],['বেগুনি','#6f42c1'],['নীল','#0058a3'],['লাল','#c92a2a'],['টিল','#0c8599'],['গোলাপি','#c2255c']];
+var COMP=[],formT=0,srvOff=0,chal=null,chalBusy=false,cur='',lastNo='',PC=[],CBY={},loaded=false,AC=[],rows=[],dirty={},draft=false,qT=0;
+var COLORS=[['সবুজ','#1e8e5a'],['জলপাই','#5c7f2e'],['নীল','#0058a3'],['আকাশি','#1c7ed6'],['ইন্ডিগো','#3b5bdb'],['বেগুনি','#6f42c1'],['গোলাপি','#c2255c'],['লাল','#c92a2a'],['টিল','#0c8599'],['বাদামি','#8d5a3b'],['স্লেট','#4c6a8a'],['নেভি','#1a2a4a']];
 var greets=['Hallo!','Guten Tag!','Willkommen!','Los geht’s!','Viel Erfolg!'],gi=0;
 function $(id){return document.getElementById(id)}
 function show(id,on){$(id).classList.toggle('hide',!on)}
@@ -342,11 +406,12 @@ function go(v){location.hash=v}
 window.addEventListener('hashchange',route);
 
 /* ---------- public ---------- */
-function norm(x){return{slug:x.slug,code:x.code,title:x.title,subtitle:x.subtitle||'',learn:String(x.learn||'').split('\n').map(function(t){return t.trim()}).filter(Boolean),color:x.color||'#0058a3',cnt:x.cnt||0,bt:x.bt||1,bc:x.bc||'',op:x.op!==false,cap:x.cap||30,nt:x.nt||'',i:{mode:x.i_mode||'',dur:x.i_dur||'',time:x.i_time||'',days:x.i_days||'',start:x.i_start||'',extra:x.i_extra||'',sd:x.i_sd||''}}}
+function norm(x){return{slug:x.slug,code:x.code,title:x.title,subtitle:x.subtitle||'',learn:String(x.learn||'').split('\n').map(function(t){return t.trim()}).filter(Boolean),color:x.color||'#0058a3',cnt:x.cnt||0,bt:x.bt||1,bc:x.bc||'',op:x.op!==false,cap:x.cap||30,nt:x.nt||'',i:{mode:x.i_mode||'',dur:x.i_dur||'',time:x.i_time||'',days:x.i_days||'',start:x.i_start||'',extra:x.i_extra||'',sd:x.i_sd||''},ro:x.i_ro||''}}
 async function loadCourses(first){
   var r=await SB.rpc('public_courses');
   if(!r.error&&Array.isArray(r.data)){
-    PC=r.data.map(norm);CBY={};PC.forEach(function(c){CBY[c.slug]=c});loaded=true;
+    if(r.data.length&&r.data[0].i_now){srvOff=new Date(r.data[0].i_now).getTime()-Date.now()}
+    PC=r.data.map(norm);CBY={};loadCompleted();PC.forEach(function(c){CBY[c.slug]=c});loaded=true;
     if(first)route();else render();
   }else if(!loaded){
     $('cards').innerHTML='<div class="card wide"><p class="sub">'+(r.error&&r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, পেজ রিফ্রেশ করো।':'কোর্সের তথ্য আনা যায়নি, একটু পরে আবার চেষ্টা করো।')+'</p></div>';
@@ -361,7 +426,7 @@ function route(){
   show('home',view==='home');show('course',view==='course');show('adm',view==='adm');show('my',view==='my');
   show('hHome',view==='home');show('hCourse',view==='course');show('hAdm',view==='adm');show('hMy',view==='my');
   show('bk',view!=='home');
-  if(view==='course'){show('okCard',false);$('err').textContent=''}
+  if(view==='course'){show('okCard',false);$('err').textContent='';formT=Date.now();chal=null}
   if(view==='adm')initAdmin();
   if(view==='my')initMy();
   var ms=myLS();$('myBtn').textContent=ms&&ms.k?'আমার ব্যাচ দেখো ('+ms.k+') →':'আমার ব্যাচ দেখো →';
@@ -370,16 +435,61 @@ function route(){
   window.scrollTo(0,0);
 }
 function render(){renderHome();renderCourse()}
+function nowMs(){return Date.now()+srvOff}
+function isWait(c){return !!c.ro&&nowMs()<new Date(c.ro).getTime()}
+function cdTxt(ms){var s=Math.max(0,Math.floor(ms/1000)),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),x=s%60,o=[];if(d)o.push(d+' দিন');if(d||h)o.push(h+' ঘণ্টা');o.push(m+' মিনিট');o.push(x+' সেকেন্ড');return o.join(' ')}
+function fmtShort(iso){var d=new Date(iso);if(isNaN(d))return '';var h=d.getHours(),ap=h>=12?'PM':'AM';h=h%12||12;return d.getDate()+' '+MON[d.getMonth()]+(d.getFullYear()!==new Date().getFullYear()?' '+d.getFullYear():'')+', '+h+':'+(d.getMinutes()<10?'0':'')+d.getMinutes()+' '+ap}
+function tickWait(){var c=CBY[cur];if(!c||!isWait(c))return;$('waitWhen').textContent=fmtDT(c.ro);$('waitCd').textContent=cdTxt(new Date(c.ro).getTime()-nowMs())}
+setInterval(function(){
+  var c=CBY[cur];if(!c||!c.ro||$('course').classList.contains('hide'))return;
+  if(isWait(c))tickWait();else if(!$('waitCard').classList.contains('hide'))loadCourses(false);
+},1000);
+async function loadChallenge(force){
+  if(chalBusy||(chal&&!force))return;
+  chalBusy=true;chal=null;$('chQ').textContent='…';$('chA').value='';
+  var r=await SB.rpc('new_challenge');
+  chalBusy=false;
+  if(r.error||!r.data||!r.data.length){$('chQ').textContent=r.error&&r.error.message.indexOf('too_many')>=0?'কিছুক্ষণ পরে চেষ্টা করো':'প্রশ্ন আসেনি, "অন্য প্রশ্ন" চাপো';return}
+  chal={cid:r.data[0].cid,q:r.data[0].q};$('chQ').textContent=chal.q+' = ?';
+}
+var MV=[
+ {i:'🎓',t:'পড়াশোনা',s:['সার্টিফিকেট ও কাগজপত্র গুছিয়ে নেওয়া','Studienkolleg বা বিশ্ববিদ্যালয়ে আবেদন','ভিসা ও আর্থিক প্রমাণ','জার্মানিতে ক্লাস শুরু']},
+ {i:'💼',t:'Ausbildung ও কাজ',s:['পেশা ও ক্ষেত্র বেছে নেওয়া','সিভি ও আবেদনপত্র তৈরি','প্রতিষ্ঠানে আবেদন','ভিসা ও কাগজপত্র','নতুন কাজ বা প্রশিক্ষণ শুরু']},
+ {i:'👨‍👩‍👧',t:'পরিবার',s:['প্রয়োজনীয় সনদ ও কাগজপত্র গোছানো','ভিসার আবেদন','প্রক্রিয়া ও অপেক্ষা','পরিবারের সাথে নতুন জীবন']}
+];
+var mv=-1,BN=['২','৩','৪','৫','৬','৭'];
+function mvSel(i){mv=mv===i?-1:i;renderWg()}
+function renderWg(){
+  var m=MV[mv];
+  $('mv').innerHTML=MV.map(function(x,i){return '<button class="'+(i===mv?'on':'')+'" onclick="mvSel('+i+')"><span>'+x.i+'</span>'+esc(x.t)+'</button>'}).join('');
+  if(mv<0){$('mvTxt').innerHTML='';return}
+  $('mvTxt').innerHTML='<ul class="tl"><li class="me" style="animation-delay:0s"><i>১</i><b>ভাষা শেখা</b><span class="tg">এই ধাপে Jabirs Weg তোমার পাশে</span></li>'+m.s.map(function(t,k){return '<li style="animation-delay:'+((k+1)*0.15)+'s"><i>'+BN[k]+'</i>'+esc(t)+'</li>'}).join('')+'</ul><small class="tn">নিয়ম বদলাতে পারে, আবেদনের আগে অফিসিয়াল সাইট দেখে নাও।</small>';
+}
+async function loadCompleted(){
+  var r=await SB.rpc('public_completed');
+  if(!r.error&&Array.isArray(r.data)){COMP=r.data;renderDone();if(typeof renderDoneAdm==='function')renderDoneAdm()}
+}
+function renderDone(){
+  $('doneList').innerHTML=COMP.map(function(x){
+    return '<div class="row" style="align-items:center"><div style="display:flex;gap:10px;align-items:center;min-width:0"><span class="dc" style="background:'+esc(x.color)+'">'+esc(x.code)+'</span><div style="min-width:0"><b>'+esc(x.title)+'</b><div class="sub">ব্যাচ '+esc(x.batch_code)+(x.students?' · '+x.students+' জন শিক্ষার্থী':'')+'</div></div></div><span class="sub" style="flex:none">'+esc(fmtDate(x.completed_at))+'</span></div>';
+  }).join('');
+  show('doneCard',COMP.length>0);
+}
 function renderHome(){
   if(!loaded)return;
   var codes={};PC.forEach(function(c){codes[c.code]=(codes[c.code]||0)+1});
   $('cards').innerHTML=PC.map(function(c){
-    var left=Math.max(0,c.cap-c.cnt),off=!c.op||left<=0;
-    return '<button class="cc" style="--c:'+esc(c.color)+'" data-s="'+esc(c.slug)+'"><em'+(c.code.length>2?' style="font-size:20px"':'')+'>'+esc(c.code)+'</em><span><b>'+esc(c.title)+'</b><small>'+esc(lat(c.subtitle))+'</small><span class="bdg'+(off?' off':'')+'">'+(!c.op?'রেজিস্ট্রেশন বন্ধ':(left<=0?'পূর্ণ':left+'টি খালি'))+'</span></span><span class="go">›</span></button>';
+    var left=Math.max(0,c.cap-c.cnt),w=c.op&&isWait(c),off=(!c.op||left<=0)&&!w;
+    var hot=c.op&&!w&&left>0&&left<=5,chs=[];
+    if(c.i.mode)chs.push(c.i.mode);if(c.i.sd)chs.push('শুরু '+fmtDate(c.i.sd));
+    var pct=Math.min(100,Math.round(c.cnt/Math.max(1,c.cap)*100));
+    return '<button class="cc" style="--c:'+esc(c.color)+'" data-s="'+esc(c.slug)+'"><em'+(c.code.length>2?' style="font-size:20px"':'')+'>'+esc(c.code)+'</em><span><b>'+esc(c.title)+'</b><small>'+esc(lat(c.subtitle))+'</small>'+(chs.length?'<span class="chs">'+chs.map(function(t){return '<u>'+esc(t)+'</u>'}).join('')+'</span>':'')+'<span class="bar"><s style="width:'+pct+'%"></s></span><span class="bdg'+(off?' off':(hot?' hot':''))+'">'+(w?'শুরু: '+esc(fmtShort(c.ro)):(!c.op?'রেজিস্ট্রেশন বন্ধ':(left<=0?'পূর্ণ':(hot?'মাত্র '+left+'টি আসন বাকি':left+'টি খালি'))))+'</span></span><span class="go">›</span></button>';
   }).join('')||'<div class="card wide"><p class="sub">বর্তমানে কোনো কোর্সের রেজিস্ট্রেশন চালু নেই। নতুন ব্যাচ শুরু হলে এখানে জানানো হবে।</p></div>';
+  
+  renderWg();
   $('fsub0').innerHTML=PC.map(function(c){
-    var left=Math.max(0,c.cap-c.cnt),off=!c.op||left<=0;
-    return '<span class="bdg'+(off?' off':'')+'" style="font-size:14px;padding:4px 14px">'+esc(codes[c.code]>1?c.title:c.code)+' = '+(!c.op?'বন্ধ':(left<=0?'পূর্ণ':left+' খালি'))+'</span>';
+    var left=Math.max(0,c.cap-c.cnt),w=c.op&&isWait(c),off=(!c.op||left<=0)&&!w;
+    return '<span class="bdg'+(off?' off':'')+'" style="font-size:14px;padding:4px 14px">'+esc(codes[c.code]>1?c.title:c.code)+' = '+(w?'শীঘ্রই':(!c.op?'বন্ধ':(left<=0?'পূর্ণ':left+' খালি')))+'</span>';
   }).join('');
   show('chipCard',PC.length>0);
 }
@@ -396,8 +506,10 @@ function renderCourse(){
   $('fsub').textContent=left>0&&left<=10?'তাড়াতাড়ি করো, আসন প্রায় শেষ!':c.cap+'টি আসন';
   var I=c.i,ri=[['ধরন',I.mode],['সময়কাল',I.dur],['সময়',I.time],['বার',I.days],['কবে থেকে শুরু',startTxt(I.sd,I.start)],['বিস্তারিত',I.extra]].filter(function(x){return x[1]});
   $('cInfo').innerHTML=ri.length?'<h2 style="font-size:16px;margin:14px 0 4px">কোর্সের বিস্তারিত</h2>'+ri.map(function(x){return '<div class="irow"><span>'+x[0]+'</span><b>'+esc(lat(x[1]))+'</b></div>'}).join(''):'';
-  var ok=!$('okCard').classList.contains('hide'),off=!c.op,full=c.op&&c.cnt>=c.cap;
-  show('closedCard',(off||full)&&!ok);show('formCard',!off&&!full&&!ok);
+  var ok=!$('okCard').classList.contains('hide'),off=!c.op,wait=c.op&&isWait(c),full=c.op&&!wait&&c.cnt>=c.cap;
+  show('closedCard',(off||full)&&!ok);show('waitCard',wait&&!ok);show('formCard',!off&&!full&&!wait&&!ok);
+  if(!off&&!full&&!wait&&!ok&&!chal)loadChallenge();
+  if(wait)tickWait();
   if(off||full){
     $('clTitle').textContent=off?'রেজিস্ট্রেশন এখন বন্ধ':'Registration Closed';
     $('clMsg').textContent=(off?'এই ব্যাচের রেজিস্ট্রেশন এখন বন্ধ আছে।':'দুঃখিত, এই ব্যাচের '+c.cap+'টি বুকিং পূর্ণ হয়েছে।')+' '+(lat(c.nt)||'চালু হলে এখানেই রেজিস্ট্রেশন খুলবে।');
@@ -407,6 +519,10 @@ $('cards').onclick=function(e){var t=e.target,b=t&&t.closest?t.closest('button[d
 function msgOf(e){
   var m=(e&&e.message)||'';
   if(m==='network')return 'ইন্টারনেট সংযোগ সমস্যা, আবার চেষ্টা করো।';
+  if(m.indexOf('bad_answer')>=0)return 'যোগ-বিয়োগের উত্তর ঠিক হয়নি। নতুন প্রশ্নটা দেখো।';
+  if(m.indexOf('not_yet')>=0)return 'এই কোর্সের রেজিস্ট্রেশন এখনো শুরু হয়নি।';
+  if(m.indexOf('too_many')>=0)return 'অল্প সময়ে অনেকবার রেজিস্ট্রেশন হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করো।';
+  if(m.indexOf('busy')>=0)return 'এই মুহূর্তে অনেক রেজিস্ট্রেশন চলছে, ১০ মিনিট পরে আবার চেষ্টা করো।';
   if(m.indexOf('reg_off')>=0)return 'এই ব্যাচের রেজিস্ট্রেশন এখন বন্ধ আছে।';
   if(m.indexOf('closed')>=0)return 'দুঃখিত, এই ব্যাচের সব বুকিং পূর্ণ হয়েছে।';
   if(m.indexOf('duplicate')>=0)return 'এই নম্বর দিয়ে আগেই বুকিং আছে।';
@@ -417,15 +533,20 @@ function msgOf(e){
 }
 async function submitReg(){
   var c=CBY[cur];if(!c)return;
+  if($('hp').value)return;
   var err=$('err');err.textContent='';
+  if(Date.now()-formT<2000){err.textContent='একটু অপেক্ষা করে আবার চাপো।';return}
   var nm=$('nm').value.trim(),ph=$('ph').value.trim().replace(/[\s-]/g,''),em=$('em').value.trim();
   if(nm.length<2){err.textContent='সঠিক নাম লেখো।';return}
   if(!/^(\+?88)?01[3-9]\d{8}$/.test(ph)){err.textContent='সঠিক মোবাইল নম্বর দাও।';return}
   if(!/^\S+@\S+\.\S+$/.test(em)){err.textContent='সঠিক ইমেইল দাও।';return}
+  var ans=parseInt($('chA').value,10);
+  if(!chal||isNaN(ans)){err.textContent=chal?'নিরাপত্তা প্রশ্নের উত্তর (সংখ্যা) লেখো।':'নিরাপত্তা প্রশ্ন আসেনি, "অন্য প্রশ্ন" চাপো।';return}
   var b=$('subBtn');b.disabled=true;b.textContent='অপেক্ষা করো…';
-  var r=await SB.rpc('register_booking',{p_slug:c.slug,p_name:nm,p_phone:ph,p_email:em});
+  var cid=chal.cid;chal=null;
+  var r=await SB.rpc('register_booking',{p_slug:c.slug,p_name:nm,p_phone:ph,p_email:em,p_cid:cid,p_ans:ans});
   b.disabled=false;b.textContent='আমার আসন বুক করো →';
-  if(r.error){err.textContent=msgOf(r.error);loadCourses(false);return}
+  if(r.error){err.textContent=msgOf(r.error);loadChallenge();loadCourses(false);return}
   lastNo=r.data;saveMy(lastNo);
   $('okNo').textContent=lastNo;
   show('okCard',true);$('cpBtn').textContent='বুকিং আইডি কপি করো';
@@ -504,6 +625,7 @@ async function lookupMy(silent){
 function cardMy(m,i){
   var left=m.m_sd?daysLeft(m.m_sd):null,cd='';
   if(!m.m_active)cd='<div class="cd">এই বুকিং বাতিল করা হয়েছে।</div>';
+  else if(m.m_done)cd='<div class="cd"><b style="font-size:20px">✅ এই ব্যাচ সম্পন্ন হয়েছে</b></div>';
   else if(!m.m_current)cd='<div class="cd">এটি আগের ব্যাচের বুকিং।</div>';
   else if(left===null)cd='<div class="cd">ক্লাস শুরুর তারিখ শীঘ্রই জানানো হবে।</div>';
   else if(left>1)cd='<div class="cd">ক্লাস শুরু হতে<b>'+left+' দিন বাকি</b></div>';
@@ -553,7 +675,7 @@ async function loadAdmin(force,except){
   var a=await SB.from('courses').select('*').order('sort');
   var b=await SB.from('bookings').select('*').order('created_at',{ascending:false});
   AC=a.data||[];rows=b.data||[];
-  fillFilters();renderNew();renderOv();renderBk();renderCtl(force,except);
+  fillFilters();renderNew();renderOv();renderBk();renderCtl(force,except);renderDoneAdm();
 }
 function goTab(t){
   tab=t;show('tOv',t==='ov');show('tBk',t==='bk');show('tCo',t==='co');
@@ -725,29 +847,36 @@ if(document.addEventListener)document.addEventListener('keydown',function(e){if(
 /* courses */
 function fld(p,k,ph,val,ml){return '<input class="t" autocomplete="off" spellcheck="false" id="'+p+'_'+k+'" maxlength="'+ml+'" placeholder="'+ph+'" value="'+esc(val||'')+'">'}
 function bt(a,k,cls,txt){return '<button'+(cls?' class="'+cls+'"':'')+' data-a="'+a+'" data-k="'+k+'">'+txt+'</button>'}
-function blank(){return{id:null,code:'',title:'',subtitle:'',learn:'',color:'#1e8e5a',capacity:30,note:'',info_mode:'',info_duration:'',info_time:'',info_days:'',info_start:'',info_extra:'',is_open:true,is_hidden:false,current_batch:1,batch_code:'',start_date:''}}
+function toLocalInput(iso){if(!iso)return '';var d=new Date(iso);if(isNaN(d))return '';return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+'T'+pad2(d.getHours())+':'+pad2(d.getMinutes())}
+function blank(){return{reg_open_at:null,id:null,code:'',title:'',subtitle:'',learn:'',color:'#1e8e5a',capacity:30,note:'',info_mode:'',info_duration:'',info_time:'',info_days:'',info_start:'',info_extra:'',is_open:true,is_hidden:false,current_batch:1,batch_code:'',start_date:''}}
+function colorPick(k,cur){
+  var sw=COLORS.map(function(x){return '<button type="button" class="sw'+(x[1].toLowerCase()===String(cur).toLowerCase()?' on':'')+'" data-a="color" data-k="'+k+'" data-c="'+x[1]+'" title="'+x[0]+'" style="background:'+x[1]+'"></button>'}).join('');
+  return '<div class="grp">কোর্সের রঙ</div><div class="sws">'+sw+'<label class="swc" title="নিজের পছন্দের রঙ বেছে নাও">+<input type="color" id="cpk_'+k+'" value="'+esc(cur)+'"></label></div><input type="hidden" id="co_'+k+'" value="'+esc(cur)+'">';
+}
+function markSw(k,v){var bs=$('ctl').querySelectorAll?$('ctl').querySelectorAll('.sw'):[];Array.prototype.forEach.call(bs,function(el){if(el.getAttribute('data-k')===k)el.classList.toggle('on',el.getAttribute('data-c').toLowerCase()===String(v).toLowerCase())})}
+function setColor(k,v){var h=$('co_'+k);if(h)h.value=v;var pk=$('cpk_'+k);if(pk)pk.value=v;markSw(k,v);dirty[k]=true}
 function editorHtml(c,k,nw){
-  var cs=COLORS.map(function(x){return '<option value="'+x[1]+'"'+(x[1]===c.color?' selected':'')+'>'+x[0]+'</option>'}).join('');
   return '<div class="ed">'
    +'<div class="grp">মূল তথ্য</div>'
    +'<div class="tools">'+fld('cd',k,'কোড (যেমন A1)',c.code,6)+fld('ti',k,'কোর্সের নাম (যেমন A1 অনলাইন)',c.title,80)+'</div>'
    +'<div class="tools">'+fld('bc',k,'ব্যাচ কোড (যেমন DFZA122)',c.batch_code,12)+'</div>'
-   +'<div class="tools">'+fld('su',k,'ছোট বর্ণনা (ঐচ্ছিক)',c.subtitle,120)+'<select class="t" id="co_'+k+'">'+cs+'</select></div>'
+   +'<div class="tools">'+fld('su',k,'ছোট বর্ণনা (ঐচ্ছিক)',c.subtitle,120)+'</div>'+colorPick(k,c.color)
    +'<textarea class="t" id="le_'+k+'" rows="3" maxlength="600" spellcheck="false" placeholder="কী শিখবে — প্রতি লাইনে একটা করে লেখো">'+esc(c.learn||'')+'</textarea>'
    +'<div class="grp">আসন ও বার্তা</div>'
    +'<div class="tools"><input class="t" type="number" min="1" max="100" id="cap_'+k+'" value="'+c.capacity+'" style="max-width:90px" title="আসন সংখ্যা">'+fld('nt',k,'বন্ধ/পূর্ণ হলে যে মেসেজ দেখাবে (ঐচ্ছিক)',c.note,200)+'</div>'
+   +'<div class="tools"><label class="sub" style="flex:1;min-width:200px">রেজিস্ট্রেশন শুরুর তারিখ ও সময় (ফাঁকা রাখলে এখনই চালু)<input class="t" type="datetime-local" id="ro_'+k+'" value="'+esc(toLocalInput(c.reg_open_at))+'"></label></div>'
    +'<div class="grp">কোর্সের বিস্তারিত (শিক্ষার্থীরা দেখবে)</div>'
    +'<div class="tools">'+fld('im',k,'অনলাইন / অফলাইন',c.info_mode,60)+fld('ic',k,'কোর্স কতদিনের (যেমন ৩ মাস)',c.info_duration,60)+'</div>'
    +'<div class="tools">'+fld('it',k,'সময় (যেমন রাত ৮টা)',c.info_time,60)+fld('dy',k,'বার (যেমন শনি, সোম, বুধ)',c.info_days,80)+'</div>'
    +'<div class="tools"><label class="sub" style="flex:1;min-width:150px">শুরুর তারিখ (কাউন্টডাউনের জন্য)<input class="t" type="date" id="sd_'+k+'" value="'+esc(c.start_date||'')+'"></label>'+fld('st',k,'শুরু নিয়ে নোট (ঐচ্ছিক)',c.info_start,60)+'</div>'
    +'<div class="tools">'+fld('ix',k,'অন্যান্য তথ্য (ঐচ্ছিক)',c.info_extra,300)+'</div>'
    +(nw?'':'<div class="grp">নতুন ব্যাচ শুরু করো</div><div class="tools">'+fld('nb',k,'নতুন ব্যাচের কোড (যেমন DFZA123)','',12)+bt('batch',k,'y','শুরু করো')+'</div>')
-   +'<div class="tools" style="margin-top:12px">'+(nw?bt('save',k,'','তৈরি করো')+bt('cancelnew',k,'g','বাতিল'):bt('save',k,'','সংরক্ষণ')+bt('del',k,'g','মুছে ফেলো'))+'</div></div>';
+   +'<div class="tools" style="margin-top:12px">'+(nw?bt('save',k,'','তৈরি করো')+bt('cancelnew',k,'g','বাতিল'):bt('save',k,'','সংরক্ষণ')+bt('done',k,'g','✅ ব্যাচ সম্পন্ন করো')+bt('del',k,'g','মুছে ফেলো'))+'</div></div>';
 }
 function rowHtml(c,k,nw){
   var op=openK===k,n=nw?0:curCount(c);
   return '<div class="crow" id="cr_'+k+'" style="border-left:6px solid '+esc(c.color)+'">'
-   +'<div class="hd" data-a="toggle" data-k="'+k+'"><div style="min-width:0"><b>'+(nw?'নতুন কোর্স':esc(c.title))+'</b>'+(nw?'':'<div class="sub">ব্যাচ '+esc(c.batch_code)+' · বুকিং '+n+'/'+c.capacity+'</div>')+'</div><span style="font-size:18px">'+(op?'▴':'▾')+'</span></div>'
+   +'<div class="hd" data-a="toggle" data-k="'+k+'"><div style="min-width:0"><b>'+(nw?'নতুন কোর্স':esc(c.title))+'</b>'+(nw?'':'<div class="sub">ব্যাচ '+esc(c.batch_code)+' · বুকিং '+n+'/'+c.capacity+(c.reg_open_at&&new Date(c.reg_open_at)>new Date()?' · শুরু: '+esc(fmtShort(c.reg_open_at)):'')+'</div>')+'</div><span style="font-size:18px">'+(op?'▴':'▾')+'</span></div>'
    +(nw?'':'<div class="qk">'+bt('open',k,c.is_open?'on':'off',c.is_open?'✅ রেজিস্ট্রেশন চালু':'⛔ রেজিস্ট্রেশন বন্ধ')+bt('hide',k,c.is_hidden?'off':'on',c.is_hidden?'🙈 হোমে লুকানো':'👁 হোমে দেখা যাচ্ছে')+'</div>')
    +(op?editorHtml(c,k,nw):'')+'</div>';
 }
@@ -760,7 +889,7 @@ function renderCtl(force,except){
   var h=draft?rowHtml(blank(),'new',true):'';
   AC.forEach(function(c){h+=rowHtml(c,c.id,false)});
   box.innerHTML=h||'<p class="sub">কোনো কোর্স নেই। উপরের বাটনে চেপে যোগ করো।</p>';
-  Object.keys(keep).forEach(function(id){var e=$(id);if(e)e.value=keep[id]});
+  Object.keys(keep).forEach(function(id){var e=$(id);if(e)e.value=keep[id];if(id.indexOf('co_')===0)markSw(id.slice(3),keep[id])});
   if(except)dirty[except]=false;
 }
 $('ctl').onclick=function(e){
@@ -772,9 +901,11 @@ $('ctl').onclick=function(e){
   else if(a==='hide'&&c)pushCourse(k,{hidden:!c.is_hidden});
   else if(a==='batch')newBatch(k);
   else if(a==='del')delCourse(k);
+  else if(a==='color')setColor(k,b.getAttribute('data-c'));
+  else if(a==='done')completeBatch(k);
   else if(a==='cancelnew')toggleRow('new');
 };
-$('ctl').oninput=function(e){var id=e.target&&e.target.id;if(id&&id.indexOf('_')>0)dirty[id.slice(id.indexOf('_')+1)]=true};
+$('ctl').oninput=function(e){var id=e.target&&e.target.id;if(id&&id.indexOf('_')>0){dirty[id.slice(id.indexOf('_')+1)]=true;if(id.indexOf('cpk_')===0)setColor(id.slice(4),e.target.value)}};
 function toggleRow(k){
   if(openK&&dirty[openK]&&!confirm('এই কোর্সের লেখা এখনো সংরক্ষণ হয়নি। ছেড়ে যাবে?'))return;
   var was=openK;
@@ -799,7 +930,7 @@ function gather(k,c){
   var capEl=$('cap_'+k),coEl=$('co_'+k),leEl=$('le_'+k);
   return{p_id:c.id,p_code:g('cd',c.code),p_title:g('ti',c.title),p_subtitle:g('su',c.subtitle),p_learn:leEl?leEl.value.trim():c.learn,p_color:coEl?coEl.value:c.color,
     p_capacity:capEl?parseInt(capEl.value,10):c.capacity,p_note:g('nt',c.note),p_mode:g('im',c.info_mode),p_duration:g('ic',c.info_duration),
-    p_time:g('it',c.info_time),p_days:g('dy',c.info_days),p_start:g('st',c.info_start),p_extra:g('ix',c.info_extra),p_bcode:g('bc',c.batch_code||'').toUpperCase(),p_sdate:g('sd',c.start_date||'')};
+    p_time:g('it',c.info_time),p_days:g('dy',c.info_days),p_start:g('st',c.info_start),p_extra:g('ix',c.info_extra),p_bcode:g('bc',c.batch_code||'').toUpperCase(),p_sdate:g('sd',c.start_date||''),p_ropen:(function(){var e=$('ro_'+k);if(!e)return c.reg_open_at||'';return e.value?new Date(e.value).toISOString():''})()};
 }
 async function pushCourse(k,over){
   over=over||{};var nw=k==='new',c=nw?blank():cby(k);if(!c)return false;
@@ -814,6 +945,26 @@ async function pushCourse(k,over){
   await loadAdmin(true,k);loadCourses(false);
   if(over.explicit||nw)alert(nw?'নতুন কোর্স তৈরি হয়েছে।':'সংরক্ষিত হয়েছে।');
   return true;
+}
+function renderDoneAdm(){
+  var box=$('doneAdm');if(!box)return;
+  box.innerHTML=COMP.map(function(x){return '<div class="row" style="align-items:center"><div style="display:flex;gap:10px;align-items:center;min-width:0"><span class="dc" style="background:'+esc(x.color)+'">'+esc(x.code)+'</span><div style="min-width:0"><b>'+esc(x.title)+'</b><div class="sub">ব্যাচ '+esc(x.batch_code)+' · '+x.students+' জন · '+esc(fmtDate(x.completed_at))+'</div></div></div><button class="g" style="padding:5px 12px;font-size:12px" data-a="deldone" data-i="'+x.id+'">মুছো</button></div>'}).join('')||'<p class="sub">এখনো কোনো ব্যাচ সম্পন্ন করা হয়নি।</p>';
+}
+$('doneAdm').onclick=function(e){var t=e.target,b=t&&t.closest?t.closest('button[data-i]'):null;if(b)delDone(b.getAttribute('data-i'))};
+async function delDone(id){
+  if(!confirm('এই সম্পন্ন-তালিকার এন্ট্রি মুছবে? কোর্স বা বুকিংয়ের কিছু মুছবে না।'))return;
+  var r=await SB.rpc('delete_completion',{p_id:id});
+  if(r.error){alert('সমস্যা হয়েছে: '+aerr(r.error));return}
+  await loadCompleted();
+}
+async function completeBatch(k){
+  var c=cby(k);if(!c)return;
+  if(!confirm('"'+c.title+'" (ব্যাচ '+c.batch_code+') সম্পন্ন হয়েছে বলে চিহ্নিত করবে?\n\n• রেজিস্ট্রেশন বন্ধ হবে\n• কোর্সটা হোম থেকে সরে যাবে\n• "সম্পন্ন কোর্স" তালিকায় দেখাবে\n\nপরে আবার চালাতে চাইলে "+ নতুন ব্যাচ" দিয়ে নতুন কোডে শুরু করতে পারবে।'))return;
+  var r=await SB.rpc('complete_batch',{p_id:k});
+  if(r.error){alert(r.error.message.indexOf('already_done')>=0?'এই ব্যাচ আগেই সম্পন্ন করা হয়েছে।':'সমস্যা হয়েছে: '+aerr(r.error));return}
+  dirty[k]=false;openK='';
+  await loadAdmin(true,k);await loadCompleted();loadCourses(false);
+  alert('ব্যাচ সম্পন্ন হিসেবে চিহ্নিত হয়েছে।');
 }
 async function newBatch(k){
   var c=cby(k);if(!c)return;
@@ -834,7 +985,7 @@ async function delCourse(k){
   openK='';await loadAdmin(true,k);loadCourses(false);
 }
 setInterval(function(){if(!$('panel').classList.contains('hide')&&!document.hidden){loadAdmin();loadCourses(false)}},30000);
-route();loadCourses(true);
+renderWg();route();loadCourses(true);
 </script>
 </body>
 </html>
