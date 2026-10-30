@@ -178,6 +178,8 @@ button:disabled{opacity:.4}
 .swc{position:relative;width:34px;height:34px;border-radius:50%;border:2px dashed var(--mute);display:grid;place-items:center;cursor:pointer;font-weight:700;overflow:hidden;color:var(--mute)}
 .swc input{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer}
 .dc{width:44px;height:44px;border-radius:12px;color:#fff;font-weight:700;display:grid;place-items:center;flex:none;font-size:15px}
+.pr{display:inline-block;background:var(--yel);color:#0b2447;font-weight:700;font-size:14px;padding:2px 12px;border-radius:12px;margin-bottom:6px}
+.pricebadge{display:inline-block;background:var(--yel);color:#0b2447;font-weight:700;font-size:20px;padding:6px 20px;border-radius:24px;margin-top:12px;position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -193,6 +195,7 @@ button:disabled{opacity:.4}
     <div class="big" id="cBig"></div>
     <div class="hi" id="cTitle" style="margin-top:4px"></div>
     <p class="tag" id="cDesc"></p>
+    <div id="cPrice" class="pricebadge hide"></div>
   </div>
   <div id="hAdm" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi">Admin Panel</div></div>
   <div id="hMy" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">🎟️ আমার ব্যাচ</div></div>
@@ -406,7 +409,7 @@ function go(v){location.hash=v}
 window.addEventListener('hashchange',route);
 
 /* ---------- public ---------- */
-function norm(x){return{slug:x.slug,code:x.code,title:x.title,subtitle:x.subtitle||'',learn:String(x.learn||'').split('\n').map(function(t){return t.trim()}).filter(Boolean),color:x.color||'#0058a3',cnt:x.cnt||0,bt:x.bt||1,bc:x.bc||'',op:x.op!==false,cap:x.cap||30,nt:x.nt||'',i:{mode:x.i_mode||'',dur:x.i_dur||'',time:x.i_time||'',days:x.i_days||'',start:x.i_start||'',extra:x.i_extra||'',sd:x.i_sd||''},ro:x.i_ro||''}}
+function norm(x){return{slug:x.slug,code:x.code,title:x.title,subtitle:x.subtitle||'',learn:String(x.learn||'').split('\n').map(function(t){return t.trim()}).filter(Boolean),color:x.color||'#0058a3',cnt:x.cnt||0,bt:x.bt||1,bc:x.bc||'',op:x.op!==false,cap:x.cap||30,nt:x.nt||'',i:{mode:x.i_mode||'',dur:x.i_dur||'',time:x.i_time||'',days:x.i_days||'',start:x.i_start||'',extra:x.i_extra||'',sd:x.i_sd||''},ro:x.i_ro||'',price:x.i_price||''}}
 async function loadCourses(first){
   var r=await SB.rpc('public_courses');
   if(!r.error&&Array.isArray(r.data)){
@@ -483,7 +486,7 @@ function renderHome(){
     var hot=c.op&&!w&&left>0&&left<=5,chs=[];
     if(c.i.mode)chs.push(c.i.mode);if(c.i.sd)chs.push('শুরু '+fmtDate(c.i.sd));
     var pct=Math.min(100,Math.round(c.cnt/Math.max(1,c.cap)*100));
-    return '<button class="cc" style="--c:'+esc(c.color)+'" data-s="'+esc(c.slug)+'"><em'+(c.code.length>2?' style="font-size:20px"':'')+'>'+esc(c.code)+'</em><span><b>'+esc(c.title)+'</b><small>'+esc(lat(c.subtitle))+'</small>'+(chs.length?'<span class="chs">'+chs.map(function(t){return '<u>'+esc(t)+'</u>'}).join('')+'</span>':'')+'<span class="bar"><s style="width:'+pct+'%"></s></span><span class="bdg'+(off?' off':(hot?' hot':''))+'">'+(w?'শুরু: '+esc(fmtShort(c.ro)):(!c.op?'রেজিস্ট্রেশন বন্ধ':(left<=0?'পূর্ণ':(hot?'মাত্র '+left+'টি আসন বাকি':left+'টি খালি'))))+'</span></span><span class="go">›</span></button>';
+    return '<button class="cc" style="--c:'+esc(c.color)+'" data-s="'+esc(c.slug)+'"><em'+(c.code.length>2?' style="font-size:20px"':'')+'>'+esc(c.code)+'</em><span>'+(c.price?'<div class="pr">'+esc(lat(c.price))+'</div>':'')+'<b>'+esc(c.title)+'</b><small>'+esc(lat(c.subtitle))+'</small>'+(chs.length?'<span class="chs">'+chs.map(function(t){return '<u>'+esc(t)+'</u>'}).join('')+'</span>':'')+'<span class="bar"><s style="width:'+pct+'%"></s></span><span class="bdg'+(off?' off':(hot?' hot':''))+'">'+(w?'শুরু: '+esc(fmtShort(c.ro)):(!c.op?'রেজিস্ট্রেশন বন্ধ':(left<=0?'পূর্ণ':(hot?'মাত্র '+left+'টি আসন বাকি':left+'টি খালি'))))+'</span></span><span class="go">›</span></button>';
   }).join('')||'<div class="card wide"><p class="sub">বর্তমানে কোনো কোর্সের রেজিস্ট্রেশন চালু নেই। নতুন ব্যাচ শুরু হলে এখানে জানানো হবে।</p></div>';
   
   renderWg();
@@ -498,13 +501,14 @@ function renderCourse(){
   var left=Math.max(0,c.cap-c.cnt),h='';
   $('cBig').textContent=c.code;$('cBig').style.fontSize=c.code.length>3?'48px':'';
   $('cTitle').textContent=c.title;$('cDesc').textContent=lat(c.subtitle);
+  $('cPrice').textContent=c.price?'কোর্স ফি: '+lat(c.price):'';show('cPrice',!!c.price);
   show('learnWrap',c.learn.length>0);
   $('cList').innerHTML=c.learn.map(function(x){return '<li>'+esc(x)+'</li>'}).join('');
   $('fTitle').textContent=c.title+' – রেজিস্ট্রেশন';
   for(var i=0;i<c.cap;i++)h+='<i class="'+(i<c.cnt?'t':'')+'"></i>';
   $('seats').innerHTML=h;$('fn').textContent=left;
   $('fsub').textContent=left>0&&left<=10?'তাড়াতাড়ি করো, আসন প্রায় শেষ!':c.cap+'টি আসন';
-  var I=c.i,ri=[['ধরন',I.mode],['সময়কাল',I.dur],['সময়',I.time],['বার',I.days],['কবে থেকে শুরু',startTxt(I.sd,I.start)],['বিস্তারিত',I.extra]].filter(function(x){return x[1]});
+  var I=c.i,ri=[['কোর্স ফি',c.price],['ধরন',I.mode],['সময়কাল',I.dur],['সময়',I.time],['বার',I.days],['কবে থেকে শুরু',startTxt(I.sd,I.start)],['বিস্তারিত',I.extra]].filter(function(x){return x[1]});
   $('cInfo').innerHTML=ri.length?'<h2 style="font-size:16px;margin:14px 0 4px">কোর্সের বিস্তারিত</h2>'+ri.map(function(x){return '<div class="irow"><span>'+x[0]+'</span><b>'+esc(lat(x[1]))+'</b></div>'}).join(''):'';
   var ok=!$('okCard').classList.contains('hide'),off=!c.op,wait=c.op&&isWait(c),full=c.op&&!wait&&c.cnt>=c.cap;
   show('closedCard',(off||full)&&!ok);show('waitCard',wait&&!ok);show('formCard',!off&&!full&&!wait&&!ok);
@@ -848,7 +852,7 @@ if(document.addEventListener)document.addEventListener('keydown',function(e){if(
 function fld(p,k,ph,val,ml){return '<input class="t" autocomplete="off" spellcheck="false" id="'+p+'_'+k+'" maxlength="'+ml+'" placeholder="'+ph+'" value="'+esc(val||'')+'">'}
 function bt(a,k,cls,txt){return '<button'+(cls?' class="'+cls+'"':'')+' data-a="'+a+'" data-k="'+k+'">'+txt+'</button>'}
 function toLocalInput(iso){if(!iso)return '';var d=new Date(iso);if(isNaN(d))return '';return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+'T'+pad2(d.getHours())+':'+pad2(d.getMinutes())}
-function blank(){return{reg_open_at:null,id:null,code:'',title:'',subtitle:'',learn:'',color:'#1e8e5a',capacity:30,note:'',info_mode:'',info_duration:'',info_time:'',info_days:'',info_start:'',info_extra:'',is_open:true,is_hidden:false,current_batch:1,batch_code:'',start_date:''}}
+function blank(){return{price:'',reg_open_at:null,id:null,code:'',title:'',subtitle:'',learn:'',color:'#1e8e5a',capacity:30,note:'',info_mode:'',info_duration:'',info_time:'',info_days:'',info_start:'',info_extra:'',is_open:true,is_hidden:false,current_batch:1,batch_code:'',start_date:''}}
 function colorPick(k,cur){
   var sw=COLORS.map(function(x){return '<button type="button" class="sw'+(x[1].toLowerCase()===String(cur).toLowerCase()?' on':'')+'" data-a="color" data-k="'+k+'" data-c="'+x[1]+'" title="'+x[0]+'" style="background:'+x[1]+'"></button>'}).join('');
   return '<div class="grp">কোর্সের রঙ</div><div class="sws">'+sw+'<label class="swc" title="নিজের পছন্দের রঙ বেছে নাও">+<input type="color" id="cpk_'+k+'" value="'+esc(cur)+'"></label></div><input type="hidden" id="co_'+k+'" value="'+esc(cur)+'">';
@@ -859,7 +863,7 @@ function editorHtml(c,k,nw){
   return '<div class="ed">'
    +'<div class="grp">মূল তথ্য</div>'
    +'<div class="tools">'+fld('cd',k,'কোড (যেমন A1)',c.code,6)+fld('ti',k,'কোর্সের নাম (যেমন A1 অনলাইন)',c.title,80)+'</div>'
-   +'<div class="tools">'+fld('bc',k,'ব্যাচ কোড (যেমন DFZA122)',c.batch_code,12)+'</div>'
+   +'<div class="tools">'+fld('bc',k,'ব্যাচ কোড (যেমন DFZA122)',c.batch_code,12)+fld('pc',k,'কোর্স ফি (যেমন ৳ 3,500)',c.price,40)+'</div>'
    +'<div class="tools">'+fld('su',k,'ছোট বর্ণনা (ঐচ্ছিক)',c.subtitle,120)+'</div>'+colorPick(k,c.color)
    +'<textarea class="t" id="le_'+k+'" rows="3" maxlength="600" spellcheck="false" placeholder="কী শিখবে — প্রতি লাইনে একটা করে লেখো">'+esc(c.learn||'')+'</textarea>'
    +'<div class="grp">আসন ও বার্তা</div>'
@@ -930,7 +934,7 @@ function gather(k,c){
   var capEl=$('cap_'+k),coEl=$('co_'+k),leEl=$('le_'+k);
   return{p_id:c.id,p_code:g('cd',c.code),p_title:g('ti',c.title),p_subtitle:g('su',c.subtitle),p_learn:leEl?leEl.value.trim():c.learn,p_color:coEl?coEl.value:c.color,
     p_capacity:capEl?parseInt(capEl.value,10):c.capacity,p_note:g('nt',c.note),p_mode:g('im',c.info_mode),p_duration:g('ic',c.info_duration),
-    p_time:g('it',c.info_time),p_days:g('dy',c.info_days),p_start:g('st',c.info_start),p_extra:g('ix',c.info_extra),p_bcode:g('bc',c.batch_code||'').toUpperCase(),p_sdate:g('sd',c.start_date||''),p_ropen:(function(){var e=$('ro_'+k);if(!e)return c.reg_open_at||'';return e.value?new Date(e.value).toISOString():''})()};
+    p_time:g('it',c.info_time),p_days:g('dy',c.info_days),p_start:g('st',c.info_start),p_extra:g('ix',c.info_extra),p_bcode:g('bc',c.batch_code||'').toUpperCase(),p_sdate:g('sd',c.start_date||''),p_ropen:(function(){var e=$('ro_'+k);if(!e)return c.reg_open_at||'';return e.value?new Date(e.value).toISOString():''})(),p_price:g('pc',c.price||'')};
 }
 async function pushCourse(k,over){
   over=over||{};var nw=k==='new',c=nw?blank():cby(k);if(!c)return false;
