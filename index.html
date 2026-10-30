@@ -1,384 +1,995 @@
--- =====================================================================
--- Jabirs Weg: LATEST ALL-IN-ONE upgrade.
--- Run this ONE file in Supabase > SQL Editor (New query > paste all > Run).
--- It is SAFE TO RUN AGAIN and replaces these older files:
---   supabase-courses-upgrade.sql, supabase-batchcode-upgrade.sql, supabase-mybatch-upgrade.sql
--- Needs only that your first 4 files were run before (setup, batch, control, details).
--- Tip: download a CSV backup from the admin panel before running.
--- =====================================================================
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jabirs Weg – Deutsch Registration</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap">
+<style>
 
-create sequence if not exists public.course_slug_seq start 4;
+:root{--bg:#f4f1ea;--card:#fff;--ink:#14213d;--mute:#6a7385;--line:#e3ded2;--yel:#ffda1a;--p:#0058a3;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1625;--card:#16213a;--ink:#f1f4fa;--mute:#9aa6bf;--line:#2a3860}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Hind Siliguri',system-ui,sans-serif;line-height:1.5;--soft:color-mix(in srgb,var(--p) 12%,var(--card))}
+.hero{background:var(--p);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 56px;position:relative;text-align:center;overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero:before{width:200px;height:200px;left:-60px;top:-50px}.hero:after{width:160px;height:160px;right:-40px;bottom:-60px}
+.top{display:flex;justify-content:space-between;position:relative;z-index:1;min-height:32px}
+.top button{background:rgba(255,255,255,.18);color:#fff;padding:6px 14px;font-size:13px}
+.brand{display:inline-block;margin-top:6px;background:var(--yel);color:#0b2447;font-weight:700;font-size:32px;letter-spacing:1px;text-transform:uppercase;padding:4px 18px;border-radius:6px;position:relative;z-index:1}
+.brand.sm{font-size:16px;padding:2px 10px;margin:0}
+.hi{font-size:22px;font-weight:600;margin:14px 0 2px;min-height:34px;position:relative;z-index:1}
+.tag{opacity:.9;margin:0;position:relative;z-index:1}
+.big{font-size:76px;font-weight:700;line-height:1;margin-top:6px;color:var(--yel);position:relative;z-index:1}
+.stripe{height:6px;background:var(--yel)}
+main{max-width:520px;margin:-34px auto 0;padding:0 14px 40px;position:relative;z-index:2}
+.card{background:var(--card);border-radius:16px;padding:18px;margin-top:14px;box-shadow:0 2px 10px rgba(0,30,70,.08)}
+h2{margin:0 0 4px;font-size:18px}
+.sub{color:var(--mute);font-size:14px;margin:0}
+.cc{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);color:var(--ink);border-radius:16px;padding:14px;margin-top:12px;border:0;border-left:8px solid var(--c);box-shadow:0 2px 10px rgba(0,30,70,.08)}
+.cc em{font-style:normal;font-weight:700;font-size:28px;background:var(--c);color:#fff;border-radius:14px;width:64px;height:64px;display:grid;place-items:center;flex:none}
+.cc b{display:block;font-size:17px}.cc small{color:var(--mute);font-size:13px;font-weight:400}
+.cc span.go{margin-left:auto;font-size:22px;color:var(--c)}
+.free{display:flex;justify-content:space-between;align-items:baseline}
+.free b{font-size:22px;color:var(--p)}
+.seats{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-top:10px}
+.seats i{aspect-ratio:1;border-radius:6px;border:2px solid var(--line);background:var(--soft)}
+.seats i.t{background:var(--p);border-color:var(--p)}
+ul.lrn{margin:8px 0 0;padding-left:20px;font-size:15px}
+label.f{display:block;font-size:14px;font-weight:500;margin-top:10px}
+.t{width:100%;padding:12px;margin-top:4px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+button{font:inherit;font-weight:600;cursor:pointer;border:0;border-radius:24px;padding:12px 18px;background:var(--p);color:#fff}
+button.y{background:var(--yel);color:#0b2447}
+button.g{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.w{width:100%;margin-top:16px;font-size:16px}
+.msg{margin-top:10px;font-size:14px;color:#c0392b}
+.ticket{background:var(--p);color:#fff;border-radius:16px;padding:18px;position:relative;text-align:center;margin-top:14px}
+.ticket:before,.ticket:after{content:"";position:absolute;top:56%;width:22px;height:22px;border-radius:50%;background:var(--bg)}
+.ticket:before{left:-11px}.ticket:after{right:-11px}
+.ticket .no{font-size:34px;font-weight:700;color:var(--yel);letter-spacing:1px}
+.ticket hr{border:0;border-top:2px dashed rgba(255,255,255,.4);margin:14px 0}
+.ticket p{margin:2px 0;font-size:14px}
+.closed{text-align:center;border:2px solid var(--p)}
+.closed h2{color:var(--p);font-size:24px}
+.chk{display:flex;gap:8px;margin-top:8px}.chk .t{margin:0}
+.res{margin-top:10px;font-size:14px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.tools .t{flex:1;min-width:150px;margin:0}
+.sc{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left}
+.pill{padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600}
+.pen{background:#fff0b3;color:#6b5200}.pd{background:#d3f0dc;color:#17632f}.cx{background:#f8d3d3;color:#8b1a1a}
+td button{padding:4px 10px;font-size:12px;margin-right:4px}
+.hide{display:none}
+footer{text-align:center;color:var(--mute);font-size:12px;padding:10px}
+@media(min-width:600px){main{max-width:680px}}
+@media(min-width:900px){
+main{max-width:1040px}
+.hero{padding-bottom:72px}
+.brand{font-size:46px;padding:6px 26px}.brand.sm{font-size:20px;padding:3px 12px}
+.hi{font-size:28px}.big{font-size:100px}
+#home:not(.hide){display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+#home>*{margin-top:0!important}
+.cc{flex-direction:column;text-align:center;padding:28px 16px;border-left:0;border-top:8px solid var(--c);gap:10px}
+.cc span.go{margin:0}
+#course:not(.hide){display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+#course>*{margin-top:0}
+#course>:nth-child(-n+2){grid-column:1}
+#course>:nth-child(n+3){grid-column:2;grid-row:1/span 2}
+#adm #loginCard{max-width:420px;margin:14px auto 0}
+}
+.bdg{background:var(--soft);color:var(--ink);font-size:12px;padding:2px 10px;border-radius:20px;font-weight:600}
+.bdg.off{background:#f8d3d3;color:#8b1a1a}
+.cc .bdg{margin-left:auto}.cc span.go{margin-left:10px}
+.tile{background:var(--soft);border-radius:10px;padding:8px;text-align:center;font-size:12px}
+.tile b{display:block;font-size:22px;color:var(--p)}
+.lc{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+@media(min-width:900px){.cc .bdg,.cc span.go{margin:0}}
+.irow{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.irow span{color:var(--mute);flex:none}.irow b{text-align:right;font-weight:600}
+.bdg{white-space:nowrap}
+.seats{grid-template-columns:repeat(10,minmax(0,1fr))}
+.seats i{display:block;min-width:0}
+.cc small{display:block}
+.cc .bdg{margin:6px 0 0;display:inline-block;font-size:14px;font-weight:700}
+.wide{grid-column:1/-1}
+textarea.t{resize:vertical;margin-top:8px;display:block}
+select.t{margin-top:0}
+@media(min-width:900px){#cards>.cc{margin-top:0}}
+.tabs{display:flex;gap:6px;position:sticky;top:0;background:var(--card);padding:6px 0 10px;z-index:5;overflow-x:auto;margin-bottom:6px}
+.tabs button{background:var(--soft);color:var(--ink);padding:9px 14px;font-size:14px;white-space:nowrap;flex:none}
+.tabs button.on{background:var(--p);color:#fff}
+.tabs .lo{margin-left:auto;background:transparent;border:1px solid var(--line)}
+.cnt{background:#c0392b;color:#fff;border-radius:10px;padding:0 7px;font-size:12px;margin-left:6px}
+.sh{font-size:15px;margin:18px 0 8px}
+.bk{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.bk .tools{margin:8px 0 0}.bk .tools button{padding:6px 12px;font-size:13px;flex:none}
+.bk-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.bk a{color:var(--ink)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.prog{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:4px}.prog i{display:block;height:100%}
+.crow{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.crow .hd{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;cursor:pointer}
+.crow .qk{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 10px}
+.crow .qk button{padding:5px 12px;font-size:12px;background:var(--soft);color:var(--ink)}
+.crow .qk button.on{background:#d3f0dc;color:#17632f}.crow .qk button.off{background:#f8d3d3;color:#8b1a1a}
+.crow .ed{padding:0 12px 12px;border-top:1px dashed var(--line)}
+.ed .grp{font-weight:600;font-size:13px;color:var(--mute);margin:14px 0 2px}
+#seenBar{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff0b3;color:#6b5200;border-radius:10px;padding:8px 12px;margin:10px 0;font-weight:600;font-size:14px}
+#seenBar button{padding:5px 12px;font-size:13px}
+.tkimg{width:100%;max-width:560px;border-radius:12px;display:block;margin:12px auto;box-shadow:0 2px 12px rgba(0,30,70,.18)}
+.no2{font-size:30px;font-weight:700;color:var(--p);letter-spacing:1px}
+.cd{background:var(--soft);border-radius:14px;padding:14px;text-align:center;font-size:15px;margin-top:8px}
+.cd b{display:block;font-size:34px;color:var(--p);line-height:1.2}
+#dv{position:fixed;left:0;right:0;top:0;bottom:0;z-index:60;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.dvh{color:#fff;text-align:center;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 64px}
+.xb{background:rgba(255,255,255,.2);color:#fff;padding:7px 14px;font-size:13px}
+.av{width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:34px;font-weight:700;margin:10px auto 8px}
+.dn{font-size:24px;margin:0;line-height:1.3}
+.dno{margin-top:4px;font-size:15px;opacity:.95;letter-spacing:.5px}
+.cp{background:rgba(255,255,255,.2);color:#fff;padding:2px 10px;font-size:12px;margin-left:6px}
+.dp{margin-top:10px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.dvb{max-width:560px;margin:-44px auto 0;padding:0 14px 110px;position:relative}
+.dvb .card{margin-top:12px}
+.dvb .irow a{color:var(--ink);font-weight:600}
+.dvn{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:10px 14px calc(env(safe-area-inset-bottom,0px) + 10px);background:var(--card);border-top:1px solid var(--line);z-index:61}
+.dvn button{padding:12px 16px}
+.dvn .mid{flex:1}
+button:disabled{opacity:.4}
 
-create table if not exists public.courses (
-  id uuid primary key default gen_random_uuid(),
-  slug text unique not null,
-  code text not null,
-  title text not null,
-  subtitle text not null default '',
-  learn text not null default '',
-  color text not null default '#0058a3',
-  sort int not null default 0,
-  current_batch int not null default 1,
-  is_open boolean not null default true,
-  is_hidden boolean not null default false,
-  capacity int not null default 30 check (capacity between 1 and 100),
-  note text not null default '',
-  info_mode text not null default '',
-  info_duration text not null default '',
-  info_time text not null default '',
-  info_days text not null default '',
-  info_start text not null default '',
-  info_extra text not null default ''
-);
-alter table public.courses add column if not exists batch_code text;
-alter table public.courses add column if not exists start_date date;
-alter table public.courses add column if not exists price text not null default '';
-alter table public.courses enable row level security;
-drop policy if exists "admin read courses" on public.courses;
-create policy "admin read courses" on public.courses for select to authenticated using (public.is_admin());
+.chs{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}.chs u{text-decoration:none;font-size:12px;background:var(--soft);padding:2px 8px;border-radius:20px}
+.cc>span:nth-child(2){flex:1;min-width:0}
+.bar{display:block;height:6px;border-radius:6px;background:var(--soft);margin-top:8px;overflow:hidden}.bar s{display:block;height:100%;background:var(--c);border-radius:6px}
+.bdg.hot{background:#ffe0e0;color:#a31919}
+@media(min-width:900px){.chs{justify-content:center}.cc>span:nth-child(2){align-self:stretch;flex:none}}
+.wg{display:flex;justify-content:space-between;margin-top:16px;position:relative}
+.wg:before{content:"";position:absolute;left:8%;right:8%;top:26px;border-top:3px dashed var(--line)}
+.wg a{position:relative;z-index:1;text-align:center;flex:1;cursor:pointer}
+.wg i{font-style:normal;display:grid;place-items:center;width:52px;height:52px;margin:0 auto;border-radius:50%;background:var(--c);color:#fff;font-weight:700;box-shadow:0 0 0 5px var(--card)}
+.wg .fin i{font-size:24px}.wg small{display:block;color:var(--mute);font-size:12px;margin-top:6px}
+.abt{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.abt span{background:var(--soft);border-radius:20px;padding:4px 12px;font-size:13px;font-weight:600}
+.fb{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:50%;background:#1877f2;color:#fff;margin:4px 0 8px}
 
--- Copy your old A1 / A2 / B1 settings into courses (only the first time)
-do $$
-begin
-  if to_regclass('public.batches') is not null and not exists (select 1 from public.courses) then
-    insert into public.courses(slug, code, title, subtitle, learn, color, sort, current_batch, is_open, is_hidden, capacity, note,
-                               info_mode, info_duration, info_time, info_days, info_start, info_extra, batch_code)
-    select lower(b.level), b.level, b.level || ' Registration',
-      case b.level when 'A1' then 'Anfänger · একদম শূন্য থেকে শুরু'
-                   when 'A2' then 'Grundlagen · দৈনন্দিন কথাবার্তা'
-                   else 'Mittelstufe · স্বাধীনভাবে বলা ও লেখা' end,
-      case b.level when 'A1' then E'জার্মান বর্ণমালা ও সঠিক উচ্চারণ\nনিজের পরিচয় দেওয়া ও সহজ প্রশ্ন করা\nদৈনন্দিন প্রয়োজনীয় শব্দ ও সহজ বাক্য'
-                   when 'A2' then E'কেনাকাটা, দিকনির্দেশ ও রুটিন নিয়ে কথা বলা\nঅতীতের ঘটনা নিয়ে সহজ বাক্য\nছোট মেসেজ ও ইমেইল লেখা'
-                   else E'নিজের মতামত ও যুক্তি তুলে ধরা\nচিঠি ও ইমেইল গুছিয়ে লেখা\nপরীক্ষার প্রস্তুতির দিকে এগোনো' end,
-      case b.level when 'A1' then '#1e8e5a' when 'A2' then '#3b5bdb' else '#6f42c1' end,
-      case b.level when 'A1' then 1 when 'A2' then 2 else 3 end,
-      b.current_batch,
-      coalesce((to_jsonb(b)->>'is_open')::boolean, true),
-      coalesce((to_jsonb(b)->>'is_hidden')::boolean, false),
-      coalesce((to_jsonb(b)->>'capacity')::int, 30),
-      coalesce(to_jsonb(b)->>'note', ''),
-      coalesce(to_jsonb(b)->>'info_mode', ''),
-      coalesce(to_jsonb(b)->>'info_duration', ''),
-      coalesce(to_jsonb(b)->>'info_time', ''),
-      coalesce(to_jsonb(b)->>'info_days', ''),
-      coalesce(to_jsonb(b)->>'info_start', ''),
-      coalesce(to_jsonb(b)->>'info_extra', ''),
-      upper(b.level) || '-' || b.current_batch
-    from public.batches b;
-  end if;
-end $$;
+.mt{background:var(--soft);border-radius:12px;padding:12px;margin-top:12px;font-size:14px;line-height:1.7}.mt small{display:block;color:var(--mute);margin-top:6px;font-size:12px;line-height:1.5}
+.tl{margin:16px 0 0;padding:0;list-style:none}
+.tl li{position:relative;padding:2px 0 16px 40px;font-size:15px;line-height:1.5;opacity:0;animation:tlin .4s ease forwards}
+.tl li:before{content:"";position:absolute;left:12px;top:28px;bottom:0;border-left:3px dashed var(--line)}
+.tl li:last-child{padding-bottom:0}.tl li:last-child:before{display:none}
+.tl li i{position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--soft);border:2px solid var(--line);font-style:normal;font-size:13px;font-weight:700;display:grid;place-items:center}
+.tl li.me i{background:var(--yel);border-color:var(--yel);color:#0b2447}.tl li.me b{display:block}
+.tl .tg{display:inline-block;background:var(--yel);color:#0b2447;font-size:12px;font-weight:700;border-radius:20px;padding:1px 10px;margin-top:2px}
+.tl small{display:block;color:var(--mute);font-size:12px;margin-top:10px}
+.gt{background:var(--soft);border-radius:14px;padding:14px;margin-top:12px;text-align:center}.gt .de{font-size:22px;font-weight:700;color:var(--p)}.gt .pr{font-size:15px;margin-top:4px}.gt .mn{color:var(--mute);font-size:14px;margin-top:2px}.gt small{display:block;margin-top:10px;color:var(--mute);font-size:12px}
+.tl{margin:16px 0 0;padding:0;list-style:none}
+.tl li{position:relative;padding:2px 0 16px 40px;font-size:15px;line-height:1.5;opacity:0;animation:tlin .4s ease forwards}
+.tl li:before{content:"";position:absolute;left:12px;top:30px;bottom:2px;border-left:3px dashed var(--line)}
+.tl li:last-child{padding-bottom:0}.tl li:last-child:before{display:none}
+.tl li i{position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--soft);border:2px solid var(--line);font-style:normal;font-size:13px;font-weight:700;display:grid;place-items:center}
+.tl li.me i{background:var(--yel);border-color:var(--yel);color:#0b2447}.tl li.me b{display:block}
+.tl .tg{display:inline-block;background:var(--yel);color:#0b2447;font-size:12px;font-weight:700;border-radius:20px;padding:1px 10px;margin-top:2px}
+.tn{display:block;color:var(--mute);font-size:12px;margin-top:12px}
+.mv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.mv button{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--soft);color:var(--ink);border-radius:16px;padding:12px 6px;font-size:13px;line-height:1.3}.mv button span{font-size:30px;line-height:1}.mv button.on{background:var(--p);color:#fff}.mv button.on+*{}
+@keyframes tlin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){.tl li{animation:none;opacity:1}}
+.fbw{display:flex;align-items:center;gap:10px;max-width:340px;margin:8px auto 10px;color:var(--ink);text-decoration:none;font-size:14px;font-weight:600}.fbl{flex:1;border-top:3px dashed var(--line)}.fbw .fb{margin:0;flex:none}
+.sws{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px}
+.sw{width:34px;height:34px;border-radius:50%;padding:0;border:3px solid var(--card);box-shadow:0 0 0 1px var(--line)}
+.sw.on{box-shadow:0 0 0 3px var(--ink)}
+.swc{position:relative;width:34px;height:34px;border-radius:50%;border:2px dashed var(--mute);display:grid;place-items:center;cursor:pointer;font-weight:700;overflow:hidden;color:var(--mute)}
+.swc input{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.dc{width:44px;height:44px;border-radius:12px;color:#fff;font-weight:700;display:grid;place-items:center;flex:none;font-size:15px}
+.pr{display:inline-block;background:var(--yel);color:#0b2447;font-weight:700;font-size:14px;padding:2px 12px;border-radius:12px;margin-bottom:6px}
+.pricebadge{display:inline-block;background:var(--yel);color:#0b2447;font-weight:700;font-size:20px;padding:6px 20px;border-radius:24px;margin-top:12px;position:relative;z-index:1}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="top"><button id="bk" class="hide" onclick="go('')">← ফিরে যাও</button><span></span></div>
+  <div id="hHome">
+    <div class="brand">Jabirs Weg</div>
+    <div class="hi" id="hi">Hallo!</div>
+    <p class="tag">কোর্স বেছে নাও, জার্মান ভাষার পথে এগিয়ে যাও</p>
+  </div>
+  <div id="hCourse" class="hide">
+    <div class="brand sm">Jabirs Weg</div>
+    <div class="big" id="cBig"></div>
+    <div class="hi" id="cTitle" style="margin-top:4px"></div>
+    <p class="tag" id="cDesc"></p>
+    <div id="cPrice" class="pricebadge hide"></div>
+  </div>
+  <div id="hAdm" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi">Admin Panel</div></div>
+  <div id="hMy" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">🎟️ আমার ব্যাচ</div></div>
+</div>
+<div class="stripe"></div>
+<main>
+  <section id="home">
+    <div class="card wide" id="pathCard" style="margin-top:14px"><h2>🛤️ তোমার লক্ষ্য কী?</h2><p class="sub">লক্ষ্যটা বেছে নাও, পথের স্টেশনগুলো একে একে খুলে যাবে</p><div class="mv" id="mv"></div><div id="mvTxt"></div></div>
+    <div class="card wide" style="margin-top:14px"><h2>কোর্স বেছে নিন</h2><p class="sub">তোমার পছন্দের একটি কোর্স ট্যাপ করো</p></div>
+    <div id="cards" style="display:contents"><div class="card wide"><p class="sub">লোড হচ্ছে…</p></div></div>
+    <div class="card wide hide" id="chipCard"><div id="fsub0" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
+    <div class="card wide hide" id="doneCard"><h2>✅ সম্পন্ন কোর্স</h2><p class="sub">যে ব্যাচগুলো সফলভাবে শেষ হয়েছে</p><div id="doneList"></div></div>
+    <div class="card wide">
+      <h2>আমার ব্যাচ</h2>
+      <p class="sub">বুকিং আইডি অথবা মোবাইল নম্বর দিয়ে তোমার কোর্স, ব্যাচ কোড, ক্লাসের সময় ও টিকিট দেখো</p>
+      <button class="w" id="myBtn" onclick="go('my')">আমার ব্যাচ দেখো →</button>
+    </div>
+    <div class="card wide" id="aboutCard">
+      <h2>Jabirs Weg সম্পর্কে</h2>
+      <p style="font-size:15px;line-height:1.7;margin:6px 0 0">Jabirs Weg মানে “জাবিরের পথ”। জার্মান ভাষা শেখার এই পথে আমরা সহজ বাংলায়, ধাপে ধাপে তোমার পাশে আছি। একদম শূন্য থেকে শুরু করে স্বাধীনভাবে কথা বলা ও লেখা পর্যন্ত, নিয়মিত ক্লাস আর অনুশীলনের মাধ্যমে।</p>
+      <div class="abt"><span>ছোট ব্যাচ</span><span>বাংলায় সহজ ব্যাখ্যা</span><span>A1 থেকে B1</span></div>
+    </div>
+  </section>
 
--- Link every booking to its course
-alter table public.bookings add column if not exists course_id uuid references public.courses(id);
-update public.bookings k set course_id = c.id from public.courses c where c.code = k.level and k.course_id is null;
-do $$
-begin
-  if not exists (select 1 from public.bookings where course_id is null) then
-    alter table public.bookings alter column course_id set not null;
-  end if;
-end $$;
-alter table public.bookings drop constraint if exists bookings_level_check;
-drop index if exists public.bookings_level_batch_phone_active;
-create unique index if not exists bookings_course_batch_phone_active on public.bookings(course_id, batch, phone) where active;
+  <section id="course" class="hide">
+    <div class="card">
+      <div id="learnWrap"><h2>এই কোর্সে কী শিখবে</h2><ul class="lrn" id="cList"></ul></div>
+      <div id="cInfo"></div>
+    </div>
+    <div class="card">
+      <div class="free"><div><h2>আসন পরিস্থিতি</h2><p class="sub" id="fsub"></p></div><div><b id="fn">30</b> <span class="sub">টি খালি</span></div></div>
+      <div class="seats" id="seats"></div>
+    </div>
+    <div class="card hide" id="waitCard" style="text-align:center">
+      <h2>⏳ রেজিস্ট্রেশন এখনো শুরু হয়নি</h2>
+      <p class="sub">রেজিস্ট্রেশন শুরু হবে</p>
+      <div style="font-size:18px;font-weight:700;margin:4px 0" id="waitWhen"></div>
+      <div class="cd"><b id="waitCd" style="font-size:26px"></b></div>
+      <p class="sub" style="margin-top:10px">সময় হলে এই পেজেই ফর্ম নিজে থেকে খুলে যাবে। পেজটা খোলা রাখো।</p>
+    </div>
+    <div class="card" id="formCard">
+      <h2 id="fTitle"></h2>
+      <label class="f">নাম<input class="t" id="nm" autocomplete="name" spellcheck="false"></label>
+      <label class="f">মোবাইল নম্বর<input class="t" id="ph" inputmode="tel" placeholder="01XXXXXXXXX" autocomplete="tel"></label>
+      <label class="f">ইমেইল<input class="t" id="em" type="email" autocomplete="email"></label>
+      <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>Website<input id="hp" tabindex="-1" autocomplete="off"></label></div>
+      <div style="background:var(--soft);border-radius:12px;padding:12px;margin-top:14px">
+        <span class="sub">তুমি মানুষ কি না নিশ্চিত হতে ছোট একটা প্রশ্নের উত্তর দাও:</span>
+        <div style="font-size:24px;font-weight:700;margin:6px 0" id="chQ">…</div>
+        <input class="t" id="chA" inputmode="numeric" autocomplete="off" placeholder="উত্তর লেখো">
+        <button class="g" style="padding:4px 12px;font-size:12px;margin-top:8px" onclick="loadChallenge(true)">অন্য প্রশ্ন</button>
+      </div>
+      <button class="w" id="subBtn" onclick="submitReg()">আমার আসন বুক করো →</button>
+      <div class="msg" id="err"></div>
+    </div>
+    <div class="hide" id="okCard">
+      <div class="card" style="text-align:center">
+        <div>🎟️ Willkommen! তোমার বুকিং আইডি</div>
+        <div class="no2" id="okNo"></div>
+        <p class="sub">আইডিটা সংরক্ষণ করো। পেমেন্ট নিশ্চিত হলে "আমার ব্যাচ" পেজে স্ট্যাটাস Paid হবে।</p>
+        <img id="tkImg" class="tkimg" alt="Ticket">
+        <div class="tools" style="justify-content:center"><button onclick="saveTicket()">⬇ টিকিট ডাউনলোড</button><button class="g hide" id="shBtn" onclick="shareTicket()">শেয়ার করো</button></div>
+        <p class="sub" style="font-size:12px">ডাউনলোড না হলে ছবিটা চেপে ধরে সেভ করো।</p>
+        <button class="g w" onclick="copyNo()" id="cpBtn">বুকিং আইডি কপি করো</button>
+        <button class="w" onclick="go('my')">আমার ব্যাচ পেজ দেখো →</button>
+      </div>
+    </div>
+    <div class="card closed hide" id="closedCard">
+      <h2 id="clTitle">Registration Closed</h2>
+      <div id="clMsg"></div>
+    </div>
+  </section>
 
--- Batch codes (existing batches get a starter code like A1-1; rename them in the admin panel)
-alter table public.bookings add column if not exists batch_code text;
-update public.courses set batch_code = upper(slug) || '-' || current_batch where batch_code is null;
-update public.bookings b set batch_code = upper(c.slug) || '-' || b.batch from public.courses c where c.id = b.course_id and b.batch_code is null;
-alter table public.courses alter column batch_code set not null;
-do $$
-begin
-  if not exists (select 1 from public.bookings where batch_code is null) then
-    alter table public.bookings alter column batch_code set not null;
-  end if;
-end $$;
+  <section id="my" class="hide">
+    <div class="card" id="myLookup">
+      <h2>আমার ব্যাচ দেখো</h2>
+      <p class="sub">বুকিং আইডি মনে না থাকলে মোবাইল নম্বর দিলেই হবে</p>
+      <label class="f">বুকিং আইডি অথবা মোবাইল নম্বর<input class="t" id="myKey" placeholder="JW123456 অথবা 01XXXXXXXXX" autocomplete="off" spellcheck="false"></label>
+      <button class="w" onclick="lookupMy()">দেখো</button>
+      <div class="msg" id="myErr"></div>
+    </div>
+    <div id="myRes" class="hide">
+      <div id="myList"></div>
+      <button class="w g" onclick="forgetMy()">অন্য বুকিং দেখো</button>
+    </div>
+  </section>
 
--- Completed batches (shown on the home page under "সম্পন্ন কোর্স")
-create table if not exists public.completions (
-  id uuid primary key default gen_random_uuid(),
-  course_id uuid references public.courses(id) on delete set null,
-  code text not null, title text not null, subtitle text not null default '', color text not null default '#0058a3',
-  batch_code text not null, students int not null default 0,
-  completed_at timestamptz not null default now()
-);
-alter table public.completions enable row level security;
--- the old orange course colour is replaced
-update public.courses set color = '#3b5bdb' where lower(color) = '#e8590c';
+  <section id="adm" class="hide">
+    <div class="card" id="loginCard">
+      <h2>Admin Login</h2>
+      <label class="f">ইমেইল<input class="t" id="ae" type="email" autocomplete="username"></label>
+      <label class="f">পাসওয়ার্ড<input class="t" id="pw" type="password" autocomplete="current-password"></label>
+      <button class="w" onclick="login()">লগইন</button>
+      <div class="msg" id="lerr"></div>
+    </div>
+    <div class="card hide" id="panel">
+      <div class="tabs" id="tabs">
+        <button class="on" data-t="ov">📊 ওভারভিউ</button>
+        <button data-t="bk">👥 বুকিং<span class="cnt hide" id="newCnt"></span></button>
+        <button data-t="co">📚 কোর্স</button>
+        <button class="lo" onclick="logout()">লগআউট</button>
+      </div>
 
--- Registration opening time + human check questions
-alter table public.courses add column if not exists reg_open_at timestamptz;
-create table if not exists public.challenges (id uuid primary key default gen_random_uuid(), answer int not null, ip text, created_at timestamptz not null default now());
-create index if not exists challenges_created on public.challenges(created_at);
-alter table public.challenges enable row level security;
+      <div id="tOv">
+        <div id="newBanner" class="hide" onclick="goTab('bk')" style="background:#fff0b3;color:#6b5200;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-weight:600;cursor:pointer"></div>
+        <div id="sum" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px"></div>
+        <h2 class="sh">কোর্স অবস্থা <span class="sub" style="font-weight:400">(ট্যাপ করলে এডিট)</span></h2>
+        <div id="ovCourses"></div>
+        <h2 class="sh">সাম্প্রতিক বুকিং</h2>
+        <div id="ovRecent"></div>
+        <button class="g w" onclick="goTab('bk')">সব বুকিং দেখো →</button>
+      </div>
 
--- Bot protection log (which address registered when; used for the limits in register_booking)
-create table if not exists public.reg_log (id bigserial primary key, ip text, at timestamptz not null default now());
-create index if not exists reg_log_at on public.reg_log(at);
-create index if not exists reg_log_ip_at on public.reg_log(ip, at);
-alter table public.reg_log enable row level security;
+      <div id="tBk" class="hide">
+        <div id="seenBar" class="hide"><span id="seenTxt"></span><button onclick="markSeen()">সব দেখেছি ✓</button></div>
+        <input class="t" id="q" placeholder="নাম, বুকিং নম্বর, ফোন বা ব্যাচ কোড খোঁজো" oninput="qIn()" autocomplete="off" spellcheck="false">
+        <div class="tools" style="margin-top:8px"><button class="g" id="fBtn" onclick="toggleF()">ফিল্টার ▾</button><button onclick="csv()">CSV ডাউনলোড</button></div>
+        <div id="fPanel" class="hide">
+          <div class="tools">
+            <select class="t" id="fc" onchange="fch()"><option value="">সব কোর্স</option></select>
+            <select class="t" id="fb" onchange="fch()"><option value="">সব ব্যাচ</option></select>
+            <select class="t" id="fp" onchange="fch()"><option value="">সব পেমেন্ট</option><option value="paid">Paid</option><option value="pending">Pending</option></select>
+            <select class="t" id="fs" onchange="fch()"><option value="">সব স্ট্যাটাস</option><option value="active">Active</option><option value="cancelled">Cancelled</option></select>
+            <button class="g" onclick="clearF()">রিসেট</button>
+          </div>
+        </div>
+        <div class="sub" id="shown" style="margin:8px 0"></div>
+        <div id="bkList"></div>
+        <button class="g w hide" id="moreBtn" onclick="moreBk()">আরও দেখাও</button>
+      </div>
 
--- Remove every older version of the functions
-drop function if exists public.seat_counts();
-drop function if exists public.set_level_all(text,boolean,boolean,int,text,text,text,text,text,text);
-drop function if exists public.set_level_all(text,boolean,boolean,int,text,text,text,text,text,text,text);
-drop function if exists public.set_level_control(text,boolean,int,text);
-drop function if exists public.start_new_batch(text);
-drop function if exists public.check_booking(text);
-drop function if exists public.public_courses();
-drop function if exists public.register_booking(text,text,text,text);
-drop function if exists public.register_booking(text,text,text,text,uuid,int);
-drop function if exists public.new_challenge();
-drop function if exists public.complete_batch(uuid);
-drop function if exists public.public_completed();
-drop function if exists public.delete_completion(uuid);
-drop function if exists public.save_course(uuid,text,text,text,text,text,boolean,boolean,int,text,text,text,text,text,text,text,text,text,text);
-drop function if exists public.save_course(uuid,text,text,text,text,text,boolean,boolean,int,text,text,text,text,text,text,text,text,text,text,text);
-drop function if exists public.new_batch(uuid);
-drop function if exists public.new_batch(uuid,text);
-drop function if exists public.delete_course(uuid);
-drop function if exists public.my_booking(text,text);
-drop function if exists public.my_booking(text);
-drop function if exists public.save_course(uuid,text,text,text,text,text,boolean,boolean,int,text,text,text,text,text,text,text);
-drop function if exists public.save_course(uuid,text,text,text,text,text,boolean,boolean,int,text,text,text,text,text,text,text,text);
-drop function if exists public.save_course(uuid,text,text,text,text,text,boolean,boolean,int,text,text,text,text,text,text,text,text,text);
+      <div id="tCo" class="hide">
+        <button class="y w" style="margin-top:0" onclick="addCourse()">+ নতুন কোর্স যোগ করো</button>
+        <div id="ctl" style="margin-top:12px"></div>
+        <h2 class="sh">✅ সম্পন্ন কোর্স</h2>
+        <p class="sub">"ব্যাচ সম্পন্ন করো" চাপলে এখানে জমা হয় আর হোম পেজেও দেখায়।</p>
+        <div id="doneAdm"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><a class="fbw" href="https://www.facebook.com/share/1PiMuePZN2/" target="_blank" rel="noopener" aria-label="Facebook পেজে যাও"><span>আমাদের সাথে পথ চলো</span><i class="fbl"></i><span class="fb"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg></span></a><div>© Jabirs Weg · Deutsch lernen mit Freude</div></footer>
+<div id="dv" class="hide"><div id="dvh" class="dvh"></div><div id="dvb" class="dvb"></div><div id="dvn" class="dvn"></div></div>
+<script src="config.js"></script>
+<script>
+/*CLIENT_START*/
+var SUPABASE_URL=window.JW_URL||'https://tnxamkcdlutigzwigipu.supabase.co',SUPABASE_KEY=window.JW_KEY||'PASTE_PUBLISHABLE_KEY';
+var NE={message:'network'};
+function tok(){try{return JSON.parse(localStorage.getItem('jw_sess'))}catch(e){return null}}
+function setTok(v){try{if(v)localStorage.setItem('jw_sess',JSON.stringify(v));else localStorage.removeItem('jw_sess')}catch(e){}}
+function saveSess(j){setTok({access_token:j.access_token,refresh_token:j.refresh_token,expires_at:Math.floor(Date.now()/1000)+(j.expires_in||3600)})}
+async function bearer(){
+  var t=tok();if(!t)return null;
+  if(t.expires_at*1000-Date.now()>60000)return t.access_token;
+  try{
+    var r=await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:t.refresh_token})});
+    var j=await r.json();
+    if(!r.ok){setTok(null);return null}
+    saveSess(j);return j.access_token;
+  }catch(e){return t.access_token}
+}
+async function http(path,opt){
+  opt=opt||{};
+  var h={apikey:SUPABASE_KEY,'Content-Type':'application/json'};
+  var t=await bearer();
+  if(t)h.Authorization='Bearer '+t;else if(SUPABASE_KEY.indexOf('sb_')!==0)h.Authorization='Bearer '+SUPABASE_KEY;
+  try{
+    var r=await fetch(SUPABASE_URL+path,{method:opt.method||'GET',headers:h,body:opt.body?JSON.stringify(opt.body):undefined});
+    var txt=await r.text(),j=null;
+    try{j=txt?JSON.parse(txt):null}catch(e){}
+    if(!r.ok)return{data:null,error:{message:(j&&(j.message||j.msg||j.error_description))||('http '+r.status)}};
+    return{data:j,error:null};
+  }catch(e){return{data:null,error:NE}}
+}
+var SB={
+  rpc:function(fn,args){return http('/rest/v1/rpc/'+fn,{method:'POST',body:args||{}})},
+  from:function(tbl){
+    var st={m:'GET',q:[],b:null};
+    var o={
+      select:function(c){st.q.push('select='+encodeURIComponent(c||'*'));return o},
+      order:function(c,op){st.q.push('order='+c+(op&&op.ascending===false?'.desc':'.asc'));return o},
+      update:function(b){st.m='PATCH';st.b=b;return o},
+      eq:function(c,v){st.q.push(c+'=eq.'+encodeURIComponent(v));return o},
+      then:function(res,rej){return http('/rest/v1/'+tbl+(st.q.length?'?'+st.q.join('&'):''),{method:st.m,body:st.b}).then(res,rej)}
+    };
+    return o;
+  },
+  auth:{
+    getSession:async function(){var t=await bearer();return{data:{session:t?{access_token:t}:null}}},
+    signInWithPassword:async function(c){
+      try{
+        var r=await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({email:c.email,password:c.password})});
+        var j=await r.json();
+        if(!r.ok)return{error:{message:j.error_description||j.msg||'invalid'}};
+        saveSess(j);return{error:null};
+      }catch(e){return{error:NE}}
+    },
+    signOut:async function(){setTok(null);return{}}
+  }
+};
+/*CLIENT_END*/
+var COMP=[],formT=0,srvOff=0,chal=null,chalBusy=false,cur='',lastNo='',PC=[],CBY={},loaded=false,AC=[],rows=[],dirty={},draft=false,qT=0;
+var COLORS=[['সবুজ','#1e8e5a'],['জলপাই','#5c7f2e'],['নীল','#0058a3'],['আকাশি','#1c7ed6'],['ইন্ডিগো','#3b5bdb'],['বেগুনি','#6f42c1'],['গোলাপি','#c2255c'],['লাল','#c92a2a'],['টিল','#0c8599'],['বাদামি','#8d5a3b'],['স্লেট','#4c6a8a'],['নেভি','#1a2a4a']];
+var greets=['Hallo!','Guten Tag!','Willkommen!','Los geht’s!','Viel Erfolg!'],gi=0;
+function $(id){return document.getElementById(id)}
+function show(id,on){$(id).classList.toggle('hide',!on)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function lat(t){return String(t).replace(/[০-৯]/g,function(d){return '০১২৩৪৫৬৭৮৯'.indexOf(d)})}
+setInterval(function(){if(document.hidden||$('home').classList.contains('hide'))return;var a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='SELECT'))return;gi=(gi+1)%greets.length;$('hi').textContent=greets[gi]},2200);
+function go(v){location.hash=v}
+window.addEventListener('hashchange',route);
 
--- Public: visible courses with live seat counts (i_ro = registration opens at, i_now = server time)
-create function public.public_courses()
-returns table(slug text, code text, title text, subtitle text, learn text, color text, cnt int, bt int, bc text, op boolean, cap int, nt text,
-              i_mode text, i_time text, i_days text, i_start text, i_extra text, i_dur text, i_sd text, i_ro text, i_now text, i_price text)
-language sql security definer set search_path = public as $$
-  select c.slug, c.code, c.title, c.subtitle, c.learn, c.color,
-         (select count(*)::int from public.bookings k where k.course_id = c.id and k.batch = c.current_batch and k.active),
-         c.current_batch, c.batch_code, c.is_open, c.capacity, c.note,
-         c.info_mode, c.info_time, c.info_days, c.info_start, c.info_extra, c.info_duration,
-         coalesce(c.start_date::text, ''),
-         coalesce(to_char(c.reg_open_at at time zone 'utc', 'YYYY-MM-DD"T"HH24:MI:SS"Z"'), ''),
-         to_char(now() at time zone 'utc', 'YYYY-MM-DD"T"HH24:MI:SS"Z"'),
-         c.price
-  from public.courses c where not c.is_hidden order by c.sort, c.code
-$$;
+/* ---------- public ---------- */
+function norm(x){return{slug:x.slug,code:x.code,title:x.title,subtitle:x.subtitle||'',learn:String(x.learn||'').split('\n').map(function(t){return t.trim()}).filter(Boolean),color:x.color||'#0058a3',cnt:x.cnt||0,bt:x.bt||1,bc:x.bc||'',op:x.op!==false,cap:x.cap||30,nt:x.nt||'',i:{mode:x.i_mode||'',dur:x.i_dur||'',time:x.i_time||'',days:x.i_days||'',start:x.i_start||'',extra:x.i_extra||'',sd:x.i_sd||''},ro:x.i_ro||'',price:x.i_price||''}}
+async function loadCourses(first){
+  var r=await SB.rpc('public_courses');
+  if(!r.error&&Array.isArray(r.data)){
+    if(r.data.length&&r.data[0].i_now){srvOff=new Date(r.data[0].i_now).getTime()-Date.now()}
+    PC=r.data.map(norm);CBY={};loadCompleted();PC.forEach(function(c){CBY[c.slug]=c});loaded=true;
+    if(first)route();else render();
+  }else if(!loaded){
+    $('cards').innerHTML='<div class="card wide"><p class="sub">'+(r.error&&r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, পেজ রিফ্রেশ করো।':'কোর্সের তথ্য আনা যায়নি, একটু পরে আবার চেষ্টা করো।')+'</p></div>';
+  }
+}
+function route(){
+  var v=(location.hash||'').replace('#',''),c=CBY[v];
+  if(v&&v!=='admin'&&v!=='my'&&!c&&loaded){location.hash='';return}
+  var view=v==='admin'?'adm':(v==='my'?'my':(c?'course':'home'));
+  cur=c?v:'';
+  if(c)document.body.style.setProperty('--p',c.color);else document.body.style.removeProperty('--p');
+  show('home',view==='home');show('course',view==='course');show('adm',view==='adm');show('my',view==='my');
+  show('hHome',view==='home');show('hCourse',view==='course');show('hAdm',view==='adm');show('hMy',view==='my');
+  show('bk',view!=='home');
+  if(view==='course'){show('okCard',false);$('err').textContent='';formT=Date.now();chal=null}
+  if(view==='adm')initAdmin();
+  if(view==='my')initMy();
+  var ms=myLS();$('myBtn').textContent=ms&&ms.k?'আমার ব্যাচ দেখো ('+ms.k+') →':'আমার ব্যাচ দেখো →';
+  render();
+  if(loaded&&view!=='adm')loadCourses(false);
+  window.scrollTo(0,0);
+}
+function render(){renderHome();renderCourse()}
+function nowMs(){return Date.now()+srvOff}
+function isWait(c){return !!c.ro&&nowMs()<new Date(c.ro).getTime()}
+function cdTxt(ms){var s=Math.max(0,Math.floor(ms/1000)),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),x=s%60,o=[];if(d)o.push(d+' দিন');if(d||h)o.push(h+' ঘণ্টা');o.push(m+' মিনিট');o.push(x+' সেকেন্ড');return o.join(' ')}
+function fmtShort(iso){var d=new Date(iso);if(isNaN(d))return '';var h=d.getHours(),ap=h>=12?'PM':'AM';h=h%12||12;return d.getDate()+' '+MON[d.getMonth()]+(d.getFullYear()!==new Date().getFullYear()?' '+d.getFullYear():'')+', '+h+':'+(d.getMinutes()<10?'0':'')+d.getMinutes()+' '+ap}
+function tickWait(){var c=CBY[cur];if(!c||!isWait(c))return;$('waitWhen').textContent=fmtDT(c.ro);$('waitCd').textContent=cdTxt(new Date(c.ro).getTime()-nowMs())}
+setInterval(function(){
+  var c=CBY[cur];if(!c||!c.ro||$('course').classList.contains('hide'))return;
+  if(isWait(c))tickWait();else if(!$('waitCard').classList.contains('hide'))loadCourses(false);
+},1000);
+async function loadChallenge(force){
+  if(chalBusy||(chal&&!force))return;
+  chalBusy=true;chal=null;$('chQ').textContent='…';$('chA').value='';
+  var r=await SB.rpc('new_challenge');
+  chalBusy=false;
+  if(r.error||!r.data||!r.data.length){$('chQ').textContent=r.error&&r.error.message.indexOf('too_many')>=0?'কিছুক্ষণ পরে চেষ্টা করো':'প্রশ্ন আসেনি, "অন্য প্রশ্ন" চাপো';return}
+  chal={cid:r.data[0].cid,q:r.data[0].q};$('chQ').textContent=chal.q+' = ?';
+}
+var MV=[
+ {i:'🎓',t:'পড়াশোনা',s:['সার্টিফিকেট ও কাগজপত্র গুছিয়ে নেওয়া','Studienkolleg বা বিশ্ববিদ্যালয়ে আবেদন','ভিসা ও আর্থিক প্রমাণ','জার্মানিতে ক্লাস শুরু']},
+ {i:'💼',t:'Ausbildung ও কাজ',s:['পেশা ও ক্ষেত্র বেছে নেওয়া','সিভি ও আবেদনপত্র তৈরি','প্রতিষ্ঠানে আবেদন','ভিসা ও কাগজপত্র','নতুন কাজ বা প্রশিক্ষণ শুরু']},
+ {i:'👨‍👩‍👧',t:'পরিবার',s:['প্রয়োজনীয় সনদ ও কাগজপত্র গোছানো','ভিসার আবেদন','প্রক্রিয়া ও অপেক্ষা','পরিবারের সাথে নতুন জীবন']}
+];
+var mv=-1,BN=['২','৩','৪','৫','৬','৭'];
+function mvSel(i){mv=mv===i?-1:i;renderWg()}
+function renderWg(){
+  var m=MV[mv];
+  $('mv').innerHTML=MV.map(function(x,i){return '<button class="'+(i===mv?'on':'')+'" onclick="mvSel('+i+')"><span>'+x.i+'</span>'+esc(x.t)+'</button>'}).join('');
+  if(mv<0){$('mvTxt').innerHTML='';return}
+  $('mvTxt').innerHTML='<ul class="tl"><li class="me" style="animation-delay:0s"><i>১</i><b>ভাষা শেখা</b><span class="tg">এই ধাপে Jabirs Weg তোমার পাশে</span></li>'+m.s.map(function(t,k){return '<li style="animation-delay:'+((k+1)*0.15)+'s"><i>'+BN[k]+'</i>'+esc(t)+'</li>'}).join('')+'</ul><small class="tn">নিয়ম বদলাতে পারে, আবেদনের আগে অফিসিয়াল সাইট দেখে নাও।</small>';
+}
+async function loadCompleted(){
+  var r=await SB.rpc('public_completed');
+  if(!r.error&&Array.isArray(r.data)){COMP=r.data;renderDone();if(typeof renderDoneAdm==='function')renderDoneAdm()}
+}
+function renderDone(){
+  $('doneList').innerHTML=COMP.map(function(x){
+    return '<div class="row" style="align-items:center"><div style="display:flex;gap:10px;align-items:center;min-width:0"><span class="dc" style="background:'+esc(x.color)+'">'+esc(x.code)+'</span><div style="min-width:0"><b>'+esc(x.title)+'</b><div class="sub">ব্যাচ '+esc(x.batch_code)+(x.students?' · '+x.students+' জন শিক্ষার্থী':'')+'</div></div></div><span class="sub" style="flex:none">'+esc(fmtDate(x.completed_at))+'</span></div>';
+  }).join('');
+  show('doneCard',COMP.length>0);
+}
+function renderHome(){
+  if(!loaded)return;
+  var codes={};PC.forEach(function(c){codes[c.code]=(codes[c.code]||0)+1});
+  $('cards').innerHTML=PC.map(function(c){
+    var left=Math.max(0,c.cap-c.cnt),w=c.op&&isWait(c),off=(!c.op||left<=0)&&!w;
+    var hot=c.op&&!w&&left>0&&left<=5,chs=[];
+    if(c.i.mode)chs.push(c.i.mode);if(c.i.sd)chs.push('শুরু '+fmtDate(c.i.sd));
+    var pct=Math.min(100,Math.round(c.cnt/Math.max(1,c.cap)*100));
+    return '<button class="cc" style="--c:'+esc(c.color)+'" data-s="'+esc(c.slug)+'"><em'+(c.code.length>2?' style="font-size:20px"':'')+'>'+esc(c.code)+'</em><span>'+(c.price?'<div class="pr">'+esc(lat(c.price))+'</div>':'')+'<b>'+esc(c.title)+'</b><small>'+esc(lat(c.subtitle))+'</small>'+(chs.length?'<span class="chs">'+chs.map(function(t){return '<u>'+esc(t)+'</u>'}).join('')+'</span>':'')+'<span class="bar"><s style="width:'+pct+'%"></s></span><span class="bdg'+(off?' off':(hot?' hot':''))+'">'+(w?'শুরু: '+esc(fmtShort(c.ro)):(!c.op?'রেজিস্ট্রেশন বন্ধ':(left<=0?'পূর্ণ':(hot?'মাত্র '+left+'টি আসন বাকি':left+'টি খালি'))))+'</span></span><span class="go">›</span></button>';
+  }).join('')||'<div class="card wide"><p class="sub">বর্তমানে কোনো কোর্সের রেজিস্ট্রেশন চালু নেই। নতুন ব্যাচ শুরু হলে এখানে জানানো হবে।</p></div>';
+  
+  renderWg();
+  $('fsub0').innerHTML=PC.map(function(c){
+    var left=Math.max(0,c.cap-c.cnt),w=c.op&&isWait(c),off=(!c.op||left<=0)&&!w;
+    return '<span class="bdg'+(off?' off':'')+'" style="font-size:14px;padding:4px 14px">'+esc(codes[c.code]>1?c.title:c.code)+' = '+(w?'শীঘ্রই':(!c.op?'বন্ধ':(left<=0?'পূর্ণ':left+' খালি')))+'</span>';
+  }).join('');
+  show('chipCard',PC.length>0);
+}
+function renderCourse(){
+  var c=CBY[cur];if(!c)return;
+  var left=Math.max(0,c.cap-c.cnt),h='';
+  $('cBig').textContent=c.code;$('cBig').style.fontSize=c.code.length>3?'48px':'';
+  $('cTitle').textContent=c.title;$('cDesc').textContent=lat(c.subtitle);
+  $('cPrice').textContent=c.price?'কোর্স ফি: '+lat(c.price):'';show('cPrice',!!c.price);
+  show('learnWrap',c.learn.length>0);
+  $('cList').innerHTML=c.learn.map(function(x){return '<li>'+esc(x)+'</li>'}).join('');
+  $('fTitle').textContent=c.title+' – রেজিস্ট্রেশন';
+  for(var i=0;i<c.cap;i++)h+='<i class="'+(i<c.cnt?'t':'')+'"></i>';
+  $('seats').innerHTML=h;$('fn').textContent=left;
+  $('fsub').textContent=left>0&&left<=10?'তাড়াতাড়ি করো, আসন প্রায় শেষ!':c.cap+'টি আসন';
+  var I=c.i,ri=[['কোর্স ফি',c.price],['ধরন',I.mode],['সময়কাল',I.dur],['সময়',I.time],['বার',I.days],['কবে থেকে শুরু',startTxt(I.sd,I.start)],['বিস্তারিত',I.extra]].filter(function(x){return x[1]});
+  $('cInfo').innerHTML=ri.length?'<h2 style="font-size:16px;margin:14px 0 4px">কোর্সের বিস্তারিত</h2>'+ri.map(function(x){return '<div class="irow"><span>'+x[0]+'</span><b>'+esc(lat(x[1]))+'</b></div>'}).join(''):'';
+  var ok=!$('okCard').classList.contains('hide'),off=!c.op,wait=c.op&&isWait(c),full=c.op&&!wait&&c.cnt>=c.cap;
+  show('closedCard',(off||full)&&!ok);show('waitCard',wait&&!ok);show('formCard',!off&&!full&&!wait&&!ok);
+  if(!off&&!full&&!wait&&!ok&&!chal)loadChallenge();
+  if(wait)tickWait();
+  if(off||full){
+    $('clTitle').textContent=off?'রেজিস্ট্রেশন এখন বন্ধ':'Registration Closed';
+    $('clMsg').textContent=(off?'এই ব্যাচের রেজিস্ট্রেশন এখন বন্ধ আছে।':'দুঃখিত, এই ব্যাচের '+c.cap+'টি বুকিং পূর্ণ হয়েছে।')+' '+(lat(c.nt)||'চালু হলে এখানেই রেজিস্ট্রেশন খুলবে।');
+  }
+}
+$('cards').onclick=function(e){var t=e.target,b=t&&t.closest?t.closest('button[data-s]'):null;if(b)go(b.getAttribute('data-s'))};
+function msgOf(e){
+  var m=(e&&e.message)||'';
+  if(m==='network')return 'ইন্টারনেট সংযোগ সমস্যা, আবার চেষ্টা করো।';
+  if(m.indexOf('bad_answer')>=0)return 'যোগ-বিয়োগের উত্তর ঠিক হয়নি। নতুন প্রশ্নটা দেখো।';
+  if(m.indexOf('not_yet')>=0)return 'এই কোর্সের রেজিস্ট্রেশন এখনো শুরু হয়নি।';
+  if(m.indexOf('too_many')>=0)return 'অল্প সময়ে অনেকবার রেজিস্ট্রেশন হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করো।';
+  if(m.indexOf('busy')>=0)return 'এই মুহূর্তে অনেক রেজিস্ট্রেশন চলছে, ১০ মিনিট পরে আবার চেষ্টা করো।';
+  if(m.indexOf('reg_off')>=0)return 'এই ব্যাচের রেজিস্ট্রেশন এখন বন্ধ আছে।';
+  if(m.indexOf('closed')>=0)return 'দুঃখিত, এই ব্যাচের সব বুকিং পূর্ণ হয়েছে।';
+  if(m.indexOf('duplicate')>=0)return 'এই নম্বর দিয়ে আগেই বুকিং আছে।';
+  if(m.indexOf('invalid_name')>=0)return 'সঠিক নাম লেখো।';
+  if(m.indexOf('invalid_phone')>=0)return 'সঠিক মোবাইল নম্বর দাও।';
+  if(m.indexOf('invalid_email')>=0)return 'সঠিক ইমেইল দাও।';
+  return 'একটু সমস্যা হয়েছে, আবার চেষ্টা করো।';
+}
+async function submitReg(){
+  var c=CBY[cur];if(!c)return;
+  if($('hp').value)return;
+  var err=$('err');err.textContent='';
+  if(Date.now()-formT<2000){err.textContent='একটু অপেক্ষা করে আবার চাপো।';return}
+  var nm=$('nm').value.trim(),ph=$('ph').value.trim().replace(/[\s-]/g,''),em=$('em').value.trim();
+  if(nm.length<2){err.textContent='সঠিক নাম লেখো।';return}
+  if(!/^(\+?88)?01[3-9]\d{8}$/.test(ph)){err.textContent='সঠিক মোবাইল নম্বর দাও।';return}
+  if(!/^\S+@\S+\.\S+$/.test(em)){err.textContent='সঠিক ইমেইল দাও।';return}
+  var ans=parseInt($('chA').value,10);
+  if(!chal||isNaN(ans)){err.textContent=chal?'নিরাপত্তা প্রশ্নের উত্তর (সংখ্যা) লেখো।':'নিরাপত্তা প্রশ্ন আসেনি, "অন্য প্রশ্ন" চাপো।';return}
+  var b=$('subBtn');b.disabled=true;b.textContent='অপেক্ষা করো…';
+  var cid=chal.cid;chal=null;
+  var r=await SB.rpc('register_booking',{p_slug:c.slug,p_name:nm,p_phone:ph,p_email:em,p_cid:cid,p_ans:ans});
+  b.disabled=false;b.textContent='আমার আসন বুক করো →';
+  if(r.error){err.textContent=msgOf(r.error);loadChallenge();loadCourses(false);return}
+  lastNo=r.data;saveMy(lastNo);
+  $('okNo').textContent=lastNo;
+  show('okCard',true);$('cpBtn').textContent='বুকিং আইডি কপি করো';
+  try{await showTicket(tdata(c,nm,lastNo),'tkImg','shBtn')}catch(e){}
+  await loadCourses(false);window.scrollTo({top:0,behavior:'smooth'});
+}
+function copyNo(){try{navigator.clipboard.writeText(lastNo);$('cpBtn').textContent='কপি হয়েছে ✓'}catch(e){$('cpBtn').textContent=lastNo}}
+/* ---------- dates ---------- */
+var MON=['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+function fmtDate(s){var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s||'');return m?(+m[3])+' '+MON[+m[2]-1]+' '+m[1]:''}
+function startTxt(sd,note){var d=fmtDate(sd);if(!d)return note||'';return(note&&lat(note).replace(/\s/g,'')!==d.replace(/\s/g,''))?d+' ('+note+')':d}
+function daysLeft(s){var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s||'');if(!m)return null;var t=new Date(+m[1],+m[2]-1,+m[3]),n=new Date();n.setHours(0,0,0,0);return Math.round((t-n)/86400000)}
 
--- Public: a simple maths question (answer is checked on the server when registering)
-create function public.new_challenge()
-returns table(cid uuid, q text)
-language plpgsql security definer set search_path = public as $$
-declare a int; b int; v_op int; v_ans int; v_ip text; n int; v_id uuid;
-begin
-  v_ip := trim(split_part(coalesce((nullif(current_setting('request.headers', true), '')::json)->>'x-forwarded-for', ''), ',', 1));
-  if v_ip <> '' then
-    select count(*) into n from public.challenges where ip = v_ip and created_at > now() - interval '10 minutes';
-    if n >= 40 then raise exception 'too_many'; end if;
-  end if;
-  a := 6 + floor(random() * 14)::int;
-  b := 2 + floor(random() * 7)::int;
-  v_op := floor(random() * 2)::int;
-  if v_op = 0 then v_ans := a + b; else v_ans := a - b; end if;
-  insert into public.challenges(answer, ip) values (v_ans, nullif(v_ip, '')) returning id into v_id;
-  if random() < 0.05 then delete from public.challenges where created_at < now() - interval '1 hour'; end if;
-  cid := v_id;
-  q := a::text || case when v_op = 0 then ' + ' else ' - ' end || b::text;
-  return next;
-end $$;
+/* ---------- ticket image ---------- */
+var lastT=null;
+function tdata(c,name,no){var I=c.i;return{name:name,no:no,title:c.title,code:c.code,batch:c.bc,color:c.color,time:I.time,days:I.days,start:I.sd?fmtDate(I.sd):I.start}}
+function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath()}
+function fit(x,txt,maxW,size,wt){var z=size;do{x.font=wt+' '+z+'px "Hind Siliguri",sans-serif';z-=2}while(x.measureText(txt).width>maxW&&z>18)}
+async function drawTicket(t){
+  try{await document.fonts.load('700 30px "Hind Siliguri"','আকখ');await document.fonts.load('400 24px "Hind Siliguri"','আকখ');await document.fonts.load('600 30px "Hind Siliguri"','আকখ')}catch(e){}
+  var W=1200,H=600,cv=document.createElement('canvas');cv.width=W;cv.height=H;var x=cv.getContext('2d');
+  x.fillStyle='#f4f1ea';x.fillRect(0,0,W,H);
+  rr(x,30,30,W-60,H-60,36);x.fillStyle='#ffffff';x.fill();
+  x.save();rr(x,30,30,W-60,H-60,36);x.clip();
+  x.fillStyle=t.color;x.fillRect(30,30,260,H-60);x.fillStyle='#ffda1a';x.fillRect(290,30,10,H-60);x.restore();
+  x.textAlign='center';x.fillStyle='rgba(255,255,255,.9)';x.font='600 26px "Hind Siliguri",sans-serif';x.fillText('DEUTSCH',160,H/2-70);
+  x.fillStyle='#ffffff';x.font='700 '+(t.code.length>3?64:110)+'px "Hind Siliguri",sans-serif';x.fillText(t.code,160,H/2+34);
+  x.textAlign='left';x.fillStyle='#14213d';x.font='700 32px "Hind Siliguri",sans-serif';x.fillText('JABIRS WEG',340,92);
+  x.fillStyle='#6a7385';x.font='400 24px "Hind Siliguri",sans-serif';x.fillText('Willkommen! · টিকিট',620,92);
+  x.fillStyle='#14213d';fit(x,t.name,780,50,'700');x.fillText(t.name,340,170);
+  x.fillStyle=t.color;fit(x,t.title,780,32,'600');x.fillText(t.title,340,216);
+  var L=[];if(t.batch)L.push('ব্যাচ কোড: '+t.batch);
+  var ts=[t.time,t.days].filter(Boolean).join(' · ');if(ts)L.push(lat(ts));
+  if(t.start)L.push('শুরু: '+lat(t.start));
+  x.fillStyle='#14213d';var y=268;L.forEach(function(l){fit(x,l,780,28,'400');x.fillText(l,340,y);y+=40});
+  x.strokeStyle='#cfc8b8';x.lineWidth=3;x.setLineDash([12,10]);x.beginPath();x.moveTo(60,430);x.lineTo(W-60,430);x.stroke();x.setLineDash([]);
+  x.fillStyle='#f4f1ea';x.beginPath();x.arc(30,430,26,0,7);x.fill();x.beginPath();x.arc(W-30,430,26,0,7);x.fill();
+  x.fillStyle='#6a7385';x.font='400 24px "Hind Siliguri",sans-serif';x.fillText('বুকিং আইডি',340,486);
+  x.fillStyle=t.color;x.font='700 64px "Hind Siliguri",sans-serif';x.fillText(t.no,340,555);
+  x.textAlign='right';x.fillStyle='#6a7385';x.font='400 22px "Hind Siliguri",sans-serif';x.fillText(location.host||'',W-70,555);
+  return cv;
+}
+async function showTicket(t,imgId,shId){
+  lastT=t;var cv=await drawTicket(t);$(imgId).src=cv.toDataURL('image/png');
+  try{var f=new File([''],'a.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]}))show(shId,true)}catch(e){}
+}
+async function saveTicket(){
+  if(!lastT)return;var cv=await drawTicket(lastT);
+  cv.toBlob(function(b){if(!b)return;var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='ticket-'+lastT.no+'.png';document.body.appendChild(a);a.click();a.remove()},'image/png');
+}
+async function shareTicket(){
+  if(!lastT)return;var cv=await drawTicket(lastT);
+  cv.toBlob(function(b){try{navigator.share({files:[new File([b],'ticket-'+lastT.no+'.png',{type:'image/png'})],title:'Jabirs Weg টিকিট'})}catch(e){}},'image/png');
+}
 
--- Public: register (server enforces: maths answer, opening time, open / hidden / capacity / duplicates, bot limits)
--- Limits (change the numbers if you like): 10 registrations per internet address per hour,
--- and 150 registrations in total per 10 minutes (only a flood of fake forms reaches that).
-create function public.register_booking(p_slug text, p_name text, p_phone text, p_email text, p_cid uuid, p_ans int)
-returns text language plpgsql security definer set search_path = public as $$
-declare c public.courses%rowtype; n int; v_no text; v_ip text; n_ip int; n_all int; v_ans int;
-begin
-  if length(trim(p_name)) < 2 or length(p_name) > 80 then raise exception 'invalid_name'; end if;
-  if p_phone !~ '^(\+?88)?01[3-9][0-9]{8}$' then raise exception 'invalid_phone'; end if;
-  if p_email !~ '^\S+@\S+\.\S+$' or length(p_email) > 120 then raise exception 'invalid_email'; end if;
+/* ---------- my batch ---------- */
+var myT=[];
+function myLS(){try{return JSON.parse(localStorage.getItem('jw_my'))}catch(e){return null}}
+function saveMy(k){try{localStorage.setItem('jw_my',JSON.stringify({k:k}))}catch(e){}}
+function forgetMy(){try{localStorage.removeItem('jw_my')}catch(e){}show('myRes',false);show('myLookup',true);$('myKey').value='';$('myErr').textContent='';document.body.style.removeProperty('--p');$('myBtn').textContent='আমার ব্যাচ দেখো →'}
+async function initMy(){
+  var s=myLS();
+  if(s&&s.k){$('myKey').value=s.k;await lookupMy(true)}
+  else{show('myRes',false);show('myLookup',true)}
+}
+async function lookupMy(silent){
+  var key=$('myKey').value.trim().replace(/[\s-]/g,''),err=$('myErr');err.textContent='';
+  var isId=/^JW\d{6}$/i.test(key),isPh=/^(\+?88)?01[3-9]\d{8}$/.test(key);
+  if(!isId&&!isPh){err.textContent='বুকিং আইডি (যেমন JW123456) অথবা মোবাইল নম্বর (01XXXXXXXXX) লেখো।';show('myRes',false);show('myLookup',true);return}
+  if(isId)key=key.toUpperCase();
+  var r=await SB.rpc('my_booking',{p_key:key});
+  if(r.error){err.textContent=msgOf(r.error);show('myLookup',true);return}
+  if(!r.data||!r.data.length){err.textContent='এই আইডি বা নম্বরে কোনো বুকিং পাওয়া যায়নি।';show('myRes',false);show('myLookup',true);return}
+  saveMy(key);await renderMy(r.data);
+}
+function cardMy(m,i){
+  var left=m.m_sd?daysLeft(m.m_sd):null,cd='';
+  if(!m.m_active)cd='<div class="cd">এই বুকিং বাতিল করা হয়েছে।</div>';
+  else if(m.m_done)cd='<div class="cd"><b style="font-size:20px">✅ এই ব্যাচ সম্পন্ন হয়েছে</b></div>';
+  else if(!m.m_current)cd='<div class="cd">এটি আগের ব্যাচের বুকিং।</div>';
+  else if(left===null)cd='<div class="cd">ক্লাস শুরুর তারিখ শীঘ্রই জানানো হবে।</div>';
+  else if(left>1)cd='<div class="cd">ক্লাস শুরু হতে<b>'+left+' দিন বাকি</b></div>';
+  else if(left===1)cd='<div class="cd"><b>আগামীকাল ক্লাস শুরু!</b></div>';
+  else if(left===0)cd='<div class="cd"><b>আজ ক্লাস শুরু!</b></div>';
+  else cd='<div class="cd">ক্লাস শুরু হয়ে গেছে।</div>';
+  var ri=[['ধরন',m.m_mode],['সময়কাল',m.m_dur],['সময়',m.m_time],['বার',m.m_days],['কবে থেকে শুরু',startTxt(m.m_sd,m.m_start)],['বিস্তারিত',m.m_extra]].filter(function(x){return x[1]});
+  return '<div class="card" style="border-left:8px solid '+esc(m.m_color||'#0058a3')+'"><h2>'+esc(m.m_course)+'</h2><p class="sub">'+esc(m.m_name)+' · '+esc(m.m_no)+'</p>'
+    +'<div style="margin:8px 0"><span class="pill" style="background:var(--soft);color:var(--ink)">ব্যাচ '+esc(m.m_batch)+'</span> <span class="pill '+(m.m_paid?'pd':'pen')+'">'+(m.m_paid?'Paid':'Pending')+'</span>'+(m.m_active?'':' <span class="pill cx">Cancelled</span>')+'</div>'+cd
+    +(!m.m_paid&&m.m_active?'<p class="sub" style="margin-top:8px">পেমেন্ট নিশ্চিত হলে এখানে Paid দেখাবে।</p>':'')
+    +(ri.length?'<h2 style="font-size:16px;margin:14px 0 4px">ক্লাসের তথ্য</h2>'+ri.map(function(x){return '<div class="irow"><span>'+x[0]+'</span><b>'+esc(lat(x[1]))+'</b></div>'}).join(''):'')
+    +'<img id="mtk_'+i+'" class="tkimg" alt="Ticket"><div class="tools" style="justify-content:center"><button onclick="saveTicketAt('+i+')">⬇ টিকিট ডাউনলোড</button><button class="g hide" id="msh_'+i+'" onclick="shareTicketAt('+i+')">শেয়ার করো</button></div></div>';
+}
+async function renderMy(list){
+  document.body.style.setProperty('--p',list[0].m_color||'#0058a3');
+  myT=list.map(function(m){return{name:m.m_name,no:m.m_no,title:m.m_course,code:m.m_code,batch:m.m_batch,color:m.m_color||'#0058a3',time:m.m_time,days:m.m_days,start:m.m_sd?fmtDate(m.m_sd):m.m_start}});
+  $('myList').innerHTML=list.map(cardMy).join('');
+  show('myLookup',false);show('myRes',true);
+  var can=false;try{var f=new File([''],'a.png',{type:'image/png'});can=!!(navigator.canShare&&navigator.canShare({files:[f]}))}catch(e){}
+  for(var i=0;i<myT.length;i++){
+    if(can)show('msh_'+i,true);
+    try{var cv=await drawTicket(myT[i]);var im=$('mtk_'+i);if(im)im.src=cv.toDataURL('image/png')}catch(e){}
+  }
+}
+function saveTicketAt(i){lastT=myT[i];saveTicket()}
+function shareTicketAt(i){lastT=myT[i];shareTicket()}
 
-  select answer into v_ans from public.challenges where id = p_cid and created_at > now() - interval '15 minutes';
-  if not found or v_ans is distinct from p_ans then raise exception 'bad_answer'; end if;
+/* ---------- admin ---------- */
+var tab='ov',openK='',fOpen=false,shownN=40;
+async function isAdmin(){var a=await SB.rpc('is_admin');return a.data===true}
+async function initAdmin(){
+  var s=await SB.auth.getSession();
+  if(s.data&&s.data.session&&await isAdmin()){show('loginCard',false);show('panel',true);loadAdmin()}
+  else{show('panel',false);show('loginCard',true)}
+}
+async function login(){
+  var r=await SB.auth.signInWithPassword({email:$('ae').value.trim(),password:$('pw').value});
+  if(r.error){$('lerr').textContent=r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, আবার চেষ্টা করো।':'ইমেইল বা পাসওয়ার্ড ভুল।';return}
+  if(!(await isAdmin())){await SB.auth.signOut();$('lerr').textContent='তুমি অনুমোদিত অ্যাডমিন নও।';return}
+  $('lerr').textContent='';$('pw').value='';show('loginCard',false);show('panel',true);goTab('ov');loadAdmin();
+}
+async function logout(){await SB.auth.signOut();rows=[];AC=[];openK='';draft=false;show('panel',false);show('loginCard',true)}
+function cby(k){for(var i=0;i<AC.length;i++)if(AC[i].id===k)return AC[i];return null}
+function curCount(c){return rows.filter(function(s){return s.course_id===c.id&&s.batch===c.current_batch&&s.active}).length}
+function cname(s){var c=cby(s.course_id);return c?c.title:s.level}
+async function loadAdmin(force,except){
+  var a=await SB.from('courses').select('*').order('sort');
+  var b=await SB.from('bookings').select('*').order('created_at',{ascending:false});
+  AC=a.data||[];rows=b.data||[];
+  fillFilters();renderNew();renderOv();renderBk();renderCtl(force,except);renderDoneAdm();
+}
+function goTab(t){
+  tab=t;show('tOv',t==='ov');show('tBk',t==='bk');show('tCo',t==='co');
+  var bs=$('tabs').querySelectorAll?$('tabs').querySelectorAll('button[data-t]'):[];
+  Array.prototype.forEach.call(bs,function(b){b.classList.toggle('on',b.getAttribute('data-t')===t)});
+}
+$('tabs').onclick=function(e){var t=e.target,b=t&&t.closest?t.closest('button[data-t]'):null;if(b)goTab(b.getAttribute('data-t'))};
 
-  v_ip := trim(split_part(coalesce((nullif(current_setting('request.headers', true), '')::json)->>'x-forwarded-for', ''), ',', 1));
-  if v_ip <> '' then
-    select count(*) into n_ip from public.reg_log where ip = v_ip and at > now() - interval '1 hour';
-    if n_ip >= 10 then raise exception 'too_many'; end if;
-  end if;
-  select count(*) into n_all from public.reg_log where at > now() - interval '10 minutes';
-  if n_all >= 150 then raise exception 'busy'; end if;
+/* overview */
+function renderOv(){
+  var act=rows.filter(function(s){return s.active}),paid=act.filter(function(s){return s.paid}).length;
+  var today=new Date().toDateString(),td=rows.filter(function(s){return new Date(s.created_at).toDateString()===today}).length;
+  var t=[['মোট বুকিং',act.length],['Paid',paid],['Pending',act.length-paid],['আজকের নতুন',td]];
+  $('sum').innerHTML=t.map(function(x){return '<div class="tile"><b>'+x[1]+'</b>'+x[0]+'</div>'}).join('');
+  $('ovCourses').innerHTML=AC.map(function(c){
+    var n=curCount(c),pc=Math.min(100,Math.round(n/c.capacity*100));
+    return '<div class="row" data-k="'+c.id+'" style="cursor:pointer"><div style="flex:1;min-width:0"><b>'+esc(c.title)+'</b> <span class="sub">ব্যাচ '+esc(c.batch_code)+'</span><div class="prog"><i style="width:'+pc+'%;background:'+esc(c.color)+'"></i></div></div><span>'+n+'/'+c.capacity+'</span><span class="pill '+(c.is_open?'pd':'cx')+'">'+(c.is_open?'চালু':'বন্ধ')+'</span>'+(c.is_hidden?'<span class="pill pen">লুকানো</span>':'')+'</div>';
+  }).join('')||'<p class="sub">কোনো কোর্স নেই। "কোর্স" ট্যাবে গিয়ে যোগ করো।</p>';
+  $('ovRecent').innerHTML=rows.slice(0,5).map(function(s){
+    return '<div class="row" data-id="'+s.id+'" style="cursor:pointer"><div style="min-width:0"><b>'+esc(s.name)+'</b>'+(isNew(s)?' <span class="pill pen">নতুন</span>':'')+'<div class="sub">'+esc(cname(s))+' · '+new Date(s.created_at).toLocaleDateString('en-GB')+'</div></div><span class="pill '+(s.paid?'pd':'pen')+'">'+(s.paid?'Paid':'Pending')+'</span></div>';
+  }).join('')||'<p class="sub">এখনো কোনো বুকিং নেই।</p>';
+}
+$('ovCourses').onclick=function(e){
+  var t=e.target,r=t&&t.closest?t.closest('[data-k]'):null;if(!r)return;
+  var k=r.getAttribute('data-k');openK=k;goTab('co');renderCtl(true);
+  var el=$('cr_'+k);if(el&&el.scrollIntoView)el.scrollIntoView();
+};
 
-  perform pg_advisory_xact_lock(hashtext('jw_' || p_slug));
-  select * into c from public.courses where slug = p_slug;
-  if not found or c.is_hidden or not c.is_open then raise exception 'reg_off'; end if;
-  if c.reg_open_at is not null and now() < c.reg_open_at then raise exception 'not_yet'; end if;
-  select count(*) into n from public.bookings where course_id = c.id and batch = c.current_batch and active;
-  if n >= c.capacity then raise exception 'closed'; end if;
-  if exists (select 1 from public.bookings where course_id = c.id and batch = c.current_batch and phone = p_phone and active) then
-    raise exception 'duplicate';
-  end if;
+/* bookings */
+function fillFilters(){
+  var sc=$('fc'),vc=sc.value,hc='<option value="">সব কোর্স</option>';
+  AC.forEach(function(c){hc+='<option value="'+c.id+'">'+esc(c.title)+'</option>'});
+  sc.innerHTML=hc;sc.value=vc;
+  var seen={},codes=[];
+  rows.forEach(function(s){if(s.batch_code&&!seen[s.batch_code]){seen[s.batch_code]=1;codes.push(s.batch_code)}});
+  AC.forEach(function(c){if(c.batch_code&&!seen[c.batch_code]){seen[c.batch_code]=1;codes.push(c.batch_code)}});
+  codes.sort();
+  var sb=$('fb'),vb=sb.value;
+  sb.innerHTML='<option value="">সব ব্যাচ কোড</option>'+codes.map(function(c){return '<option value="'+esc(c)+'">'+esc(c)+'</option>'}).join('');sb.value=vb;
+}
+function vis(){
+  var q=$('q').value.trim().toLowerCase(),fc=$('fc').value,fb=$('fb').value,pf=$('fp').value,sf=$('fs').value;
+  return rows.filter(function(s){
+    if(fc&&s.course_id!==fc)return false;
+    if(fb&&s.batch_code!==fb)return false;
+    if(pf==='paid'&&!s.paid)return false;if(pf==='pending'&&s.paid)return false;
+    if(sf==='active'&&!s.active)return false;if(sf==='cancelled'&&s.active)return false;
+    if(q&&s.booking_no.toLowerCase().indexOf(q)<0&&s.phone.indexOf(q)<0&&String(s.name).toLowerCase().indexOf(q)<0&&String(s.batch_code||'').toLowerCase().indexOf(q)<0)return false;
+    return true;
+  });
+}
+function qIn(){clearTimeout(qT);qT=setTimeout(fch,180)}
+function fch(){shownN=40;renderBk()}
+function toggleF(){fOpen=!fOpen;show('fPanel',fOpen);renderBk()}
+function moreBk(){shownN+=40;renderBk()}
+function clearF(){$('q').value='';$('fc').value='';$('fb').value='';$('fp').value='';$('fs').value='';fch()}
+function renderBk(){
+  var V=vis(),L=V.slice(0,shownN);
+  $('bkList').innerHTML=L.map(function(s){
+    return '<div class="bk" data-id="'+s.id+'" style="cursor:pointer"><div class="bk-top"><b>'+esc(s.name)+'</b><span>'+(isNew(s)?'<span class="pill pen">নতুন</span> ':'')+(s.active?'':'<span class="pill cx">Cancelled</span> ')+'<span class="pill '+(s.paid?'pd':'pen')+'">'+(s.paid?'Paid':'Pending')+'</span></span></div>'
+     +'<div class="sub">'+esc(s.booking_no)+' · '+esc(cname(s))+' · ব্যাচ '+esc(s.batch_code||s.batch)+'</div>'
+     +'<div class="sub"><a href="tel:'+esc(s.phone)+'">'+esc(s.phone)+'</a> · '+esc(s.email)+'</div>'
+     +'<div class="sub" style="display:flex;justify-content:space-between;gap:8px"><span>'+new Date(s.created_at).toLocaleString('en-GB')+'</span><span style="color:var(--p);font-weight:600;flex:none">বিস্তারিত ›</span></div>'
+     +'<div class="tools"><button data-i="'+s.id+'" data-k="paid">'+(s.paid?'Pending করো':'Paid করো')+'</button><button class="g" data-i="'+s.id+'" data-k="active">'+(s.active?'বাতিল করো':'সক্রিয় করো')+'</button></div></div>';
+  }).join('')||'<p class="sub">কিছু পাওয়া যায়নি</p>';
+  $('shown').textContent=V.length+'টি বুকিং';
+  show('moreBtn',V.length>shownN);$('moreBtn').textContent='আরও দেখাও ('+(V.length-shownN)+')';
+  var n=['fc','fb','fp','fs'].filter(function(i){return $(i).value}).length;
+  $('fBtn').textContent='ফিল্টার'+(n?' ('+n+')':'')+(fOpen?' ▴':' ▾');
+}
+$('bkList').onclick=function(e){
+  var t=e.target;if(!t||!t.closest)return;
+  var b=t.closest('button[data-i]');if(b){tog(b.getAttribute('data-i'),b.getAttribute('data-k'));return}
+  if(t.closest('a'))return;
+  var c=t.closest('.bk[data-id]');if(c)openDetail(c.getAttribute('data-id'));
+};
+async function tog(id,k){
+  var row=rows.filter(function(x){return x.id===id})[0];if(!row)return;
+  var u={};u[k]=!row[k];
+  await SB.from('bookings').update(u).eq('id',id);
+  await loadAdmin();loadCourses(false);
+  if(dvId&&!$('dv').classList.contains('hide'))renderDetail();
+}
+function seenAt(){try{return localStorage.getItem('jw_seen')}catch(e){return null}}
+function isNew(s){var v=seenAt();return !!v&&new Date(s.created_at)>new Date(v)}
+function renderNew(){
+  if(!seenAt()){try{localStorage.setItem('jw_seen',new Date().toISOString())}catch(e){}}
+  var n=rows.filter(isNew).length,b=$('newBanner');
+  b.classList.toggle('hide',n===0);
+  b.textContent='🔔 '+n+'টি নতুন রেজিস্ট্রেশন এসেছে (ট্যাপ করে দেখো)';
+  show('seenBar',n>0);$('seenTxt').textContent='🔔 '+n+'টি নতুন';
+  var c=$('newCnt');c.textContent=n;c.classList.toggle('hide',n===0);
+  document.title=(n?'('+n+') ':'')+'Jabirs Weg';
+}
+function markSeen(){
+  var mx=0,pv=seenAt()?new Date(seenAt()).getTime():0;
+  rows.forEach(function(s){var t=new Date(s.created_at).getTime();if(t>mx)mx=t});
+  try{localStorage.setItem('jw_seen',new Date(Math.max(mx,pv)||Date.now()).toISOString())}catch(e){}
+  renderNew();renderOv();renderBk();
+}
+function csv(){
+  var out=[['Booking No','Course','Code','Batch','Name','Mobile','Email','Registered At','Payment','Booking']];
+  vis().forEach(function(s){out.push([s.booking_no,cname(s),s.level,s.batch_code,s.name,'\t'+s.phone,s.email,new Date(s.created_at).toLocaleString('en-GB'),s.paid?'Paid':'Pending',s.active?'Active':'Cancelled'])});
+  var t='\uFEFF'+out.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"'}).join(',')}).join('\r\n');
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/csv;charset=utf-8'}));a.download='students.csv';document.body.appendChild(a);a.click();a.remove();
+}
 
-  loop
-    v_no := 'JW' || (floor(random() * 900000) + 100000)::int::text;
-    exit when not exists (select 1 from public.bookings where booking_no = v_no);
-  end loop;
+/* booking detail view */
+var dvId='',dvList=[],dvT=null;
+function pad2(n){return n<10?'0'+n:''+n}
+function fmtDT(iso){var d=new Date(iso);if(isNaN(d))return '';var h=d.getHours(),ap=h>=12?'PM':'AM';h=h%12||12;return d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()+', '+h+':'+pad2(d.getMinutes())+' '+ap}
+function ago(iso){var m=Math.round((Date.now()-new Date(iso).getTime())/60000);if(m<1)return 'এইমাত্র';if(m<60)return m+' মিনিট আগে';var h=Math.round(m/60);if(h<24)return h+' ঘণ্টা আগে';return Math.round(h/24)+' দিন আগে'}
+function last11(v){return String(v||'').replace(/\D/g,'').slice(-11)}
+function dvRow(){for(var i=0;i<rows.length;i++)if(rows[i].id===dvId)return rows[i];return null}
+function openDetail(id,keep){
+  if(!keep||dvList.indexOf(id)<0){dvList=vis().map(function(x){return x.id});if(dvList.indexOf(id)<0)dvList=[id]}
+  dvId=id;show('dv',true);document.body.style.overflow='hidden';renderDetail();$('dv').scrollTop=0;
+}
+function closeDetail(){dvId='';show('dv',false);document.body.style.overflow=''}
+function navDetail(d){var i=dvList.indexOf(dvId)+d;if(i<0||i>=dvList.length)return;dvId=dvList[i];renderDetail();$('dv').scrollTop=0}
+function renderDetail(){
+  var s=dvRow();if(!s){closeDetail();return}
+  var c=cby(s.course_id),col=c?c.color:'#0058a3',cur=!!c&&s.batch===c.current_batch;
+  var idx=dvList.indexOf(dvId),tot=dvList.length,nm=String(s.name);
+  $('dv').style.setProperty('--p',col);$('dvh').style.background=col;
+  $('dvh').innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><button class="xb" data-d="close">✕ বন্ধ</button><span style="opacity:.9;font-size:13px">'+(idx+1)+' / '+tot+'</span></div>'
+    +'<div class="av">'+esc(nm.charAt(0))+'</div><h1 class="dn">'+esc(nm)+'</h1>'
+    +'<div class="dno">'+esc(s.booking_no)+' <button class="cp" data-d="copy">কপি</button></div>'
+    +'<div class="dp">'+(isNew(s)?'<span class="pill pen">নতুন</span>':'')+'<span class="pill '+(s.paid?'pd':'pen')+'">'+(s.paid?'Paid':'Pending')+'</span><span class="pill '+(s.active?'pd':'cx')+'">'+(s.active?'Active':'Cancelled')+'</span></div>';
+  function rw(k,v){return v?'<div class="irow"><span>'+k+'</span><b>'+v+'</b></div>':''}
+  var h='<div class="card"><h2 style="font-size:16px">যোগাযোগ</h2>'
+    +rw('মোবাইল','<a href="tel:'+esc(s.phone)+'">'+esc(s.phone)+'</a>')+rw('ইমেইল','<a href="mailto:'+esc(s.email)+'">'+esc(s.email)+'</a>')+'</div>';
+  h+='<div class="card"><h2 style="font-size:16px">বুকিংয়ের তথ্য</h2>'
+    +rw('কোর্স',esc(c?c.title:s.level))+rw('ব্যাচ কোড',esc(s.batch_code||''))
+    +rw('বুকিংয়ের সময়',esc(fmtDT(s.created_at))+' <span class="sub">('+ago(s.created_at)+')</span>')
+    +rw('পেমেন্ট',s.paid?'Paid':'Pending')+rw('বুকিং',s.active?'Active':'Cancelled')+'</div>';
+  if(c){
+    if(cur){
+      var left=c.start_date?daysLeft(c.start_date):null,cd='';
+      if(left!==null)cd=left>1?'ক্লাস শুরু হতে '+left+' দিন বাকি':(left===1?'আগামীকাল ক্লাস শুরু':(left===0?'আজ ক্লাস শুরু':'ক্লাস শুরু হয়ে গেছে'));
+      var ci=rw('ধরন',esc(lat(c.info_mode)))+rw('সময়কাল',esc(lat(c.info_duration)))+rw('সময়',esc(lat(c.info_time)))+rw('বার',esc(lat(c.info_days)))+rw('কবে থেকে শুরু',esc(lat(startTxt(c.start_date,c.info_start))));
+      h+='<div class="card"><h2 style="font-size:16px">ক্লাসের তথ্য</h2>'+(ci||'<p class="sub">এখনো কোনো তথ্য দেওয়া হয়নি।</p>')+(cd?'<div class="cd" style="margin-top:10px"><b style="font-size:18px">'+cd+'</b></div>':'')+'</div>';
+    }else h+='<div class="card"><p class="sub" style="margin:0">এটি আগের ব্যাচের বুকিং, তাই ক্লাসের তথ্য দেখানো হচ্ছে না।</p></div>';
+  }
+  var oth=rows.filter(function(x){return x.id!==s.id&&last11(x.phone)===last11(s.phone)});
+  if(oth.length)h+='<div class="card"><h2 style="font-size:16px">এই নম্বরের অন্য বুকিং</h2>'+oth.map(function(x){var cc=cby(x.course_id);return '<div class="row" data-d="open" data-i="'+x.id+'" style="cursor:pointer"><div style="min-width:0"><b>'+esc(cc?cc.title:x.level)+'</b><div class="sub">'+esc(x.booking_no)+' · '+esc(x.batch_code||'')+'</div></div><span class="pill '+(x.paid?'pd':'pen')+'">'+(x.paid?'Paid':'Pending')+'</span></div>'}).join('')+'</div>';
+  h+='<div class="card" style="text-align:center"><h2 style="font-size:16px;text-align:left">টিকিট</h2><img id="dvtk" class="tkimg" alt="Ticket"><button class="g" data-d="dl">⬇ টিকিট ডাউনলোড</button></div>';
+  h+='<button class="g w" data-d="active">'+(s.active?'বুকিং বাতিল করো':'বুকিং সক্রিয় করো')+'</button>';
+  $('dvb').innerHTML=h;
+  $('dvn').innerHTML='<button class="g" data-d="prev"'+(idx<=0?' disabled':'')+'>‹ আগের</button><button class="mid" data-d="paid">'+(s.paid?'Pending করো':'✓ Paid করো')+'</button><button class="g" data-d="next"'+(idx>=tot-1?' disabled':'')+'>পরের ›</button>';
+  dvT={name:nm,no:s.booking_no,title:c?c.title:s.level,code:c?c.code:s.level,batch:s.batch_code||'',color:col,time:cur?c.info_time:'',days:cur?c.info_days:'',start:cur?(c.start_date?fmtDate(c.start_date):c.info_start):''};
+  var want=dvId;
+  drawTicket(dvT).then(function(cv){if(dvId===want){var im=$('dvtk');if(im)im.src=cv.toDataURL('image/png')}}).catch(function(){});
+}
+$('dv').onclick=function(e){
+  var t=e.target,b=t&&t.closest?t.closest('[data-d]'):null;if(!b)return;
+  var a=b.getAttribute('data-d');
+  if(a==='close')closeDetail();
+  else if(a==='prev')navDetail(-1);
+  else if(a==='next')navDetail(1);
+  else if(a==='paid'||a==='active')tog(dvId,a);
+  else if(a==='open')openDetail(b.getAttribute('data-i'),true);
+  else if(a==='dl'){lastT=dvT;saveTicket()}
+  else if(a==='copy'){var r=dvRow();try{navigator.clipboard.writeText(r.booking_no)}catch(x){}b.textContent='কপি হয়েছে ✓'}
+};
+$('ovRecent').onclick=function(e){var t=e.target,r=t&&t.closest?t.closest('.row[data-id]'):null;if(r)openDetail(r.getAttribute('data-id'))};
+if(document.addEventListener)document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('dv').classList.contains('hide'))closeDetail()});
 
-  insert into public.bookings(booking_no, level, course_id, batch, batch_code, name, phone, email)
-  values (v_no, c.code, c.id, c.current_batch, c.batch_code, trim(p_name), p_phone, trim(p_email));
-  delete from public.challenges where id = p_cid;
-  insert into public.reg_log(ip) values (nullif(v_ip, ''));
-  if random() < 0.05 then delete from public.reg_log where at < now() - interval '2 days'; end if;
-  return v_no;
-end $$;
-
--- Public "My batch": booking ID OR phone number (shows up to 5 bookings, newest first)
-create function public.my_booking(p_key text)
-returns table(m_no text, m_name text, m_course text, m_code text, m_batch text, m_paid boolean, m_active boolean,
-              m_current boolean, m_color text, m_mode text, m_dur text, m_time text, m_days text, m_start text, m_sd text, m_extra text, m_done boolean)
-language sql security definer set search_path = public as $$
-  select b.booking_no, b.name, c.title, c.code, b.batch_code, b.paid, b.active, (b.batch = c.current_batch), c.color,
-         case when b.batch = c.current_batch then c.info_mode else '' end,
-         case when b.batch = c.current_batch then c.info_duration else '' end,
-         case when b.batch = c.current_batch then c.info_time else '' end,
-         case when b.batch = c.current_batch then c.info_days else '' end,
-         case when b.batch = c.current_batch then c.info_start else '' end,
-         case when b.batch = c.current_batch then coalesce(c.start_date::text, '') else '' end,
-         case when b.batch = c.current_batch then c.info_extra else '' end,
-         exists (select 1 from public.completions x where x.course_id = b.course_id and x.batch_code = b.batch_code)
-  from public.bookings b join public.courses c on c.id = b.course_id
-  where b.booking_no = upper(trim(p_key))
-     or (length(regexp_replace(coalesce(p_key, ''), '\D', '', 'g')) >= 10
-         and right(regexp_replace(b.phone, '\D', '', 'g'), 11) = right(regexp_replace(p_key, '\D', '', 'g'), 11))
-  order by b.created_at desc
-  limit 5
-$$;
-
--- helper: validate + normalise a batch code (A-Z, 0-9, dash; 3-12 chars; must be unused elsewhere)
-create or replace function public.clean_batch_code(p_code text, p_course uuid)
-returns text language plpgsql security definer set search_path = public as $$
-declare v text := upper(trim(coalesce(p_code,'')));
-begin
-  if v !~ '^[A-Z0-9-]{3,12}$' then raise exception 'invalid_batch_code'; end if;
-  if exists (select 1 from public.courses where batch_code = v and (p_course is null or id <> p_course))
-     or exists (select 1 from public.bookings where batch_code = v and (p_course is null or course_id <> p_course))
-     or (p_course is not null and exists (select 1 from public.bookings where batch_code = v and course_id = p_course
-                                          and batch <> (select current_batch from public.courses where id = p_course))) then
-    raise exception 'code_taken';
-  end if;
-  return v;
-end $$;
-
--- Admin only: create or update a course (p_ropen = registration opening time, ISO text, empty = open now)
-create function public.save_course(
-  p_id uuid, p_code text, p_title text, p_subtitle text, p_learn text, p_color text,
-  p_open boolean, p_hidden boolean, p_capacity int, p_note text,
-  p_mode text, p_duration text, p_time text, p_days text, p_start text, p_extra text, p_bcode text, p_sdate text, p_ropen text, p_price text)
-returns uuid language plpgsql security definer set search_path = public as $$
-declare v uuid; v_bc text; cur_bc text;
-        v_sd date := nullif(trim(coalesce(p_sdate,'')), '')::date;
-        v_ro timestamptz := nullif(trim(coalesce(p_ropen,'')), '')::timestamptz;
-begin
-  if not public.is_admin() then raise exception 'forbidden'; end if;
-  if length(trim(coalesce(p_code,''))) < 1 or length(p_code) > 6 then raise exception 'invalid_code'; end if;
-  if length(trim(coalesce(p_title,''))) < 1 or length(p_title) > 80 then raise exception 'invalid_title'; end if;
-  if p_capacity < 1 or p_capacity > 100 then raise exception 'invalid_capacity'; end if;
-  if p_color !~ '^#[0-9a-fA-F]{6}$' then raise exception 'invalid_color'; end if;
-  if p_id is null then
-    v_bc := public.clean_batch_code(p_bcode, null);
-    insert into public.courses(slug, code, title, subtitle, learn, color, sort, is_open, is_hidden, capacity, note,
-                               info_mode, info_duration, info_time, info_days, info_start, info_extra, batch_code, start_date, reg_open_at, price)
-    values ('c' || nextval('public.course_slug_seq'), trim(p_code), trim(p_title), left(coalesce(p_subtitle,''),120),
-            left(coalesce(p_learn,''),600), p_color, (select coalesce(max(sort),0) + 1 from public.courses),
-            p_open, p_hidden, p_capacity, left(coalesce(p_note,''),200),
-            left(coalesce(p_mode,''),60), left(coalesce(p_duration,''),60), left(coalesce(p_time,''),60),
-            left(coalesce(p_days,''),80), left(coalesce(p_start,''),60), left(coalesce(p_extra,''),300), v_bc, v_sd, v_ro, left(coalesce(p_price,''),40))
-    returning id into v;
-  else
-    select batch_code into cur_bc from public.courses where id = p_id;
-    if cur_bc is null then raise exception 'not_found'; end if;
-    v_bc := cur_bc;
-    if coalesce(trim(p_bcode),'') <> '' and upper(trim(p_bcode)) <> cur_bc then
-      v_bc := public.clean_batch_code(p_bcode, p_id);
-      update public.bookings set batch_code = v_bc
-       where course_id = p_id and batch = (select current_batch from public.courses where id = p_id);
-    end if;
-    update public.courses set code = trim(p_code), title = trim(p_title), subtitle = left(coalesce(p_subtitle,''),120),
-           learn = left(coalesce(p_learn,''),600), color = p_color, is_open = p_open, is_hidden = p_hidden,
-           capacity = p_capacity, note = left(coalesce(p_note,''),200),
-           info_mode = left(coalesce(p_mode,''),60), info_duration = left(coalesce(p_duration,''),60),
-           info_time = left(coalesce(p_time,''),60), info_days = left(coalesce(p_days,''),80),
-           info_start = left(coalesce(p_start,''),60), info_extra = left(coalesce(p_extra,''),300),
-           batch_code = v_bc, start_date = v_sd, reg_open_at = v_ro, price = left(coalesce(p_price,''),40)
-     where id = p_id returning id into v;
-  end if;
-  return v;
-end $$;
-
--- Admin only: start a new batch (old bookings stay)
-create function public.new_batch(p_id uuid, p_code text)
-returns text language plpgsql security definer set search_path = public as $$
-declare v text;
-begin
-  if not public.is_admin() then raise exception 'forbidden'; end if;
-  if not exists (select 1 from public.courses where id = p_id) then raise exception 'not_found'; end if;
-  v := public.clean_batch_code(p_code, p_id);
-  update public.courses set current_batch = current_batch + 1, batch_code = v, is_hidden = false where id = p_id;
-  return v;
-end $$;
-
--- Admin only: delete a course that has NO bookings
-create function public.delete_course(p_id uuid)
-returns void language plpgsql security definer set search_path = public as $$
-begin
-  if not public.is_admin() then raise exception 'forbidden'; end if;
-  if exists (select 1 from public.bookings where course_id = p_id) then raise exception 'has_bookings'; end if;
-  delete from public.courses where id = p_id;
-end $$;
-
--- Admin only: mark the current batch as completed (closes registration, hides the course, lists it under completed courses)
-create function public.complete_batch(p_id uuid)
-returns void language plpgsql security definer set search_path = public as $$
-declare c public.courses%rowtype; n int;
-begin
-  if not public.is_admin() then raise exception 'forbidden'; end if;
-  select * into c from public.courses where id = p_id;
-  if not found then raise exception 'not_found'; end if;
-  if exists (select 1 from public.completions where course_id = p_id and batch_code = c.batch_code) then raise exception 'already_done'; end if;
-  select count(*) into n from public.bookings where course_id = p_id and batch = c.current_batch and active;
-  insert into public.completions(course_id, code, title, subtitle, color, batch_code, students)
-  values (c.id, c.code, c.title, c.subtitle, c.color, c.batch_code, n);
-  update public.courses set is_open = false, is_hidden = true where id = p_id;
-end $$;
-
--- Public: list of completed batches
-create function public.public_completed()
-returns table(id uuid, code text, title text, subtitle text, color text, batch_code text, students int, completed_at text)
-language sql security definer set search_path = public as $$
-  select x.id, x.code, x.title, x.subtitle, x.color, x.batch_code, x.students,
-         to_char(x.completed_at at time zone 'utc', 'YYYY-MM-DD"T"HH24:MI:SS"Z"')
-  from public.completions x order by x.completed_at desc limit 24
-$$;
-
--- Admin only: remove a completed-batch entry (e.g. marked by mistake)
-create function public.delete_completion(p_id uuid)
-returns void language plpgsql security definer set search_path = public as $$
-begin
-  if not public.is_admin() then raise exception 'forbidden'; end if;
-  delete from public.completions where id = p_id;
-end $$;
-
-revoke all on function public.public_courses() from public;
-revoke all on function public.new_challenge() from public;
-revoke all on function public.register_booking(text,text,text,text,uuid,int) from public;
-revoke all on function public.my_booking(text) from public;
-revoke all on function public.clean_batch_code(text,uuid) from public;
-revoke all on function public.save_course(uuid,text,text,text,text,text,boolean,boolean,int,text,text,text,text,text,text,text,text,text,text,text) from public;
-revoke all on function public.new_batch(uuid,text) from public;
-revoke all on function public.delete_course(uuid) from public;
-grant execute on function public.public_courses() to anon, authenticated;
-grant execute on function public.new_challenge() to anon, authenticated;
-grant execute on function public.register_booking(text,text,text,text,uuid,int) to anon, authenticated;
-grant execute on function public.my_booking(text) to anon, authenticated;
-grant execute on function public.save_course(uuid,text,text,text,text,text,boolean,boolean,int,text,text,text,text,text,text,text,text,text,text,text) to authenticated;
-grant execute on function public.new_batch(uuid,text) to authenticated;
-grant execute on function public.delete_course(uuid) to authenticated;
-revoke all on function public.complete_batch(uuid) from public;
-revoke all on function public.public_completed() from public;
-revoke all on function public.delete_completion(uuid) from public;
-grant execute on function public.complete_batch(uuid) to authenticated;
-grant execute on function public.public_completed() to anon, authenticated;
-grant execute on function public.delete_completion(uuid) to authenticated;
+/* courses */
+function fld(p,k,ph,val,ml){return '<input class="t" autocomplete="off" spellcheck="false" id="'+p+'_'+k+'" maxlength="'+ml+'" placeholder="'+ph+'" value="'+esc(val||'')+'">'}
+function bt(a,k,cls,txt){return '<button'+(cls?' class="'+cls+'"':'')+' data-a="'+a+'" data-k="'+k+'">'+txt+'</button>'}
+function toLocalInput(iso){if(!iso)return '';var d=new Date(iso);if(isNaN(d))return '';return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+'T'+pad2(d.getHours())+':'+pad2(d.getMinutes())}
+function blank(){return{price:'',reg_open_at:null,id:null,code:'',title:'',subtitle:'',learn:'',color:'#1e8e5a',capacity:30,note:'',info_mode:'',info_duration:'',info_time:'',info_days:'',info_start:'',info_extra:'',is_open:true,is_hidden:false,current_batch:1,batch_code:'',start_date:''}}
+function colorPick(k,cur){
+  var sw=COLORS.map(function(x){return '<button type="button" class="sw'+(x[1].toLowerCase()===String(cur).toLowerCase()?' on':'')+'" data-a="color" data-k="'+k+'" data-c="'+x[1]+'" title="'+x[0]+'" style="background:'+x[1]+'"></button>'}).join('');
+  return '<div class="grp">কোর্সের রঙ</div><div class="sws">'+sw+'<label class="swc" title="নিজের পছন্দের রঙ বেছে নাও">+<input type="color" id="cpk_'+k+'" value="'+esc(cur)+'"></label></div><input type="hidden" id="co_'+k+'" value="'+esc(cur)+'">';
+}
+function markSw(k,v){var bs=$('ctl').querySelectorAll?$('ctl').querySelectorAll('.sw'):[];Array.prototype.forEach.call(bs,function(el){if(el.getAttribute('data-k')===k)el.classList.toggle('on',el.getAttribute('data-c').toLowerCase()===String(v).toLowerCase())})}
+function setColor(k,v){var h=$('co_'+k);if(h)h.value=v;var pk=$('cpk_'+k);if(pk)pk.value=v;markSw(k,v);dirty[k]=true}
+function editorHtml(c,k,nw){
+  return '<div class="ed">'
+   +'<div class="grp">মূল তথ্য</div>'
+   +'<div class="tools">'+fld('cd',k,'কোড (যেমন A1)',c.code,6)+fld('ti',k,'কোর্সের নাম (যেমন A1 অনলাইন)',c.title,80)+'</div>'
+   +'<div class="tools">'+fld('bc',k,'ব্যাচ কোড (যেমন DFZA122)',c.batch_code,12)+fld('pc',k,'কোর্স ফি (যেমন ৳ 3,500)',c.price,40)+'</div>'
+   +'<div class="tools">'+fld('su',k,'ছোট বর্ণনা (ঐচ্ছিক)',c.subtitle,120)+'</div>'+colorPick(k,c.color)
+   +'<textarea class="t" id="le_'+k+'" rows="3" maxlength="600" spellcheck="false" placeholder="কী শিখবে — প্রতি লাইনে একটা করে লেখো">'+esc(c.learn||'')+'</textarea>'
+   +'<div class="grp">আসন ও বার্তা</div>'
+   +'<div class="tools"><input class="t" type="number" min="1" max="100" id="cap_'+k+'" value="'+c.capacity+'" style="max-width:90px" title="আসন সংখ্যা">'+fld('nt',k,'বন্ধ/পূর্ণ হলে যে মেসেজ দেখাবে (ঐচ্ছিক)',c.note,200)+'</div>'
+   +'<div class="tools"><label class="sub" style="flex:1;min-width:200px">রেজিস্ট্রেশন শুরুর তারিখ ও সময় (ফাঁকা রাখলে এখনই চালু)<input class="t" type="datetime-local" id="ro_'+k+'" value="'+esc(toLocalInput(c.reg_open_at))+'"></label></div>'
+   +'<div class="grp">কোর্সের বিস্তারিত (শিক্ষার্থীরা দেখবে)</div>'
+   +'<div class="tools">'+fld('im',k,'অনলাইন / অফলাইন',c.info_mode,60)+fld('ic',k,'কোর্স কতদিনের (যেমন ৩ মাস)',c.info_duration,60)+'</div>'
+   +'<div class="tools">'+fld('it',k,'সময় (যেমন রাত ৮টা)',c.info_time,60)+fld('dy',k,'বার (যেমন শনি, সোম, বুধ)',c.info_days,80)+'</div>'
+   +'<div class="tools"><label class="sub" style="flex:1;min-width:150px">শুরুর তারিখ (কাউন্টডাউনের জন্য)<input class="t" type="date" id="sd_'+k+'" value="'+esc(c.start_date||'')+'"></label>'+fld('st',k,'শুরু নিয়ে নোট (ঐচ্ছিক)',c.info_start,60)+'</div>'
+   +'<div class="tools">'+fld('ix',k,'অন্যান্য তথ্য (ঐচ্ছিক)',c.info_extra,300)+'</div>'
+   +(nw?'':'<div class="grp">নতুন ব্যাচ শুরু করো</div><div class="tools">'+fld('nb',k,'নতুন ব্যাচের কোড (যেমন DFZA123)','',12)+bt('batch',k,'y','শুরু করো')+'</div>')
+   +'<div class="tools" style="margin-top:12px">'+(nw?bt('save',k,'','তৈরি করো')+bt('cancelnew',k,'g','বাতিল'):bt('save',k,'','সংরক্ষণ')+bt('done',k,'g','✅ ব্যাচ সম্পন্ন করো')+bt('del',k,'g','মুছে ফেলো'))+'</div></div>';
+}
+function rowHtml(c,k,nw){
+  var op=openK===k,n=nw?0:curCount(c);
+  return '<div class="crow" id="cr_'+k+'" style="border-left:6px solid '+esc(c.color)+'">'
+   +'<div class="hd" data-a="toggle" data-k="'+k+'"><div style="min-width:0"><b>'+(nw?'নতুন কোর্স':esc(c.title))+'</b>'+(nw?'':'<div class="sub">ব্যাচ '+esc(c.batch_code)+' · বুকিং '+n+'/'+c.capacity+(c.reg_open_at&&new Date(c.reg_open_at)>new Date()?' · শুরু: '+esc(fmtShort(c.reg_open_at)):'')+'</div>')+'</div><span style="font-size:18px">'+(op?'▴':'▾')+'</span></div>'
+   +(nw?'':'<div class="qk">'+bt('open',k,c.is_open?'on':'off',c.is_open?'✅ রেজিস্ট্রেশন চালু':'⛔ রেজিস্ট্রেশন বন্ধ')+bt('hide',k,c.is_hidden?'off':'on',c.is_hidden?'🙈 হোমে লুকানো':'👁 হোমে দেখা যাচ্ছে')+'</div>')
+   +(op?editorHtml(c,k,nw):'')+'</div>';
+}
+function dirtyAny(){for(var k in dirty)if(dirty[k])return true;return false}
+function renderCtl(force,except){
+  var a=document.activeElement,keep={},box=$('ctl');
+  var typing=a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA'||a.tagName==='SELECT')&&box.contains(a);
+  if(!force&&(dirtyAny()||typing))return;
+  if(box.querySelectorAll){Array.prototype.forEach.call(box.querySelectorAll('input,textarea,select'),function(el){var k=el.id.slice(el.id.indexOf('_')+1);if(dirty[k]&&k!==except)keep[el.id]=el.value})}
+  var h=draft?rowHtml(blank(),'new',true):'';
+  AC.forEach(function(c){h+=rowHtml(c,c.id,false)});
+  box.innerHTML=h||'<p class="sub">কোনো কোর্স নেই। উপরের বাটনে চেপে যোগ করো।</p>';
+  Object.keys(keep).forEach(function(id){var e=$(id);if(e)e.value=keep[id];if(id.indexOf('co_')===0)markSw(id.slice(3),keep[id])});
+  if(except)dirty[except]=false;
+}
+$('ctl').onclick=function(e){
+  var t=e.target,b=t&&t.closest?t.closest('[data-a]'):null;if(!b)return;
+  var k=b.getAttribute('data-k'),a=b.getAttribute('data-a'),c=cby(k);
+  if(a==='toggle')toggleRow(k);
+  else if(a==='save')pushCourse(k,{explicit:true});
+  else if(a==='open'&&c)pushCourse(k,{open:!c.is_open});
+  else if(a==='hide'&&c)pushCourse(k,{hidden:!c.is_hidden});
+  else if(a==='batch')newBatch(k);
+  else if(a==='del')delCourse(k);
+  else if(a==='color')setColor(k,b.getAttribute('data-c'));
+  else if(a==='done')completeBatch(k);
+  else if(a==='cancelnew')toggleRow('new');
+};
+$('ctl').oninput=function(e){var id=e.target&&e.target.id;if(id&&id.indexOf('_')>0){dirty[id.slice(id.indexOf('_')+1)]=true;if(id.indexOf('cpk_')===0)setColor(id.slice(4),e.target.value)}};
+function toggleRow(k){
+  if(openK&&dirty[openK]&&!confirm('এই কোর্সের লেখা এখনো সংরক্ষণ হয়নি। ছেড়ে যাবে?'))return;
+  var was=openK;
+  if(was){dirty[was]=false;if(was==='new')draft=false}
+  openK=(was===k)?'':k;
+  renderCtl(true);
+}
+function addCourse(){
+  if(openK&&dirty[openK]&&!confirm('এই কোর্সের লেখা এখনো সংরক্ষণ হয়নি। ছেড়ে যাবে?'))return;
+  if(openK)dirty[openK]=false;
+  draft=true;openK='new';goTab('co');renderCtl(true);
+}
+function aerr(e){
+  var m=e.message||'';
+  if(m==='network')return 'ইন্টারনেট সংযোগ নেই';
+  if(m.indexOf('code_taken')>=0)return 'এই ব্যাচ কোড আগে ব্যবহার হয়েছে, অন্য কোড দাও।';
+  if(m.indexOf('invalid_batch_code')>=0)return 'ব্যাচ কোডে শুধু ইংরেজি অক্ষর, সংখ্যা ও - থাকবে (৩ থেকে ১২ অক্ষর)।';
+  return m;
+}
+function gather(k,c){
+  function g(p,d){var e=$(p+'_'+k);return e?e.value.trim():d}
+  var capEl=$('cap_'+k),coEl=$('co_'+k),leEl=$('le_'+k);
+  return{p_id:c.id,p_code:g('cd',c.code),p_title:g('ti',c.title),p_subtitle:g('su',c.subtitle),p_learn:leEl?leEl.value.trim():c.learn,p_color:coEl?coEl.value:c.color,
+    p_capacity:capEl?parseInt(capEl.value,10):c.capacity,p_note:g('nt',c.note),p_mode:g('im',c.info_mode),p_duration:g('ic',c.info_duration),
+    p_time:g('it',c.info_time),p_days:g('dy',c.info_days),p_start:g('st',c.info_start),p_extra:g('ix',c.info_extra),p_bcode:g('bc',c.batch_code||'').toUpperCase(),p_sdate:g('sd',c.start_date||''),p_ropen:(function(){var e=$('ro_'+k);if(!e)return c.reg_open_at||'';return e.value?new Date(e.value).toISOString():''})(),p_price:g('pc',c.price||'')};
+}
+async function pushCourse(k,over){
+  over=over||{};var nw=k==='new',c=nw?blank():cby(k);if(!c)return false;
+  var a=gather(k,c);
+  if(!(a.p_capacity>=1&&a.p_capacity<=100)){alert('আসন সংখ্যা ১ থেকে ১০০-এর মধ্যে দাও।');return false}
+  if(!a.p_code||!a.p_title){alert('কোড ও কোর্সের নাম দিতে হবে।');return false}
+  if(nw&&!a.p_bcode){alert('ব্যাচ কোড দিতে হবে (যেমন DFZA122)।');return false}
+  a.p_open=over.open!==undefined?over.open:c.is_open;a.p_hidden=over.hidden!==undefined?over.hidden:c.is_hidden;
+  var r=await SB.rpc('save_course',a);
+  if(r.error){alert('সমস্যা হয়েছে: '+aerr(r.error));return false}
+  if(over.explicit||nw){draft=false;openK='';dirty[k]=false}
+  await loadAdmin(true,k);loadCourses(false);
+  if(over.explicit||nw)alert(nw?'নতুন কোর্স তৈরি হয়েছে।':'সংরক্ষিত হয়েছে।');
+  return true;
+}
+function renderDoneAdm(){
+  var box=$('doneAdm');if(!box)return;
+  box.innerHTML=COMP.map(function(x){return '<div class="row" style="align-items:center"><div style="display:flex;gap:10px;align-items:center;min-width:0"><span class="dc" style="background:'+esc(x.color)+'">'+esc(x.code)+'</span><div style="min-width:0"><b>'+esc(x.title)+'</b><div class="sub">ব্যাচ '+esc(x.batch_code)+' · '+x.students+' জন · '+esc(fmtDate(x.completed_at))+'</div></div></div><button class="g" style="padding:5px 12px;font-size:12px" data-a="deldone" data-i="'+x.id+'">মুছো</button></div>'}).join('')||'<p class="sub">এখনো কোনো ব্যাচ সম্পন্ন করা হয়নি।</p>';
+}
+$('doneAdm').onclick=function(e){var t=e.target,b=t&&t.closest?t.closest('button[data-i]'):null;if(b)delDone(b.getAttribute('data-i'))};
+async function delDone(id){
+  if(!confirm('এই সম্পন্ন-তালিকার এন্ট্রি মুছবে? কোর্স বা বুকিংয়ের কিছু মুছবে না।'))return;
+  var r=await SB.rpc('delete_completion',{p_id:id});
+  if(r.error){alert('সমস্যা হয়েছে: '+aerr(r.error));return}
+  await loadCompleted();
+}
+async function completeBatch(k){
+  var c=cby(k);if(!c)return;
+  if(!confirm('"'+c.title+'" (ব্যাচ '+c.batch_code+') সম্পন্ন হয়েছে বলে চিহ্নিত করবে?\n\n• রেজিস্ট্রেশন বন্ধ হবে\n• কোর্সটা হোম থেকে সরে যাবে\n• "সম্পন্ন কোর্স" তালিকায় দেখাবে\n\nপরে আবার চালাতে চাইলে "+ নতুন ব্যাচ" দিয়ে নতুন কোডে শুরু করতে পারবে।'))return;
+  var r=await SB.rpc('complete_batch',{p_id:k});
+  if(r.error){alert(r.error.message.indexOf('already_done')>=0?'এই ব্যাচ আগেই সম্পন্ন করা হয়েছে।':'সমস্যা হয়েছে: '+aerr(r.error));return}
+  dirty[k]=false;openK='';
+  await loadAdmin(true,k);await loadCompleted();loadCourses(false);
+  alert('ব্যাচ সম্পন্ন হিসেবে চিহ্নিত হয়েছে।');
+}
+async function newBatch(k){
+  var c=cby(k);if(!c)return;
+  var code=($('nb_'+k)?$('nb_'+k).value:'').trim().toUpperCase();
+  if(!/^[A-Z0-9-]{3,12}$/.test(code)){alert('নতুন ব্যাচের কোড দাও (যেমন DFZA123), ৩ থেকে ১২ অক্ষর, শুধু ইংরেজি অক্ষর, সংখ্যা ও -।');return}
+  if(!confirm(c.title+'-এর জন্য নতুন ব্যাচ '+code+' শুরু হবে। আগের সব বুকিং থাকবে, নতুন রেজিস্ট্রেশন নতুন ব্যাচে যাবে। চালিয়ে যাবে?'))return;
+  var r=await SB.rpc('new_batch',{p_id:k,p_code:code});
+  if(r.error){alert('সমস্যা হয়েছে: '+aerr(r.error));return}
+  dirty[k]=false;openK='';
+  await loadAdmin(true,k);loadCourses(false);
+  alert(c.title+'-এর নতুন ব্যাচ '+r.data+' শুরু হয়েছে।');
+}
+async function delCourse(k){
+  var c=cby(k);if(!c)return;
+  if(!confirm('"'+c.title+'" কোর্সটি মুছে ফেলবে? এটা আর ফেরানো যাবে না।'))return;
+  var r=await SB.rpc('delete_course',{p_id:k});
+  if(r.error){alert(r.error.message.indexOf('has_bookings')>=0?'এই কোর্সে বুকিং আছে, মুছা যাবে না। চাইলে "হোমে লুকানো" করে রাখো।':'সমস্যা হয়েছে: '+aerr(r.error));return}
+  openK='';await loadAdmin(true,k);loadCourses(false);
+}
+setInterval(function(){if(!$('panel').classList.contains('hide')&&!document.hidden){loadAdmin();loadCourses(false)}},30000);
+renderWg();route();loadCourses(true);
+</script>
+</body>
+</html>
