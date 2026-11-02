@@ -991,5 +991,126 @@ async function delCourse(k){
 setInterval(function(){if(!$('panel').classList.contains('hide')&&!document.hidden){loadAdmin();loadCourses(false)}},30000);
 renderWg();route();loadCourses(true);
 </script>
+<script>
+/* ===== Jabirs Weg: নতুন ফিচার (পেমেন্ট প্যানেল, কোর্স আইডি, বুকিং মোছা, রঙ, আইকন, স্মুথ) ===== */
+(function(){
+var st=document.createElement('style');
+st.textContent='html{-webkit-tap-highlight-color:transparent}button,a,input,select,textarea{touch-action:manipulation}'
++'.mv button span{display:grid;place-items:center;width:38px;height:38px}.mv button span svg{width:36px;height:36px;fill:currentColor}'
++'.pay{background:var(--soft);border-radius:14px;padding:14px;margin-top:14px;text-align:left}.pay.ok{color:#176b3a;font-weight:700}.pay h3{margin:0 0 8px;font-size:17px}'
++'.pamt{margin-bottom:8px}.pamt b{font-size:20px;color:var(--p)}'
++'.pref{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:var(--card);border:2px dashed var(--p);border-radius:12px;padding:10px 12px}.pref span{flex:1 1 100%;font-size:12px;color:var(--mute)}.pref b{flex:1;font-size:21px;letter-spacing:1px}.pref button{padding:6px 14px;font-size:13px}'
++'.pwarn{background:#fff3cd;color:#664d03;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14px;line-height:1.6}'
++'.prow2{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}.prow2 span{color:var(--mute)}.prow2 b{text-align:right}.prow2 button{padding:3px 10px;font-size:12px;margin-left:8px}';
+document.head.appendChild(st);
+
+var _rpc=SB.rpc;
+function rp(f,a){return _rpc.call(SB,f,a)}
+function W(n,f){if(typeof window[n]==='function')window[n]=f(window[n])}
+function bkPrice(s){var c=typeof cby==='function'?cby(s.course_id):null;return s.price||(c&&c.price)||''}
+
+/* ---- রঙ ও আইকন ---- */
+window.COLORS=[['সবুজ','#1e8e5a'],['জলপাই','#5c7f2b'],['গাঢ় নীল','#0058a3'],['আকাশি','#1c7ed6'],['ইন্ডিগো','#3b5bdb'],['বেগুনি','#6f42c1'],['গোলাপি','#c2255c'],['লাল','#c92a2a'],['টিল','#0c8599'],['বাদামি','#8b5a3c'],['ধূসর নীল','#4a6a8a'],['নেভি','#1b2a4a'],['কমলা','#e8590c'],['হলুদ-কমলা','#f08c00'],['লেবু সবুজ','#74b816'],['পুদিনা','#12b886'],['সায়ান','#15aabf'],['ভায়োলেট','#9c36b5'],['ম্যাজেন্টা','#d6336c'],['মেরুন','#862e2e'],['কালো','#343a40'],['সোনালি','#c99700']];
+var ICO=['<svg viewBox="0 0 40 40"><path d="M20 8 3 16.5 20 25l17-8.5z"/><path d="M35 18.5h2V28h-2z" opacity=".7"/><path d="M10 21.5v7c0 2.5 4.5 4.5 10 4.5s10-2 10-4.5v-7L20 27z" opacity=".7"/></svg>','<svg viewBox="0 0 40 40"><path d="M15 12v-2a2.5 2.5 0 0 1 2.5-2.5h5A2.5 2.5 0 0 1 25 10v2h-2.5v-1.5h-5V12z"/><rect x="5" y="12" width="30" height="10" rx="3"/><rect x="5" y="24" width="30" height="9" rx="3" opacity=".7"/></svg>','<svg viewBox="0 0 40 40"><circle cx="14" cy="11" r="5"/><path d="M4 34v-8a7 7 0 0 1 7-7h6a7 7 0 0 1 7 7v8z"/><circle cx="30" cy="19" r="3.8" opacity=".75"/><path d="M23 34v-4a5.5 5.5 0 0 1 5.5-5.5h3A5.5 5.5 0 0 1 37 30v4z" opacity=".75"/></svg>'];
+W('renderWg',function(o){return function(){o.apply(this,arguments);var b=$('mv').children;for(var i=0;i<b.length&&i<ICO.length;i++){if(b[i].firstChild)b[i].firstChild.innerHTML=ICO[i]}}});
+
+/* ---- পেমেন্ট প্যানেল ---- */
+window.cpTxt=function(el,t){try{navigator.clipboard.writeText(t);el.textContent='কপি ✓'}catch(e){el.textContent=t}};
+window.payHtml=function(p){
+  if(!p)return '';
+  if(p.paid)return '<div class="pay ok">✅ পেমেন্ট নিশ্চিত হয়েছে।</div>';
+  var rs=[['ব্যাংক',p.b,0],['অ্যাকাউন্টের নাম',p.n,0],['অ্যাকাউন্ট নম্বর',p.a,1],['শাখা',p.r,0]].filter(function(x){return x[1]});
+  return '<div class="pay"><h3>💳 পেমেন্ট করো</h3>'+(p.amt?'<div class="pamt">কোর্স ফি <b>'+esc(lat(p.amt))+'</b></div>':'')
+   +'<div class="pref"><span>রেফারেন্স হিসেবে এই কোর্স আইডি দাও</span><b>'+esc(p.cid||'')+'</b><button onclick="cpTxt(this,\''+esc(p.cid||'')+'\')">কপি</button></div>'
+   +'<div class="pwarn">⚠️ ব্যাংকে টাকা পাঠানোর সময় রেফারেন্স বা নোট ঘরে এই <b>কোর্স আইডি</b> অবশ্যই দিতে হবে। নইলে পেমেন্ট নিশ্চিত হবে না।</div>'
+   +(rs.length?rs.map(function(x){return '<div class="prow2"><span>'+x[0]+'</span><b>'+esc(x[1])+(x[2]?'<button onclick="cpTxt(this,\''+esc(String(x[1]).replace(/\s/g,''))+'\')">কপি</button>':'')+'</b></div>'}).join(''):'<p class="sub">ব্যাংকের তথ্য শীঘ্রই জানানো হবে।</p>')
+   +(p.t?'<p class="sub" style="margin-top:8px">'+esc(p.t)+'</p>':'')
+   +'<p class="sub" style="font-size:12px;margin-top:8px">বুকিং আইডি স্থায়ী, সেটা দিয়ে "আমার ব্যাচ" দেখা যাবে। পেমেন্টের জন্য শুধু কোর্স আইডি লাগবে।</p></div>';
+};
+var im=$('tkImg');if(im&&!$('okPay')){var dv=document.createElement('div');dv.id='okPay';im.parentNode.insertBefore(dv,im.nextSibling)}
+SB.rpc=function(fn,a){
+  var p=_rpc.call(SB,fn,a);
+  if(fn==='register_booking')return p.then(function(r){
+    if(!r.error&&r.data){var e=$('okPay');if(e)e.innerHTML='';rp('pay_info',{p_no:r.data}).then(function(q){var e2=$('okPay');if(e2)e2.innerHTML=q.error?'':payHtml(q.data)})}
+    return r});
+  if(fn==='save_course')return p.then(async function(r){
+    if(!r.error&&a){var k=a.p_id||'new',g=function(x){var e=$(x+'_'+k);return e?e.value.trim():''};
+      if($('pbk_'+k)){var r2=await rp('save_pay',{p_id:a.p_id||null,p_bcode:a.p_bcode||'',p_bank:g('pbk'),p_name:g('pnm'),p_acc:g('pac'),p_branch:g('pbr'),p_note:g('pnt')});
+        if(r2.error)alert('কোর্স সংরক্ষিত হয়েছে, কিন্তু পেমেন্টের তথ্য সংরক্ষণ হয়নি: '+r2.error.message)}}
+    return r});
+  return p;
+};
+W('editorHtml',function(o){return function(c,k,nw){
+  var h=o(c,k,nw),m='<div class="grp">কোর্সের বিস্তারিত';
+  var f='<div class="grp">পেমেন্টের তথ্য (বুকিং কনফার্ম হলে শিক্ষার্থী দেখবে)</div><div class="tools">'+fld('pbk',k,'ব্যাংকের নাম',c.pay_bank,80)+fld('pnm',k,'অ্যাকাউন্টের নাম',c.pay_name,80)+'</div><div class="tools">'+fld('pac',k,'অ্যাকাউন্ট নম্বর',c.pay_no,40)+fld('pbr',k,'শাখা',c.pay_branch,80)+'</div><div class="tools">'+fld('pnt',k,'অতিরিক্ত নির্দেশনা (ঐচ্ছিক)',c.pay_note,200)+'</div>';
+  return h.indexOf(m)>=0?h.replace(m,f+m):h}});
+W('cardMy',function(o){return function(m,i){
+  var h=o(m,i).replace(/<p class="sub" style="margin-top:8px">পেমেন্ট নিশ্চিত হলে এখানে Paid দেখাবে।<\/p>/,'');
+  return h.replace(/<\/div>$/,'<div id="mpay_'+i+'"></div></div>')}});
+W('renderMy',function(o){return function(list){
+  var p=o(list);
+  list.forEach(function(m,i){if(!m.m_paid&&m.m_active)rp('pay_info',{p_no:m.m_no}).then(function(r){var e=$('mpay_'+i);if(e&&!r.error)e.innerHTML=payHtml(r.data)})});
+  return p}});
+
+/* ---- অ্যাডমিন: দাম, কোর্স আইডি, মোছা ---- */
+window.delBk=async function(id){
+  var r=rows.filter(function(x){return x.id===id})[0];if(!r)return;
+  if(!confirm('"'+r.name+'" ('+r.booking_no+') বুকিংটি স্থায়ীভাবে মুছে যাবে। এটা আর ফেরানো যাবে না। শুধু বাতিল করলে ডেটা থাকে। সত্যিই মুছবে?'))return;
+  if(!confirm('শেষবার জিজ্ঞেস করছি: '+r.booking_no+' চিরতরে মুছে ফেলবো?'))return;
+  var x=await rp('delete_booking',{p_id:id});
+  if(x.error){alert('সমস্যা হয়েছে: '+x.error.message);return}
+  closeDetail();await loadAdmin();loadCourses(false);
+};
+W('tog',function(o){return function(id,k){return k==='del'?delBk(id):o(id,k)}});
+W('renderBk',function(o){return function(){
+  o();
+  Array.prototype.forEach.call(document.querySelectorAll('#bkList .bk[data-id]'),function(el){
+    var s=rows.filter(function(x){return x.id===el.getAttribute('data-id')})[0];if(!s)return;
+    var sub=el.querySelector('.sub'),pr=bkPrice(s);
+    if(sub&&el.textContent.indexOf('কোর্স আইডি')<0)sub.innerHTML+=(pr?' · '+esc(lat(pr)):'')+'<br>কোর্স আইডি: <b>'+esc(s.cid||'—')+'</b>';
+    var t=el.querySelector('.tools');if(t&&!t.querySelector('[data-k="del"]'))t.insertAdjacentHTML('beforeend','<button class="g" data-i="'+s.id+'" data-k="del" style="color:#c92a2a">🗑️ মুছো</button>');
+  })}});
+W('renderDetail',function(o){return function(){
+  o();var s=dvRow();if(!s)return;
+  var rw=function(k,v){return '<div class="irow cidrow"><span>'+k+'</span><b>'+v+'</b></div>'},pr=bkPrice(s);
+  Array.prototype.forEach.call(document.querySelectorAll('#dvb .card'),function(c){
+    if(c.textContent.indexOf('বুকিংয়ের তথ্য')>=0&&c.textContent.indexOf('কোর্স আইডি')<0)c.insertAdjacentHTML('beforeend',rw('কোর্স আইডি (পেমেন্ট রেফ)',esc(s.cid||'—'))+(pr?rw('কোর্স ফি',esc(lat(pr))):''))});
+  var ab=document.querySelector('#dvb button[data-d="active"]');
+  if(ab&&!document.querySelector('#dvb button[data-d="del"]'))ab.insertAdjacentHTML('afterend','<button class="g w" data-d="del" style="color:#c92a2a;margin-bottom:70px">🗑️ স্থায়ীভাবে মুছে ফেলো</button>');
+}});
+$('dv').addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-d="del"]'):null;if(b)delBk(dvId)});
+W('vis',function(o){return function(){
+  var qe=$('q'),q=qe.value.trim().toLowerCase();if(!q)return o();
+  qe.value='';var all=o();qe.value=q;
+  return all.filter(function(s){return String(s.booking_no).toLowerCase().indexOf(q)>=0||String(s.phone).indexOf(q)>=0||String(s.name).toLowerCase().indexOf(q)>=0||String(s.batch_code||'').toLowerCase().indexOf(q)>=0||String(s.cid||'').indexOf(q)>=0})}});
+window.csv=function(){
+  var out=[['Booking No','Course ID (Payment Ref)','Course','Code','Batch','Name','Mobile','Email','Course Fee','Registered At','Payment','Booking']];
+  vis().forEach(function(s){out.push([s.booking_no,s.cid||'',cname(s),s.level,s.batch_code,s.name,'\t'+s.phone,s.email,bkPrice(s),new Date(s.created_at).toLocaleString('en-GB'),s.paid?'Paid':'Pending',s.active?'Active':'Cancelled'])});
+  var t='\uFEFF'+out.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"'}).join(',')}).join('\r\n');
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/csv;charset=utf-8'}));a.download='students.csv';document.body.appendChild(a);a.click();a.remove();
+};
+
+/* ---- স্মুথ করা ---- */
+window.render=function(){if(!$('home').classList.contains('hide'))renderHome();if(!$('course').classList.contains('hide'))renderCourse()};
+var lastSig='';
+window.loadCourses=async function(first){
+  var r=await SB.rpc('public_courses');
+  if(!r.error&&Array.isArray(r.data)){
+    if(r.data.length&&r.data[0].i_now){srvOff=new Date(r.data[0].i_now).getTime()-Date.now()}
+    var sg=JSON.stringify(r.data.map(function(x){var y={};for(var k in x)if(k!=='i_now')y[k]=x[k];return y}));
+    if(!first&&loaded&&sg===lastSig){var c=CBY[cur];if(c&&!$('waitCard').classList.contains('hide')&&!isWait(c))render();return}
+    lastSig=sg;PC=r.data.map(norm);CBY={};if(typeof loadCompleted==='function')loadCompleted();PC.forEach(function(c){CBY[c.slug]=c});loaded=true;
+    if(first)route();else render();
+  }else if(!loaded){
+    $('cards').innerHTML='<div class="card wide"><p class="sub">'+(r.error&&r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, পেজ রিফ্রেশ করো।':'কোর্সের তথ্য আনা যায়নি, একটু পরে আবার চেষ্টা করো।')+'</p></div>';
+  }
+};
+var _st=window.scrollTo.bind(window);
+window.scrollTo=function(a,b){if(a&&typeof a==='object')a={top:a.top,left:a.left,behavior:'auto'};return _st(a,b)};
+if(typeof renderWg==='function')renderWg();
+if(typeof loaded!=='undefined'&&loaded)render();
+})();
+
+</script>
 </body>
 </html>
