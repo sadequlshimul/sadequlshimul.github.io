@@ -1197,6 +1197,78 @@ window.loadCourses=async function(first){
 };
 var _st=window.scrollTo.bind(window);
 window.scrollTo=function(a,b){if(a&&typeof a==='object')a={top:a.top,left:a.left,behavior:'auto'};return _st(a,b)};
+
+/* ---- সেটআপ যাচাই (অ্যাডমিন ওভারভিউয়ের নিচে) ---- */
+window.selfCheck=async function(){
+  var box=$('chkBox'),out=[];box.innerHTML='যাচাই হচ্ছে…';
+  var ok=function(t){out.push('✅ '+t)},no=function(t){out.push('❌ '+t)};
+  var r1=await rp('expire_bookings');r1.error?no('অটো-বাতিলের ফাংশন (expire_bookings) নেই। SQL চালানো হয়নি।'):ok('অটো-বাতিলের ফাংশন আছে');
+  var r2=await rp('student_ids',{p_nos:[]});r2.error?no('আমার আইডির ফাংশন (student_ids) নেই। SQL চালানো হয়নি।'):ok('আমার আইডির ফাংশন আছে');
+  var r3=await rp('save_pay',{p_id:null,p_bcode:'ZZZ'});r3.error?no('save_pay ফাংশন নেই বা পুরনো: '+r3.error.message):ok('save_pay ফাংশন আছে');
+  var c=AC[0];if(c)('pay_minutes' in c)?ok('courses-এ pay_minutes কলাম আছে'):no('courses-এ pay_minutes কলাম নেই');
+  var b=rows[0];
+  if(b){
+    var miss=['cid','student_no','price','expires_at','proof_at','expired_at'].filter(function(k){return !(k in b)});
+    miss.length?no('bookings-এ কলাম নেই: '+miss.join(', ')):ok('বুকিংয়ের নতুন কলামগুলো আছে');
+    var q=await rp('pay_info',{p_no:b.bn||b.booking_no});
+    if(q.error)no('pay_info এরর: '+q.error.message);
+    else('st' in q.data)?ok('pay_info নতুন ভার্সন'):no('pay_info পুরনো ভার্সন (স্ট্যাটাস ও বাকি সময় নেই)। SQL আবার চালাও।');
+    var nb=rows.filter(function(x){return !x.paid&&x.active})[0];
+    if(nb&&!nb.expires_at)out.push('⚠️ সর্বশেষ Pending বুকিংয়ে শেষ সময় (expires_at) নেই। বুকিংটা SQL চালানোর আগের হলে ঠিক আছে, নতুন বুকিং হলে ট্রিগার আপডেট হয়নি।');
+  }else out.push('ℹ️ কোনো বুকিং নেই। একটা টেস্ট বুকিং করে আবার যাচাই করো।');
+  box.innerHTML=out.join('<br>');
+};
+if($('tOv'))$('tOv').insertAdjacentHTML('beforeend','<button class="g w" onclick="selfCheck()">🔧 সেটআপ যাচাই</button><div class="sub" id="chkBox" style="margin-top:8px;line-height:1.8"></div>');
+
+/* ---- স্টেটমেন্ট মেলানো ---- */
+var st2=document.createElement('style');
+st2.textContent='.mrow{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--card)}.mrow input{margin-top:5px;width:20px;height:20px;flex:none}.mline{font-size:12px;background:var(--soft);border-radius:8px;padding:6px 8px;margin-top:6px;word-break:break-word}';
+document.head.appendChild(st2);
+function nz(s){return String(s||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
+function nums(t){return (String(t).match(/\d[\d,]*(?:\.\d{1,2})?/g)||[]).map(function(x){return parseFloat(x.replace(/,/g,''))}).filter(function(n){return n>0})}
+function priceNum(s){return parseFloat(lat(bkPrice(s)||'').replace(/[^\d.]/g,''))||0}
+window.matchRun=function(){
+  var lines=$('mtTx').value.split(/\r?\n/).filter(function(l){return l.trim()}),N=lines.map(nz),found=[],miss=[],known={},unk=[],seenU={};
+  rows.forEach(function(s){if(s.cid)known[nz(s.cid)]=1});
+  var idx=function(k){var r=[];if(k)N.forEach(function(n,i){if(n.indexOf(k)>=0)r.push(i)});return r};
+  rows.filter(function(s){return !s.paid}).forEach(function(s){
+    var h=idx(nz(s.cid)),how='ref',t=nz(s.proof_trx);
+    if(!h.length&&t.length>=6){h=idx(t);how='trx'}
+    if(!h.length){miss.push(s);return}
+    var ln=lines[h[0]],pn=priceNum(s),ns=nums(String(ln).replace(new RegExp(nz(s.cid)?s.cid:'^$','i'),' '));
+    if(!ns.length)ns=nums(lines[h[0]+1]||'');
+    found.push({s:s,line:ln,hits:h.length,how:how,pn:pn,ns:ns.slice(0,5),ok:pn?ns.some(function(n){return Math.abs(n-pn)<.5}):false});
+  });
+  lines.forEach(function(l){(l.match(/\b[A-Za-z]{1,4}\d{6,8}\b/g)||[]).forEach(function(k){if(!known[nz(k)]&&!seenU[l]){seenU[l]=1;unk.push(l)}})});
+  var h='<div class="sub" style="margin:10px 0">স্টেটমেন্টে '+lines.length+' লাইন · মিলেছে <b>'+found.length+'</b> · টাকা আসেনি এমন Pending/বাকি: <b>'+miss.length+'</b></div>';
+  found.forEach(function(f){var s=f.s;
+    h+='<label class="mrow"><input type="checkbox" data-id="'+s.id+'"'+(f.ok?' checked':'')+'><div style="min-width:0"><b>'+esc(s.name)+'</b> · '+esc(cname(s))+' '
+     +(f.ok?'<span class="pill pd">✅ মিলেছে</span>':'<span class="pill pen">⚠️ টাকার অঙ্ক মেলেনি</span>')
+     +(!s.active?' <span class="pill cx">মেয়াদ শেষ ছিল, Paid করলে বুকিং আবার সক্রিয় হবে</span>':'')
+     +'<div class="sub">কোর্স আইডি '+esc(s.cid||'')+' · ফি '+esc(lat(bkPrice(s))||'—')+(f.how==='trx'?' · ট্রানজেকশন আইডি দিয়ে মিলেছে (রেফারেন্স ছাড়া)':'')+(f.ok?'':' · স্টেটমেন্টে পাওয়া: '+(f.ns.join(', ')||'—'))+(f.hits>1?' · ⚠️ একাধিকবার পাওয়া গেছে':'')+'</div>'
+     +'<div class="mline">'+esc(String(f.line).slice(0,170))+'</div></div></label>'});
+  if(found.length)h+='<button class="w" onclick="matchApply()">নির্বাচিতগুলো Paid করো</button>';
+  if(unk.length)h+='<h2 class="sh">❓ অজানা রেফারেন্স ('+unk.length+')</h2><div class="sub">এই লাইনের রেফারেন্স কোনো বুকিংয়ের সাথে মেলেনি:</div>'+unk.slice(0,20).map(function(l){return '<div class="mline">'+esc(String(l).slice(0,170))+'</div>'}).join('');
+  if(miss.length)h+='<h2 class="sh">⏳ টাকা এখনো পাওয়া যায়নি ('+miss.length+')</h2>'+miss.slice(0,30).map(function(s){return '<div class="row"><span>'+esc(s.name)+' · '+esc(s.cid||'')+'</span><span class="sub">'+esc(lat(bkPrice(s))||'')+'</span></div>'}).join('');
+  $('mtRes').innerHTML=lines.length?h:'<p class="sub">আগে স্টেটমেন্টের লেখা পেস্ট করো বা ফাইল বেছে নাও।</p>';
+};
+window.matchApply=async function(){
+  var ids=Array.prototype.map.call(document.querySelectorAll('#mtRes input[data-id]:checked'),function(e){return e.getAttribute('data-id')});
+  if(!ids.length){alert('কিছু নির্বাচন করো।');return}
+  if(!confirm(ids.length+'টি বুকিং Paid করবে? (মেয়াদ শেষ হয়ে থাকলে বুকিং আবার সক্রিয় হবে)'))return;
+  var n=0;
+  for(var i=0;i<ids.length;i++){var s=rows.filter(function(x){return x.id===ids[i]})[0],u={paid:true};if(s&&!s.active)u.active=true;
+    var r=await SB.from('bookings').update(u).eq('id',ids[i]);if(!r||!r.error)n++}
+  await loadAdmin();loadCourses(false);
+  $('mtRes').innerHTML='<div class="pay ok">✅ '+n+'টি বুকিং Paid হয়েছে।</div>';
+};
+W('goTab',function(o){return function(t){o(t);show('tMt',t==='mt')}});
+var lo=$('tabs')&&$('tabs').querySelector('.lo');
+if(lo&&$('tCo')){
+  lo.insertAdjacentHTML('beforebegin','<button data-t="mt">💳 মেলাও</button>');
+  $('tCo').insertAdjacentHTML('afterend','<div id="tMt" class="hide"><h2 class="sh" style="margin-top:4px">💳 ব্যাংক স্টেটমেন্ট মেলাও</h2><p class="sub">ব্যাংক অ্যাপ বা ইন্টারনেট ব্যাংকিং থেকে স্টেটমেন্টের লেখা কপি করে এখানে পেস্ট করো, অথবা CSV/টেক্সট ফাইল বেছে নাও। সাইট কোর্স আইডি (রেফারেন্স) আর টাকার অঙ্ক মিলিয়ে দেখাবে। লেখাটা শুধু তোর ব্রাউজারেই থাকে, কোথাও পাঠানো হয় না।</p><textarea class="t" id="mtTx" rows="7" spellcheck="false" placeholder="এখানে স্টেটমেন্টের লাইনগুলো পেস্ট করো…"></textarea><div class="tools"><label class="pfile" style="flex:1;margin:0">📄 ফাইল বেছে নাও<input type="file" accept=".csv,.txt,text/*" id="mtFile"></label><button class="y" onclick="matchRun()">মিলাও</button></div><div id="mtRes"></div></div>');
+  $('mtFile').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$('mtTx').value=String(r.result)};r.readAsText(f)};
+}
 if(typeof renderWg==='function')renderWg();
 if(typeof loaded!=='undefined'&&loaded)render();
 })();
