@@ -7,7 +7,7 @@
 <meta name="description" content="সহজ বাংলায়, ধাপে ধাপে জার্মান ভাষা শেখো। ছোট ব্যাচ, A1 থেকে B1।">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Jabirs Weg">
-<meta property="og:title" content="Jabirs Weg">
+<meta property="og:title" content="Jabirs Weg – সহজ বাংলায় জার্মান শেখো">
 <meta property="og:description" content="Deutsch für die Zukunft">
 <meta property="og:url" content="https://jabirsweg.live/">
 <meta property="og:image" content="https://jabirsweg.live/og.png">
@@ -21,7 +21,21 @@
 <link rel="stylesheet" href="base.css?v=1">
 <style>:root[data-theme="dark"]{--bg:#0e1625;--card:#16213a;--ink:#f1f4fa;--mute:#9aa6bf;--line:#2a3860;color-scheme:dark}
 #thm{margin-left:auto;flex:none;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:17px;line-height:1;cursor:pointer;padding:0}
-#aboutCard>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;-webkit-tap-highlight-color:transparent}#aboutCard>summary::-webkit-details-marker{display:none}#aboutCard>summary h2{margin:0}#aboutCard>summary::after{content:"›";font-size:26px;line-height:1;color:var(--mute);transition:transform .2s}#aboutCard[open]>summary::after{transform:rotate(90deg)}#aboutCard>p{animation:abin .25s ease both}@keyframes abin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}</style>
+#aboutCard>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;-webkit-tap-highlight-color:transparent}#aboutCard>summary::-webkit-details-marker{display:none}#aboutCard>summary h2{margin:0}#aboutCard>summary::after{content:"›";font-size:26px;line-height:1;color:var(--mute);transition:transform .2s}#aboutCard[open]>summary::after{transform:rotate(90deg)}#aboutCard>p{animation:abin .25s ease both}@keyframes abin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+/* ===== স্মুথ ===== */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.22s}
+html{background:var(--bg);scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body,.card,.top,.tbody,footer,input{transition:background-color .25s ease,color .25s ease,border-color .25s ease}
+button,a,.hc,.cc,.ht{transition:transform .15s ease,background-color .25s ease,color .25s ease,border-color .25s ease,opacity .2s ease,box-shadow .25s ease}
+button:active,.hc:active,.cc:active,.ht:active{transform:scale(.97)}
+@keyframes jwin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.jwa{animation:jwin .28s ease both}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+#bk{display:none!important}
+main{animation:jwin .35s ease both}
+main>section:not(.hide){animation:jwin .28s ease both}
+</style>
 <script>try{var _t=localStorage.getItem('th');if(_t)document.documentElement.setAttribute('data-theme',_t)}catch(e){}
 function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('th',n)}catch(e){}}</script>
 </head>
