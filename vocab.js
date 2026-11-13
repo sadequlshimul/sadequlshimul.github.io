@@ -1,4 +1,4 @@
-/* ===== vocab.js: ভোকাবুলারি — শব্দ থাকে data/vocab-*.json ফাইলে, ভোকাবুলারি ট্যাপ করলে তবেই লোড হয় ===== */
+/* ===== vocab.js: ভোকাবুলারি — শব্দ থাকে vocab-*.json ফাইলে, ভোকাবুলারি ট্যাপ করলে তবেই লোড হয় ===== */
 (function(){
 var s3=document.createElement('style');
 s3.textContent+='.der{--a:#1c7ed6}.die{--a:#e03131}.das{--a:#2f9e44}.vleg{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.vleg span{background:var(--a);color:#fff;font-weight:700;font-size:13px;border-radius:20px;padding:4px 12px}'
@@ -11,7 +11,7 @@ s3.textContent+='.mf{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.mf button
 document.head.appendChild(s3);
 var LVS=[],DATA={},vl='',va='',V=function(){return window.JW_V||'1'};
 function J(u){return fetch(u+'?v='+V()).then(function(r){if(!r.ok)throw 0;return r.json()})}
-async function level(l){if(!DATA[l])DATA[l]=await J('data/vocab-'+l.toLowerCase()+'.json');return DATA[l]}
+async function level(l){if(!DATA[l])DATA[l]=await J('vocab-'+l.toLowerCase()+'.json');return DATA[l]}
 window.vocLv=async function(l){vl=l;await level(l);draw()};
 window.vocAr=function(x){va=x;draw()};
 window.vocSay=function(t){try{var u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}};
@@ -25,7 +25,7 @@ function draw(){
 }
 window.initVocab=async function(panel){
   panel.innerHTML='<div class="card"><h2>📚 ভোকাবুলারি</h2><p class="sub">লেভেল বেছে নাও। প্রতিটা আর্টিকেলের আলাদা রঙ, রঙ দেখেই শব্দের লিঙ্গ মনে রাখো।</p><div class="mf" id="vLv"></div><div class="vleg"><span class="der">der · পুংলিঙ্গ</span><span class="die">die · স্ত্রীলিঙ্গ</span><span class="das">das · ক্লীবলিঙ্গ</span></div><div class="mf" id="vAr"></div><div class="vg" id="vGrid"><p class="sub">লোড হচ্ছে…</p></div></div>';
-  try{LVS=await J('data/vocab-index.json');vl=LVS[0];await level(vl);draw()}
+  try{LVS=await J('vocab-index.json');vl=LVS[0];await level(vl);draw()}
   catch(e){$('vGrid').innerHTML='<p class="sub">শব্দ লোড হয়নি, আবার চেষ্টা করো।</p>'}
 };
 })();

@@ -85,13 +85,13 @@ function LJ(src){
     s.onload=res;s.onerror=function(){delete LJ.c[src];rej(new Error('load '+src))};document.head.appendChild(s)}));
 }
 function initAdmin(){
-  return LJ('js/admin.js').then(function(){return LJ('js/admin-match.js')}).then(function(){return window.initAdmin!==stubInitAdmin?window.initAdmin():null})
+  return LJ('admin.js').then(function(){return LJ('admin-match.js')}).then(function(){return window.initAdmin!==stubInitAdmin?window.initAdmin():null})
     .catch(function(){alert('অ্যাডমিনের ফাইল লোড হয়নি। ইন্টারনেট দেখে পেজ রিফ্রেশ করো।')});
 }
 var stubInitAdmin=initAdmin;
 /* হোমের কার্ড ট্যাপ করলে নতুন পেজ: হ্যাশ → পেজের নাম */
 var PG={courses:'list',goal:'goal',mock:'mock',vocab:'vocab'};
-var PAGE_MOD={mock:['js/mock.js','initMock'],vocab:['js/vocab.js','initVocab']};
+var PAGE_MOD={mock:['mock.js','initMock'],vocab:['vocab.js','initVocab']};
 function pageInit(k){
   var m=PAGE_MOD[k];pageInit.d=pageInit.d||{};if(!m||pageInit.d[k])return;pageInit.d[k]=1;
   var box=$(k+'Box');box.innerHTML='<div class="card"><p class="sub">লোড হচ্ছে…</p></div>';
