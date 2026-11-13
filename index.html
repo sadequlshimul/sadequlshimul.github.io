@@ -4,10 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jabirs Weg – Deutsch Registration</title>
+<meta name="description" content="সহজ বাংলায়, ধাপে ধাপে জার্মান ভাষা শেখো। ছোট ব্যাচ, A1 থেকে B1।">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jabirs Weg">
+<meta property="og:title" content="Jabirs Weg – সহজ বাংলায় জার্মান শেখো">
+<meta property="og:description" content="ছোট ব্যাচ, বাংলায় সহজ ব্যাখ্যা, A1 থেকে B1। এখনই তোমার কোর্স বেছে নাও।">
+<meta property="og:url" content="https://jabirsweg.live/">
+<meta property="og:image" content="https://jabirsweg.live/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jabirs Weg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jabirsweg.live/og.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="base.css?v=1">
 <style>:root[data-theme="dark"]{--bg:#0e1625;--card:#16213a;--ink:#f1f4fa;--mute:#9aa6bf;--line:#2a3860;color-scheme:dark}
-#thm{margin-left:auto;flex:none;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:17px;line-height:1;cursor:pointer;padding:0}</style>
+#thm{margin-left:auto;flex:none;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:17px;line-height:1;cursor:pointer;padding:0}
+#aboutCard>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;-webkit-tap-highlight-color:transparent}#aboutCard>summary::-webkit-details-marker{display:none}#aboutCard>summary h2{margin:0}#aboutCard>summary::after{content:"›";font-size:26px;line-height:1;color:var(--mute);transition:transform .2s}#aboutCard[open]>summary::after{transform:rotate(90deg)}#aboutCard>p{animation:abin .25s ease both}@keyframes abin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}</style>
 <script>try{var _t=localStorage.getItem('th');if(_t)document.documentElement.setAttribute('data-theme',_t)}catch(e){}
 function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('th',n)}catch(e){}}</script>
 </head>
@@ -37,11 +51,11 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
 <main>
   <section id="home">
     <button id="myBtn" class="hide"></button>
-    <div class="card wide" id="aboutCard">
-      <h2>Jabirs Weg সম্পর্কে</h2>
+    <details class="card wide" id="aboutCard">
+      <summary><h2>Jabirs Weg সম্পর্কে</h2></summary>
       <p style="font-size:15px;line-height:1.7;margin:6px 0 0">Jabirs Weg মানে “জাবিরের পথ”। জার্মান ভাষা শেখার এই পথে আমরা সহজ বাংলায়, ধাপে ধাপে তোমার পাশে আছি। একদম শূন্য থেকে শুরু করে স্বাধীনভাবে কথা বলা ও লেখা পর্যন্ত, নিয়মিত ক্লাস আর অনুশীলনের মাধ্যমে।</p>
       <div class="abt"><span>ছোট ব্যাচ</span><span>বাংলায় সহজ ব্যাখ্যা</span><span>A1 থেকে B1</span></div>
-    </div>
+    </details>
   </section>
   <section id="list" class="hide">
     <div class="card wide" style="margin-top:14px"><h2>কোর্স বেছে নিন</h2><p class="sub">তোমার পছন্দের একটি কোর্স ট্যাপ করো</p></div>
@@ -182,7 +196,7 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
 <script src="ticket.js?v=1"></script>
 <script src="payment.js?v=1"></script>
 <script src="my.js?v=1"></script>
-<script src="home2.js?v=1"></script>
+<script src="home2.js?v=2"></script>
 <script src="boot.js?v=1"></script>
 </body>
 </html>
