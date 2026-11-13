@@ -6,10 +6,14 @@
 <title>Jabirs Weg – Deutsch Registration</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="base.css?v=1">
+<style>:root[data-theme="dark"]{--bg:#0e1625;--card:#16213a;--ink:#f1f4fa;--mute:#9aa6bf;--line:#2a3860;color-scheme:dark}
+#thm{margin-left:auto;flex:none;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:17px;line-height:1;cursor:pointer;padding:0}</style>
+<script>try{var _t=localStorage.getItem('th');if(_t)document.documentElement.setAttribute('data-theme',_t)}catch(e){}
+function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('th',n)}catch(e){}}</script>
 </head>
 <body>
 <div class="hero">
-  <div class="top"><button id="bk" class="hide" onclick="go('')">← ফিরে যাও</button><span></span></div>
+  <div class="top"><button id="bk" class="hide" onclick="go('')">← ফিরে যাও</button><button id="thm" type="button" aria-label="ডার্ক মোড" onclick="toggleTheme()">◐</button></div>
   <div id="hHome">
     <div class="brand">Jabirs Weg</div>
     <div class="hi" id="hi">Hallo!</div>
@@ -178,7 +182,7 @@
 <script src="ticket.js?v=1"></script>
 <script src="payment.js?v=1"></script>
 <script src="my.js?v=1"></script>
-<script src="home.js?v=1"></script>
+<script src="home.js?v=2"></script>
 <script src="boot.js?v=1"></script>
 </body>
 </html>
