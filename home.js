@@ -18,12 +18,12 @@ document.head.appendChild(s3);var IC={
  t:'<svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2.5a2.5 2.5 0 0 0 0 5V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2.5a2.5 2.5 0 0 0 0-5V7z"/></svg>',
  g:'<svg viewBox="0 0 24 24"><path d="M6 3h2v18H6zm3 1h10l-2.5 4L19 12H9z"/></svg>',
  v:'<b style="font-size:20px;font-weight:700;line-height:1">Aa</b>'};
-var T=[['g','তোমার লক্ষ্য','পড়াশোনা · Ausbildung · পরিবার','#e8590c'],['c','সকল কোর্স','বর্তমানে চালু সব ব্যাচ','#1e8e5a'],['m','মক টেস্ট','A1 · A2 · B1','#6f42c1'],['t','আমার ব্যাচ','আইডি বা ফোন নম্বর দিয়ে','#0c8599'],['v','ভোকাবুলারি','der · die · das আলাদা রঙে','#c2255c']];
+var T=[['g','তোমার লক্ষ্য','পড়াশোনা · Ausbildung · পরিবার','#e8590c'],['c','সকল কোর্স','বর্তমানে চালু সব ব্যাচ','#1e8e5a'],['m','মক টেস্ট','A1 · A2 · B1','#6f42c1'],['t','আমার ব্যাচ','আইডি বা ফোন নম্বর দিয়ে','#0c8599'],['v','শেখার ঘর','শব্দভান্ডার · গ্রামার','#c2255c']];
 var hm=$('home');if(!hm||$('hub'))return;
 var H=document.createElement('div');H.id='hub';
 H.innerHTML=T.map(function(x){return '<button class="ht" data-k="'+x[0]+'" style="--c:'+x[3]+'"><span class="ic">'+IC[x[0]]+'</span><b>'+x[1]+'</b><small id="hts_'+x[0]+'">'+x[2]+'</small><span class="ar">›</span></button>'}).join('');
 hm.insertBefore(H,hm.firstChild);
 var PAGE={g:'goal',c:'courses',m:'mock',t:'my',v:'vocab'};
-H.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('.ht'):null;if(b)go(PAGE[b.getAttribute('data-k')])});
+H.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('.ht'):null;if(b){var k=b.getAttribute('data-k');if(k==='v'){location.href='learn.html';return}go(PAGE[k])}});
 W('renderHome',function(o){return function(){o.apply(this,arguments);var s=$('hts_c');if(s&&typeof PC!=='undefined'&&PC.length)s.textContent=PC.length+'টি কোর্স চালু, ট্যাপ করে দেখো'}});
 })();
