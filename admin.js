@@ -112,8 +112,8 @@ function renderNew(){
   if(!seenAt()){try{localStorage.setItem('jw_seen',new Date().toISOString())}catch(e){}}
   var n=rows.filter(isNew).length,b=$('newBanner');
   b.classList.toggle('hide',n===0);
-  b.textContent='🔔 '+n+'টি নতুন রেজিস্ট্রেশন এসেছে (ট্যাপ করে দেখো)';
-  show('seenBar',n>0);$('seenTxt').textContent='🔔 '+n+'টি নতুন';
+  b.textContent=''+n+'টি নতুন রেজিস্ট্রেশন এসেছে (ট্যাপ করে দেখো)';
+  show('seenBar',n>0);$('seenTxt').textContent=''+n+'টি নতুন';
   var c=$('newCnt');c.textContent=n;c.classList.toggle('hide',n===0);
   document.title=(n?'('+n+') ':'')+'Jabirs Weg';
 }
@@ -158,7 +158,7 @@ function renderDetail(){
   }
   var oth=rows.filter(function(x){return x.id!==s.id&&last11(x.phone)===last11(s.phone)});
   if(oth.length)h+='<div class="card"><h2 style="font-size:16px">এই নম্বরের অন্য বুকিং</h2>'+oth.map(function(x){var cc=cby(x.course_id);return '<div class="row" data-d="open" data-i="'+x.id+'" style="cursor:pointer"><div style="min-width:0"><b>'+esc(cc?cc.title:x.level)+'</b><div class="sub">'+esc(x.booking_no)+' · '+esc(x.batch_code||'')+'</div></div><span class="pill '+(x.paid?'pd':'pen')+'">'+(x.paid?'Paid':'Pending')+'</span></div>'}).join('')+'</div>';
-  h+='<div class="card" style="text-align:center"><h2 style="font-size:16px;text-align:left">টিকিট</h2><img id="dvtk" class="tkimg" alt="Ticket"><button class="g" data-d="dl">⬇ টিকিট ডাউনলোড</button></div>';
+  h+='<div class="card" style="text-align:center"><h2 style="font-size:16px;text-align:left">টিকিট</h2><img id="dvtk" class="tkimg" alt="Ticket"><button class="g" data-d="dl">টিকিট ডাউনলোড</button></div>';
   h+='<button class="g w" data-d="active">'+(s.active?'বুকিং বাতিল করো':'বুকিং সক্রিয় করো')+'</button>';
   $('dvb').innerHTML=h;
   $('dvn').innerHTML='<button class="g" data-d="prev"'+(idx<=0?' disabled':'')+'>‹ আগের</button><button class="mid" data-d="paid">'+(s.paid?'Pending করো':'✓ Paid করো')+'</button><button class="g" data-d="next"'+(idx>=tot-1?' disabled':'')+'>পরের ›</button>';
@@ -207,13 +207,13 @@ function editorHtml(c,k,nw){
    +'<div class="tools"><label class="sub" style="flex:1;min-width:150px">শুরুর তারিখ (কাউন্টডাউনের জন্য)<input class="t" type="date" id="sd_'+k+'" value="'+esc(c.start_date||'')+'"></label>'+fld('st',k,'শুরু নিয়ে নোট (ঐচ্ছিক)',c.info_start,60)+'</div>'
    +'<div class="tools">'+fld('ix',k,'অন্যান্য তথ্য (ঐচ্ছিক)',c.info_extra,300)+'</div>'
    +(nw?'':'<div class="grp">নতুন ব্যাচ শুরু করো</div><div class="tools">'+fld('nb',k,'নতুন ব্যাচের কোড (যেমন DFZA123)','',12)+bt('batch',k,'y','শুরু করো')+'</div>')
-   +'<div class="tools" style="margin-top:12px">'+(nw?bt('save',k,'','তৈরি করো')+bt('cancelnew',k,'g','বাতিল'):bt('save',k,'','সংরক্ষণ')+bt('done',k,'g','✅ ব্যাচ সম্পন্ন করো')+bt('del',k,'g','মুছে ফেলো'))+'</div></div>';
+   +'<div class="tools" style="margin-top:12px">'+(nw?bt('save',k,'','তৈরি করো')+bt('cancelnew',k,'g','বাতিল'):bt('save',k,'','সংরক্ষণ')+bt('done',k,'g','ব্যাচ সম্পন্ন করো')+bt('del',k,'g','মুছে ফেলো'))+'</div></div>';
 }
 function rowHtml(c,k,nw){
   var op=openK===k,n=nw?0:curCount(c);
   return '<div class="crow" id="cr_'+k+'" style="border-left:6px solid '+esc(c.color)+'">'
    +'<div class="hd" data-a="toggle" data-k="'+k+'"><div style="min-width:0"><b>'+(nw?'নতুন কোর্স':esc(c.title))+'</b>'+(nw?'':'<div class="sub">ব্যাচ '+esc(c.batch_code)+' · বুকিং '+n+'/'+c.capacity+(c.reg_open_at&&new Date(c.reg_open_at)>new Date()?' · শুরু: '+esc(fmtShort(c.reg_open_at)):'')+'</div>')+'</div><span style="font-size:18px">'+(op?'▴':'▾')+'</span></div>'
-   +(nw?'':'<div class="qk">'+bt('open',k,c.is_open?'on':'off',c.is_open?'✅ রেজিস্ট্রেশন চালু':'⛔ রেজিস্ট্রেশন বন্ধ')+bt('hide',k,c.is_hidden?'off':'on',c.is_hidden?'🙈 হোমে লুকানো':'👁 হোমে দেখা যাচ্ছে')+'</div>')
+   +(nw?'':'<div class="qk">'+bt('open',k,c.is_open?'on':'off',c.is_open?'রেজিস্ট্রেশন চালু':'রেজিস্ট্রেশন বন্ধ')+bt('hide',k,c.is_hidden?'off':'on',c.is_hidden?'হোমে লুকানো':'হোমে দেখা যাচ্ছে')+'</div>')
    +(op?editorHtml(c,k,nw):'')+'</div>';
 }
 function dirtyAny(){for(var k in dirty)if(dirty[k])return true;return false}
@@ -353,8 +353,8 @@ W('renderBk',function(o){return function(){
     if(sub&&el.textContent.indexOf('কোর্স আইডি')<0)sub.innerHTML+=(pr?' · '+esc(lat(pr)):'')+'<br>কোর্স আইডি: <b>'+esc(s.cid||'—')+'</b>';
     var t=el.querySelector('.tools'),tp=el.querySelector('.bk-top span'),stt=s.paid?'':(s.expired_at?'<span class="pill cx">মেয়াদ শেষ</span> ':(s.proof_at?'<span class="pill pen">যাচাই চলছে</span> ':''));
     if(tp&&stt&&el.textContent.indexOf('যাচাই চলছে')<0&&el.textContent.indexOf('মেয়াদ শেষ')<0)tp.insertAdjacentHTML('afterbegin',stt);
-    if(t&&s.proof_at&&!t.querySelector('[data-pf]'))t.insertAdjacentHTML('beforeend','<button class="g" data-pf="'+s.id+'">🧾 প্রমাণ</button>');
-    if(t&&!t.querySelector('[data-k="del"]'))t.insertAdjacentHTML('beforeend','<button class="g" data-i="'+s.id+'" data-k="del" style="color:#c92a2a">🗑️ মুছো</button>');
+    if(t&&s.proof_at&&!t.querySelector('[data-pf]'))t.insertAdjacentHTML('beforeend','<button class="g" data-pf="'+s.id+'">প্রমাণ</button>');
+    if(t&&!t.querySelector('[data-k="del"]'))t.insertAdjacentHTML('beforeend','<button class="g" data-i="'+s.id+'" data-k="del" style="color:#c92a2a">মুছো</button>');
   })}});
 W('renderDetail',function(o){return function(){
   o();var s=dvRow();if(!s)return;
@@ -362,7 +362,7 @@ W('renderDetail',function(o){return function(){
   Array.prototype.forEach.call(document.querySelectorAll('#dvb .card'),function(c){
     if(c.textContent.indexOf('বুকিংয়ের তথ্য')>=0&&c.textContent.indexOf('কোর্স আইডি')<0)c.insertAdjacentHTML('beforeend',rw('কোর্স আইডি (পেমেন্ট রেফ)',esc(s.cid||'—'))+(pr?rw('কোর্স ফি',esc(lat(pr))):'')+(s.proof_at?rw('পেমেন্টের প্রমাণ',esc(s.proof_trx||'স্ক্রিনশট')+' <button class="g" data-pf="'+s.id+'" style="padding:3px 10px;font-size:12px">দেখো</button>'):'')+(s.expired_at?rw('অবস্থা','মেয়াদ শেষে স্বয়ংক্রিয় বাতিল'):''))});
   var ab=document.querySelector('#dvb button[data-d="active"]');
-  if(ab&&!document.querySelector('#dvb button[data-d="del"]'))ab.insertAdjacentHTML('afterend','<button class="g w" data-d="del" style="color:#c92a2a;margin-bottom:70px">🗑️ স্থায়ীভাবে মুছে ফেলো</button>');
+  if(ab&&!document.querySelector('#dvb button[data-d="del"]'))ab.insertAdjacentHTML('afterend','<button class="g w" data-d="del" style="color:#c92a2a;margin-bottom:70px">স্থায়ীভাবে মুছে ফেলো</button>');
 }});
 window.viewProof=async function(id){
   var s=rows.filter(function(x){return x.id===id})[0];if(!s)return;
@@ -392,7 +392,7 @@ window.csv=function(){
 /* ---- সেটআপ যাচাই (অ্যাডমিন ওভারভিউয়ের নিচে) ---- */
 window.selfCheck=async function(){
   var box=$('chkBox'),out=[];box.innerHTML='যাচাই হচ্ছে…';
-  var ok=function(t){out.push('✅ '+t)},no=function(t){out.push('❌ '+t)};
+  var ok=function(t){out.push('✓ '+t)},no=function(t){out.push('✕ '+t)};
   var r1=await rp('expire_bookings');r1.error?no('অটো-বাতিলের ফাংশন (expire_bookings) নেই। SQL চালানো হয়নি।'):ok('অটো-বাতিলের ফাংশন আছে');
   var r2=await rp('student_ids',{p_nos:[]});r2.error?no('আমার আইডির ফাংশন (student_ids) নেই। SQL চালানো হয়নি।'):ok('আমার আইডির ফাংশন আছে');
   var r3=await rp('save_pay',{p_id:null,p_bcode:'ZZZ'});r3.error?no('save_pay ফাংশন নেই বা পুরনো: '+r3.error.message):ok('save_pay ফাংশন আছে');
@@ -405,11 +405,11 @@ window.selfCheck=async function(){
     if(q.error)no('pay_info এরর: '+q.error.message);
     else('st' in q.data)?ok('pay_info নতুন ভার্সন'):no('pay_info পুরনো ভার্সন (স্ট্যাটাস ও বাকি সময় নেই)। SQL আবার চালাও।');
     var nb=rows.filter(function(x){return !x.paid&&x.active})[0];
-    if(nb&&!nb.expires_at)out.push('⚠️ সর্বশেষ Pending বুকিংয়ে শেষ সময় (expires_at) নেই। বুকিংটা SQL চালানোর আগের হলে ঠিক আছে, নতুন বুকিং হলে ট্রিগার আপডেট হয়নি।');
+    if(nb&&!nb.expires_at)out.push('সর্বশেষ Pending বুকিংয়ে শেষ সময় (expires_at) নেই। বুকিংটা SQL চালানোর আগের হলে ঠিক আছে, নতুন বুকিং হলে ট্রিগার আপডেট হয়নি।');
   }else out.push('ℹ️ কোনো বুকিং নেই। একটা টেস্ট বুকিং করে আবার যাচাই করো।');
   box.innerHTML=out.join('<br>');
 };
-if($('tOv'))$('tOv').insertAdjacentHTML('beforeend','<button class="g w" onclick="selfCheck()">🔧 সেটআপ যাচাই</button><div class="sub" id="chkBox" style="margin-top:8px;line-height:1.8"></div>');
+if($('tOv'))$('tOv').insertAdjacentHTML('beforeend','<button class="g w" onclick="selfCheck()">সেটআপ যাচাই</button><div class="sub" id="chkBox" style="margin-top:8px;line-height:1.8"></div>');
 })();
 (function(){
 var _p0=SB.rpc;

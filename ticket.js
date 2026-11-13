@@ -55,7 +55,7 @@ function stOf(t){
 }
 W('tdata',function(o){return function(c,n,no){var t=o(c,n,no);t.st='pending';return t}});
 W('drawTicket',function(o){return async function(t){
-  var cv=await o(t),st=stOf(t),x=cv.getContext('2d'),W0=cv.width,B={paid:['#1e8e5a','✓ পেমেন্ট নিশ্চিত'],pending:['#e53935','⏱ পেমেন্ট বাকি'],verifying:['#1c7ed6','⏳ যাচাই চলছে'],expired:['#757575','✕ মেয়াদ শেষ']}[st]||['#1e8e5a','✓ পেমেন্ট নিশ্চিত'];
+  var cv=await o(t),st=stOf(t),x=cv.getContext('2d'),W0=cv.width,B={paid:['#1e8e5a','✓ পেমেন্ট নিশ্চিত'],pending:['#e53935','পেমেন্ট বাকি'],verifying:['#1c7ed6','যাচাই চলছে'],expired:['#757575','✕ মেয়াদ শেষ']}[st]||['#1e8e5a','✓ পেমেন্ট নিশ্চিত'];
   if(st!=='paid'){x.save();x.translate(W0/2+60,cv.height/2+20);x.rotate(-0.3);x.globalAlpha=.08;x.fillStyle='#14213d';x.textAlign='center';var wm=st==='verifying'?'VERIFYING':(st==='expired'?'EXPIRED':'UNPAID');x.font='700 '+Math.min(150,Math.floor(900/wm.length))+'px "Hind Siliguri",sans-serif';x.fillText(wm,0,0);x.restore()}
   x.save();x.fillStyle=B[0];var w=290,h=52,px=W0-60-w,py=46;x.beginPath();x.moveTo(px+14,py);x.arcTo(px+w,py,px+w,py+h,14);x.arcTo(px+w,py+h,px,py+h,14);x.arcTo(px,py+h,px,py,14);x.arcTo(px,py,px+w,py,14);x.closePath();x.fill();
   x.fillStyle='#fff';x.textAlign='center';x.font='700 26px "Hind Siliguri",sans-serif';x.fillText(B[1],px+w/2,py+36);x.restore();

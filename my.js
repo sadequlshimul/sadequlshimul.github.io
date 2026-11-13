@@ -22,7 +22,7 @@ async function lookupMy(silent){
 function cardMy(m,i){
   var left=m.m_sd?daysLeft(m.m_sd):null,cd='';
   if(!m.m_active)cd='<div class="cd">এই বুকিং বাতিল করা হয়েছে।</div>';
-  else if(m.m_done)cd='<div class="cd"><b style="font-size:20px">✅ এই ব্যাচ সম্পন্ন হয়েছে</b></div>';
+  else if(m.m_done)cd='<div class="cd"><b style="font-size:20px">এই ব্যাচ সম্পন্ন হয়েছে</b></div>';
   else if(!m.m_current)cd='<div class="cd">এটি আগের ব্যাচের বুকিং।</div>';
   else if(left===null)cd='<div class="cd">ক্লাস শুরুর তারিখ শীঘ্রই জানানো হবে।</div>';
   else if(left>1)cd='<div class="cd">ক্লাস শুরু হতে<b>'+left+' দিন বাকি</b></div>';
@@ -34,7 +34,7 @@ function cardMy(m,i){
     +'<div style="margin:8px 0"><span class="pill" style="background:var(--soft);color:var(--ink)">ব্যাচ '+esc(m.m_batch)+'</span> <span class="pill '+(m.m_paid?'pd':'pen')+'">'+(m.m_paid?'Paid':'Pending')+'</span>'+(m.m_active?'':' <span class="pill cx">Cancelled</span>')+'</div>'+cd
     +(!m.m_paid&&m.m_active?'<p class="sub" style="margin-top:8px">পেমেন্ট নিশ্চিত হলে এখানে Paid দেখাবে।</p>':'')
     +(ri.length?'<h2 style="font-size:16px;margin:14px 0 4px">ক্লাসের তথ্য</h2>'+ri.map(function(x){return '<div class="irow"><span>'+x[0]+'</span><b>'+esc(lat(x[1]))+'</b></div>'}).join(''):'')
-    +'<img id="mtk_'+i+'" class="tkimg" alt="Ticket"><div class="tools" style="justify-content:center"><button onclick="saveTicketAt('+i+')">⬇ টিকিট ডাউনলোড</button><button class="g hide" id="msh_'+i+'" onclick="shareTicketAt('+i+')">শেয়ার করো</button></div></div>';
+    +'<img id="mtk_'+i+'" class="tkimg" alt="Ticket"><div class="tools" style="justify-content:center"><button onclick="saveTicketAt('+i+')">টিকিট ডাউনলোড</button><button class="g hide" id="msh_'+i+'" onclick="shareTicketAt('+i+')">শেয়ার করো</button></div></div>';
 }
 async function renderMy(list){
   document.body.style.setProperty('--p',list[0].m_color||'#0058a3');

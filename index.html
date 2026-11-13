@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jabirs Weg</title>
-<meta name="description" content="সহজ বাংলায়, ধাপে ধাপে জার্মান ভাষা শেখো। ছোট ব্যাচ, A1 থেকে B1।">
+<meta name="description" content="Deutsch für die Zukunft">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Jabirs Weg">
-<meta property="og:title" content="Jabirs Weg – সহজ বাংলায় জার্মান শেখো">
+<meta property="og:title" content="Jabirs Weg">
 <meta property="og:description" content="Deutsch für die Zukunft">
 <meta property="og:url" content="https://jabirsweg.live/">
 <meta property="og:image" content="https://jabirsweg.live/og.png">
@@ -38,6 +38,10 @@ main>section:not(.hide){animation:jwin .28s ease both}
 </style>
 <script>try{var _t=localStorage.getItem('th');if(_t)document.documentElement.setAttribute('data-theme',_t)}catch(e){}
 function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('th',n)}catch(e){}}</script>
+<link rel="icon" href="favicon.ico?v=1" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=1">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<meta name="theme-color" content="#0058a3">
 </head>
 <body>
 <div class="hero">
@@ -55,11 +59,11 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
     <div id="cPrice" class="pricebadge hide"></div>
   </div>
   <div id="hAdm" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi">Admin Panel</div></div>
-  <div id="hMy" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">🎟️ আমার ব্যাচ</div></div>
-  <div id="hList" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">📚 সকল কোর্স</div></div>
-  <div id="hGoal" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">🛤️ তোমার লক্ষ্য</div></div>
-  <div id="hMock" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">📝 মক টেস্ট</div></div>
-  <div id="hVocab" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">📚 ভোকাবুলারি</div></div>
+  <div id="hMy" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">আমার ব্যাচ</div></div>
+  <div id="hList" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">সকল কোর্স</div></div>
+  <div id="hGoal" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">তোমার লক্ষ্য</div></div>
+  <div id="hMock" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">মক টেস্ট</div></div>
+  <div id="hVocab" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">ভোকাবুলারি</div></div>
 </div>
 <div class="stripe"></div>
 <main>
@@ -75,10 +79,10 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
     <div class="card wide" style="margin-top:14px"><h2>কোর্স বেছে নিন</h2><p class="sub">তোমার পছন্দের একটি কোর্স ট্যাপ করো</p></div>
     <div id="cards" style="display:contents"><div class="card wide"><p class="sub">লোড হচ্ছে…</p></div></div>
     <div class="card wide hide" id="chipCard"><div id="fsub0" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
-    <div class="card wide hide" id="doneCard"><h2>✅ সম্পন্ন কোর্স</h2><p class="sub">যে ব্যাচগুলো সফলভাবে শেষ হয়েছে</p><div id="doneList"></div></div>
+    <div class="card wide hide" id="doneCard"><h2>সম্পন্ন কোর্স</h2><p class="sub">যে ব্যাচগুলো সফলভাবে শেষ হয়েছে</p><div id="doneList"></div></div>
   </section>
   <section id="goal" class="hide">
-    <div class="card wide" id="pathCard" style="margin-top:14px"><h2>🛤️ তোমার লক্ষ্য কী?</h2><p class="sub">লক্ষ্যটা বেছে নাও, পথের স্টেশনগুলো একে একে খুলে যাবে</p><div class="mv" id="mv"></div><div id="mvTxt"></div></div>
+    <div class="card wide" id="pathCard" style="margin-top:14px"><h2>তোমার লক্ষ্য কী?</h2><p class="sub">লক্ষ্যটা বেছে নাও, পথের স্টেশনগুলো একে একে খুলে যাবে</p><div class="mv" id="mv"></div><div id="mvTxt"></div></div>
   </section>
   <section id="mock" class="hide"><div id="mockBox"></div></section>
   <section id="vocab" class="hide"><div id="vocabBox"></div></section>
@@ -93,7 +97,7 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
       <div class="seats" id="seats"></div>
     </div>
     <div class="card hide" id="waitCard" style="text-align:center">
-      <h2>⏳ রেজিস্ট্রেশন এখনো শুরু হয়নি</h2>
+      <h2>রেজিস্ট্রেশন এখনো শুরু হয়নি</h2>
       <p class="sub">রেজিস্ট্রেশন শুরু হবে</p>
       <div style="font-size:18px;font-weight:700;margin:4px 0" id="waitWhen"></div>
       <div class="cd"><b id="waitCd" style="font-size:26px"></b></div>
@@ -116,11 +120,11 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
     </div>
     <div class="hide" id="okCard">
       <div class="card" style="text-align:center">
-        <div>🎟️ Willkommen! আমার আইডি</div>
+        <div>Willkommen! আমার আইডি</div>
         <div class="no2" id="okNo"></div>
         <p class="sub">আইডিটা সংরক্ষণ করো। পেমেন্ট নিশ্চিত হলে "আমার ব্যাচ" পেজে স্ট্যাটাস Paid হবে।</p>
         <img id="tkImg" class="tkimg" alt="Ticket">
-        <div class="tools" style="justify-content:center"><button onclick="saveTicket()">⬇ টিকিট ডাউনলোড</button><button class="g hide" id="shBtn" onclick="shareTicket()">শেয়ার করো</button></div>
+        <div class="tools" style="justify-content:center"><button onclick="saveTicket()">টিকিট ডাউনলোড</button><button class="g hide" id="shBtn" onclick="shareTicket()">শেয়ার করো</button></div>
         <p class="sub" style="font-size:12px">ডাউনলোড না হলে ছবিটা চেপে ধরে সেভ করো।</p>
         <button class="g w" onclick="copyNo()" id="cpBtn">আমার আইডি কপি করো</button>
         <button class="w" onclick="go('my')">আমার ব্যাচ পেজ দেখো →</button>
@@ -156,9 +160,9 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
     </div>
     <div class="card hide" id="panel">
       <div class="tabs" id="tabs">
-        <button class="on" data-t="ov">📊 ওভারভিউ</button>
-        <button data-t="bk">👥 বুকিং<span class="cnt hide" id="newCnt"></span></button>
-        <button data-t="co">📚 কোর্স</button>
+        <button class="on" data-t="ov">ওভারভিউ</button>
+        <button data-t="bk">বুকিং<span class="cnt hide" id="newCnt"></span></button>
+        <button data-t="co">কোর্স</button>
         <button class="lo" onclick="logout()">লগআউট</button>
       </div>
 
@@ -193,7 +197,7 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
       <div id="tCo" class="hide">
         <button class="y w" style="margin-top:0" onclick="addCourse()">+ নতুন কোর্স যোগ করো</button>
         <div id="ctl" style="margin-top:12px"></div>
-        <h2 class="sh">✅ সম্পন্ন কোর্স</h2>
+        <h2 class="sh">সম্পন্ন কোর্স</h2>
         <p class="sub">"ব্যাচ সম্পন্ন করো" চাপলে এখানে জমা হয় আর হোম পেজেও দেখায়।</p>
         <div id="doneAdm"></div>
       </div>
@@ -203,13 +207,13 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
 <footer><a class="fbw" href="https://www.facebook.com/share/1PiMuePZN2/" target="_blank" rel="noopener" aria-label="Facebook পেজে যাও"><span>আমাদের সাথে পথ চলো</span><i class="fbl"></i><span class="fb"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg></span></a><div>© Jabirs Weg · Deutsch für die Zukunft</div></footer>
 <div id="dv" class="hide"><div id="dvh" class="dvh"></div><div id="dvb" class="dvb"></div><div id="dvn" class="dvn"></div></div>
 <script src="config.js"></script>
-<script>window.JW_V='1';</script>
+<script>window.JW_V='2';</script>
 <script src="core.js?v=1"></script>
 <script src="courses.js?v=1"></script>
-<script src="goal.js?v=1"></script>
-<script src="ticket.js?v=1"></script>
-<script src="payment.js?v=1"></script>
-<script src="my.js?v=1"></script>
+<script src="goal.js?v=2"></script>
+<script src="ticket.js?v=2"></script>
+<script src="payment.js?v=2"></script>
+<script src="my.js?v=2"></script>
 <script src="home2.js?v=2"></script>
 <script src="boot.js?v=1"></script>
 </body>

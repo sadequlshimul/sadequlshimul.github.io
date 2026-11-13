@@ -6,9 +6,9 @@ s3.textContent=''
 +'.lv i{font-style:normal;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--c);color:#fff;font-weight:700;font-size:20px}.lv button.on{background:var(--c);color:#fff}.lv button.on i{background:rgba(255,255,255,.25)}'
 +'.mods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.mods div{background:var(--soft);border-radius:12px;padding:10px;font-size:14px}.mods small{display:block;color:var(--mute);font-size:12px}';
 document.head.appendChild(s3);
-var LV=[['A1','#1e8e5a'],['A2','#0c8599'],['B1','#6f42c1']],MD=[['📖','Lesen','পড়া'],['🎧','Hören','শোনা'],['✍️','Schreiben','লেখা'],['🗣️','Sprechen','বলা']];
+var LV=[['A1','#1e8e5a'],['A2','#0c8599'],['B1','#6f42c1']],MD=[['','Lesen','পড়া'],['','Hören','শোনা'],['','Schreiben','লেখা'],['','Sprechen','বলা']];
 window.initMock=function(pm){
-  pm.innerHTML='<div class="card"><h2>📝 মক টেস্ট</h2><p class="sub">তোমার লেভেল বেছে নাও</p><div class="lv">'
+  pm.innerHTML='<div class="card"><h2>মক টেস্ট</h2><p class="sub">তোমার লেভেল বেছে নাও</p><div class="lv">'
    +LV.map(function(l){return '<button data-l="'+l[0]+'" style="--c:'+l[1]+'"><i>'+l[0]+'</i><b>মক টেস্ট '+l[0]+'</b></button>'}).join('')+'</div><div id="lvDet"></div></div>';
   pm.addEventListener('click',function(e){
     var b=e.target&&e.target.closest?e.target.closest('.lv button'):null;if(!b)return;
