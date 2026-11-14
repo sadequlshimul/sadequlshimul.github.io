@@ -406,7 +406,7 @@ window.selfCheck=async function(){
     else('st' in q.data)?ok('pay_info নতুন ভার্সন'):no('pay_info পুরনো ভার্সন (স্ট্যাটাস ও বাকি সময় নেই)। SQL আবার চালাও।');
     var nb=rows.filter(function(x){return !x.paid&&x.active})[0];
     if(nb&&!nb.expires_at)out.push('সর্বশেষ Pending বুকিংয়ে শেষ সময় (expires_at) নেই। বুকিংটা SQL চালানোর আগের হলে ঠিক আছে, নতুন বুকিং হলে ট্রিগার আপডেট হয়নি।');
-  }else out.push('ℹ️ কোনো বুকিং নেই। একটা টেস্ট বুকিং করে আবার যাচাই করো।');
+  }else out.push('কোনো বুকিং নেই। একটা টেস্ট বুকিং করে আবার যাচাই করো।');
   box.innerHTML=out.join('<br>');
 };
 if($('tOv'))$('tOv').insertAdjacentHTML('beforeend','<button class="g w" onclick="selfCheck()">সেটআপ যাচাই</button><div class="sub" id="chkBox" style="margin-top:8px;line-height:1.8"></div>');
