@@ -60,7 +60,7 @@ $("view").addEventListener("click",e=>{
  const b=e.target.closest("button"),t=e.target;
  if(b){const s=b.dataset;
   if(s.ar!==undefined){ar=s.ar;lim=60;render();return}
-  if(s.st!==undefined){os=os===+s.st?-2:+s.st;render();return}
+  if(s.g!==undefined){og.has(s.g)?og.delete(s.g):og.add(s.g);render();return}   if(s.st!==undefined){os=os===+s.st?-2:+s.st;render();return}
   if(s.more){lim+=60;render();return}
   if(s.fs!==undefined){const t=CUR[+s.fs];F={t,q:sh(t.w),flip:false,total:t.w.length,done:0};render();return}
   if(s.fx){F=null;render();return}
@@ -94,6 +94,7 @@ function flash(){const t=F.t,d=F.q[0];
 function learn(){
  if(F)return flash();
  const M={A1:1,A2:2,B1:3};
+ if(!window.og)window.og=new Set();
  if(!window.TW){TW={};D.forEach(d=>{if(d.th)(TW[d.th]=TW[d.th]||[]).push(d)});for(const k in TW)TW[k].sort((a,b)=>a.to-b.to)}
  CUR=TH.map(t=>({k:t.k,lv:t.lv,ti:t.ti,w:TW[t.k]||[]})).filter(t=>t.w.length>=4);
  if(!CUR.length)return'<div class="empty bn">শেখার পাঠ শীঘ্রই যোগ হবে</div>';
@@ -101,10 +102,11 @@ function learn(){
  ["A1","A2","B1"].forEach(l=>{const i=CUR.findIndex(t=>t.lv===l&&!pass.has(t.k));if(i>=0)cur.add(i)});
  if(os===-1)os=cur.size?Math.min(...cur):0;
  let ix=0,h="";
- CUR.forEach((t,k)=>{if(k===0||CUR[k-1].lv!==t.lv){ix=0;h+=`<div class="lvh l${M[t.lv]}">${t.lv} স্টেশন</div>`}ix++;
+ const gm={};CUR.forEach(t=>{const g=gm[t.lv]=gm[t.lv]||{n:0,p:0};g.n++;if(pass.has(t.k))g.p++});
+ CUR.forEach((t,k)=>{if(k===0||CUR[k-1].lv!==t.lv){ix=0;const g=gm[t.lv],op=og.has(t.lv);if(k>0)h+='</div>';h+=`<button class="lg l${M[t.lv]} ${op?"on":""}" data-g="${t.lv}" aria-expanded="${op}"><span class="gt"><b>${t.lv}</b><small>${NB(g.n)}টি স্টেশন · ${NB(g.p)}/${NB(g.n)} পাস</small></span><i class="gc"></i></button><div class="lgb ${op?"on":""}">`}ix++;
   const dn=pass.has(t.k),lc=!un(k),o=os===k&&!lc,n=t.w.filter(d=>known.has(d.id)).length;
   h+=`<section class="stn ${dn?"done":""} ${cur.has(k)?"cur":""} ${lc?"lock":""} ${o?"open":""}"><span class="nd">${dn?"✓":lc?"লক":NB(ix)}</span><button class="sh bn" data-st="${k}" ${lc?"disabled":""}><span class="sl"><b>${t.ti}</b><small>${lc?"আগের স্টেশন পাস করলে খুলবে":NB(t.w.length)+"টি শব্দ"}</small></span><span class="lb l${M[t.lv]}">${t.lv}</span><span class="sp">${NB(n)}/${NB(t.w.length)}</span></button>${o?'<div class="cards">'+t.w.map(card).join("")+`<p class="en3">শব্দ শিখে কুইজে ৭০% পেলে পরের স্টেশন খুলবে।</p><button class="big" data-fs="${k}">শেখা শুরু করুন</button><button class="ghost" data-sq="${k}">সরাসরি কুইজ দিন</button></div>`:""}</section>`});
- return`<div class="stat bn">স্টেশন পাস: ${NB(CUR.filter(t=>pass.has(t.k)).length)} / ${NB(CUR.length)} • সব লেভেলের জন্য একটাই পথ • পাস করতে ৭০%</div><div class="rail">`+h+'<div class="end bn">শেষ স্টেশন</div></div>'}
+ return`<div class="stat bn">স্টেশন পাস: ${NB(CUR.filter(t=>pass.has(t.k)).length)} / ${NB(CUR.length)} • সব লেভেলের জন্য একটাই পথ • পাস করতে ৭০%</div><div class="rail">`+h+'</div><div class="end bn">শেষ স্টেশন</div></div>'}
 function lvs(){const M={A1:1,A2:2,B1:3},bt=l=>`<button class="lvb ${l==="All"?"all":"l"+M[l]} ${l===lvl?"on":""}" data-l="${l}">${l}<small>${(l==="All"||D.some(d=>d.lv===l))?NB(D.filter(d=>(l==="All"||d.lv===l)&&d.bn).length)+"টি":"শীঘ্রই"}</small></button>`;$("lvs").innerHTML=bt("All")+'<i class="vd"></i>'+["A1","A2","B1"].map(bt).join("")}
 $("lvs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lvl=b.dataset.l;try{localStorage.setItem("lv",lvl)}catch(x){}ty="";Q=null;os=-1;lim=60;lvs();chips();render()});
 lvs();
