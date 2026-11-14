@@ -34,13 +34,13 @@ window.refreshPay=function(bn){
 window.pfPick=function(inp){var n=inp.parentNode.nextElementSibling;if(n)n.textContent=inp.files[0]?'✓ '+inp.files[0].name:''};
 window.submitProof=async function(bn,btn){
   var f=$('pf_'+bn).files[0],trx=$('pt_'+bn).value.trim(),m=$('pm_'+bn);m.textContent='';
-  if(trx.length<6){m.textContent='ব্যাংক থেকে পাওয়া ট্রানজেকশন নম্বর লেখো (কমপক্ষে ৬ অক্ষর)।';return}
+  if(trx.length<6){m.textContent='ব্যাংক থেকে পাওয়া ট্রানজেকশন নম্বর লিখুন (কমপক্ষে ৬ অক্ষর)।';return}
   btn.disabled=true;btn.textContent='জমা হচ্ছে…';var path='';
   if(f){try{var blob=await shrink(f);path=bn+'/'+Date.now()+'.jpg';var u=await upload(path,blob);
-      if(u.error){m.textContent='ছবি আপলোড হয়নি ('+u.error+'), আবার চেষ্টা করো।';btn.disabled=false;btn.textContent='প্রমাণ জমা দাও';return}}
-    catch(e){m.textContent='ছবিটা পড়া যায়নি, অন্য ছবি দাও।';btn.disabled=false;btn.textContent='প্রমাণ জমা দাও';return}}
+      if(u.error){m.textContent='ছবি আপলোড হয়নি ('+u.error+'), আবার চেষ্টা করুন।';btn.disabled=false;btn.textContent='প্রমাণ জমা দিন';return}}
+    catch(e){m.textContent='ছবিটা পড়া যায়নি, অন্য ছবি দিন।';btn.disabled=false;btn.textContent='প্রমাণ জমা দিন';return}}
   var r=await rp('submit_proof',{p_no:bn,p_trx:trx,p_path:path});
-  if(r.error){m.textContent=/expired|cancelled/.test(r.error.message)?'দুঃখিত, সময় শেষ, বুকিং বাতিল হয়েছে।':'সমস্যা হয়েছে, আবার চেষ্টা করো।';btn.disabled=false;btn.textContent='প্রমাণ জমা দাও';if(/expired|cancelled/.test(r.error.message)){refreshPay(bn);loadCourses(false)}return}
+  if(r.error){m.textContent=/expired|cancelled/.test(r.error.message)?'দুঃখিত, সময় শেষ, বুকিং বাতিল হয়েছে।':'সমস্যা হয়েছে, আবার চেষ্টা করুন।';btn.disabled=false;btn.textContent='প্রমাণ জমা দিন';if(/expired|cancelled/.test(r.error.message)){refreshPay(bn);loadCourses(false)}return}
   refreshPay(bn);
 };
 setInterval(function(){Array.prototype.forEach.call(document.querySelectorAll('.pcd[data-end]'),function(el){
@@ -51,21 +51,21 @@ window.payHtml=function(p){
   if(!p)return '';
   var bn=esc(p.bn||''),w=function(c,h){return '<div class="pay '+c+'" data-bn="'+bn+'">'+h+'</div>'};
   if(p.paid||p.st==='paid')return w('ok','পেমেন্ট নিশ্চিত হয়েছে।');
-  if(p.st==='expired')return w('exp','<b>পেমেন্টের সময় শেষ হয়েছে, বুকিং বাতিল হয়েছে।</b><div class="sub" style="margin-top:6px">আসন ফাঁকা থাকলে আবার বুক করতে পারো, তোমার আমার আইডি একই থাকবে। টাকা পাঠিয়ে ফেলে থাকলে আমাদের জানাও।</div>');
+  if(p.st==='expired')return w('exp','<b>পেমেন্টের সময় শেষ হয়েছে, বুকিং বাতিল হয়েছে।</b><div class="sub" style="margin-top:6px">আসন ফাঁকা থাকলে আবার বুক করতে পারেন, আপনার আমার আইডি একই থাকবে। টাকা পাঠিয়ে ফেলে থাকলে আমাদের জানান।</div>');
   if(p.st==='cancelled')return '';
   if(p.st==='verifying')return w('v','<b>প্রমাণ জমা হয়েছে, যাচাই চলছে।</b><div class="sub" style="margin-top:6px">আমরা মিলিয়ে দেখে নিশ্চিত করলে এখানে Paid দেখাবে। কোর্স আইডি: <b>'+esc(p.cid||'')+'</b></div>');
   var rs=[['ব্যাংক',p.b,0],['অ্যাকাউন্টের নাম',p.n,0],['অ্যাকাউন্ট নম্বর',p.a,1],['শাখা',p.r,0]].filter(function(x){return x[1]});
-  return w('','<h3>পেমেন্ট করো</h3>'
+  return w('','<h3>পেমেন্ট করুন</h3>'
    +(p.left!=null?'<div class="pcd'+(p.left<120?' low':'')+'" data-bn="'+bn+'" data-end="'+(Date.now()+p.left*1000)+'">বাকি সময় <b>'+mm(p.left)+'</b> মিনিট</div>':'')
    +(p.amt?'<div class="pamt">কোর্স ফি <b>'+esc(lat(p.amt))+'</b></div>':'')
-   +'<div class="pref"><span>রেফারেন্স হিসেবে এই কোর্স আইডি দাও</span><b>'+esc(p.cid||'')+'</b><button onclick="cpTxt(this,\''+esc(p.cid||'')+'\')">কপি</button></div>'
+   +'<div class="pref"><span>রেফারেন্স হিসেবে এই কোর্স আইডি দিন</span><b>'+esc(p.cid||'')+'</b><button onclick="cpTxt(this,\''+esc(p.cid||'')+'\')">কপি</button></div>'
    +'<div class="pwarn">ব্যাংকে টাকা পাঠানোর সময় রেফারেন্স বা নোট ঘরে এই <b>কোর্স আইডি</b> অবশ্যই দিতে হবে, আর নিচে ট্রানজেকশন নম্বরও দিতে হবে। নইলে পেমেন্ট নিশ্চিত হবে না।</div>'
    +(rs.length?rs.map(function(x){return '<div class="prow2"><span>'+x[0]+'</span><b>'+esc(x[1])+(x[2]?'<button onclick="cpTxt(this,\''+esc(String(x[1]).replace(/\s/g,''))+'\')">কপি</button>':'')+'</b></div>'}).join(''):'<p class="sub">ব্যাংকের তথ্য শীঘ্রই জানানো হবে।</p>')
    +(p.t?'<p class="sub" style="margin-top:8px">'+esc(p.t)+'</p>':'')
-   +(bn?'<div class="pf"><b>টাকা পাঠানোর পর প্রমাণ দাও</b><div class="sub">ব্যাংক থেকে পাওয়া <b>ট্রানজেকশন নম্বর</b> লিখতে হবে (বাধ্যতামূলক)। স্ক্রিনশট দিলে ভালো, তবে বাধ্যতামূলক নয়।'+(p.left!=null?' সময়ের মধ্যে জমা না দিলে বুকিং বাতিল হবে।':'')+'</div>'
+   +(bn?'<div class="pf"><b>টাকা পাঠানোর পর প্রমাণ দিন</b><div class="sub">ব্যাংক থেকে পাওয়া <b>ট্রানজেকশন নম্বর</b> লিখতে হবে (বাধ্যতামূলক)। স্ক্রিনশট দিলে ভালো, তবে বাধ্যতামূলক নয়।'+(p.left!=null?' সময়ের মধ্যে জমা না দিলে বুকিং বাতিল হবে।':'')+'</div>'
      +'<input class="t" id="pt_'+bn+'" placeholder="ট্রানজেকশন নম্বর (বাধ্যতামূলক)" autocomplete="off">'
      +'<label class="pfile">স্ক্রিনশট (ঐচ্ছিক)<input type="file" accept="image/*" id="pf_'+bn+'" onchange="pfPick(this)"></label><div class="sub"></div>'
-     +'<button class="w" onclick="submitProof(\''+bn+'\',this)">প্রমাণ জমা দাও</button><div class="msg" id="pm_'+bn+'"></div></div>':'')
+     +'<button class="w" onclick="submitProof(\''+bn+'\',this)">প্রমাণ জমা দিন</button><div class="msg" id="pm_'+bn+'"></div></div>':'')
    +'<p class="sub" style="font-size:12px;margin-top:8px">আমার আইডি স্থায়ী, সেটা দিয়ে "আমার ব্যাচ" দেখা যাবে। পেমেন্টের জন্য শুধু কোর্স আইডি লাগবে।</p>');
 };
 var im=$('tkImg');if(im&&!$('okPay')){var dv=document.createElement('div');dv.id='okPay';im.parentNode.insertBefore(dv,im.nextSibling)}

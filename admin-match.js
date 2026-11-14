@@ -1,4 +1,4 @@
-/* ===== admin-match.js: অ্যাডমিন: পেমেন্ট মেলাও (ব্যাংক স্টেটমেন্টের সাথে) ===== */
+/* ===== admin-match.js: অ্যাডমিন: পেমেন্ট মেলান (ব্যাংক স্টেটমেন্টের সাথে) ===== */
 (function(){
 /* ---- স্টেটমেন্ট মেলানো (নতুন ডিজাইন) ---- */
 var st2=document.createElement('style');
@@ -65,13 +65,13 @@ window.matchRender=function(){
   else if(mFilter==='unk')h=mUnk.slice(0,30).map(function(l){return '<div class="mtk" style="margin-bottom:8px">'+esc(String(l).slice(0,200))+'</div>'}).join('')||'<p class="sub">অজানা রেফারেন্স নেই।</p>';
   else{var L=mFilter==='full'?full:(mFilter==='part'?part:full.concat(part));
     h=L.map(mcard).join('')||'<p class="sub">এই তালিকায় কিছু নেই।</p>';
-    if(L.length)h+='<div class="mbar"><button class="w" style="margin:0" onclick="matchApply()">নির্বাচিত <span id="mCnt">'+L.filter(function(x){return x.full}).length+'</span>টি Paid করো</button></div>'}
+    if(L.length)h+='<div class="mbar"><button class="w" style="margin:0" onclick="matchApply()">নির্বাচিত <span id="mCnt">'+L.filter(function(x){return x.full}).length+'</span>টি Paid করুন</button></div>'}
   $('mtRes').innerHTML=h;
 };
 window.matchApply=async function(){
   var ids=Array.prototype.map.call(document.querySelectorAll('#mtRes input[data-id]:checked'),function(e){return e.getAttribute('data-id')});
-  if(!ids.length){alert('কিছু নির্বাচন করো।');return}
-  if(!confirm(ids.length+'টি বুকিং Paid করবে? (মেয়াদ শেষ হয়ে থাকলে বুকিং আবার সক্রিয় হবে)'))return;
+  if(!ids.length){alert('কিছু নির্বাচন করুন।');return}
+  if(!confirm(ids.length+'টি বুকিং Paid করবেন? (মেয়াদ শেষ হয়ে থাকলে বুকিং আবার সক্রিয় হবে)'))return;
   var n=0;
   for(var i=0;i<ids.length;i++){var s=rows.filter(function(x){return x.id===ids[i]})[0],u={paid:true};if(s&&!s.active)u.active=true;
     var r=await SB.from('bookings').update(u).eq('id',ids[i]);if(!r||!r.error)n++}
@@ -86,8 +86,8 @@ window.mtAdd=function(){
 W('goTab',function(o){return function(t){o(t);show('tMt',t==='mt')}});
 var lo=$('tabs')&&$('tabs').querySelector('.lo');
 if(lo&&$('tCo')){
-  lo.insertAdjacentHTML('beforebegin','<button data-t="mt">মেলাও</button>');
-  $('tCo').insertAdjacentHTML('afterend','<div id="tMt" class="hide"><h2 class="sh" style="margin-top:4px">পেমেন্ট মেলাও</h2><p class="sub">ব্যাংক স্টেটমেন্টের লেখা পেস্ট করো, ফাইল বাছো, বা নিচে হাতে লিখে দাও। সাইট নিজে থেকেই তিনটা জিনিস মেলায়: <b>রেফারেন্স (কোর্স আইডি)</b>, <b>ট্রানজেকশন নম্বর</b> আর <b>টাকার অঙ্ক</b>। লেখাটা শুধু তোর ব্রাউজারেই থাকে।</p><textarea class="t" id="mtTx" rows="6" spellcheck="false" placeholder="এখানে স্টেটমেন্টের লাইনগুলো পেস্ট করো…"></textarea><div class="sub" style="margin-top:4px">স্টেটমেন্টের লাইন: <b id="mtLines">0</b></div><label class="pfile" style="margin:8px 0">CSV/টেক্সট ফাইল বেছে নাও<input type="file" accept=".csv,.txt,text/*" id="mtFile"></label><div class="sub">হাতে লিখে যোগ করো</div><div class="mq"><input class="t" id="mqR" placeholder="রেফারেন্স (কোর্স আইডি)"><input class="t" id="mqT" placeholder="ট্রানজেকশন নম্বর"><input class="t" id="mqA" inputmode="numeric" placeholder="টাকা"><button class="y" onclick="mtAdd()">যোগ</button></div><div id="mtMsg"></div><div id="mtSum"></div><div class="mf" id="mtF"></div><div id="mtRes"></div></div>');
+  lo.insertAdjacentHTML('beforebegin','<button data-t="mt">মেলান</button>');
+  $('tCo').insertAdjacentHTML('afterend','<div id="tMt" class="hide"><h2 class="sh" style="margin-top:4px">পেমেন্ট মেলান</h2><p class="sub">ব্যাংক স্টেটমেন্টের লেখা পেস্ট করুন, ফাইল বাছুন, বা নিচে হাতে লিখে দিন। সাইট নিজে থেকেই তিনটা জিনিস মেলায়: <b>রেফারেন্স (কোর্স আইডি)</b>, <b>ট্রানজেকশন নম্বর</b> আর <b>টাকার অঙ্ক</b>। লেখাটা শুধু তোর ব্রাউজারেই থাকে।</p><textarea class="t" id="mtTx" rows="6" spellcheck="false" placeholder="এখানে স্টেটমেন্টের লাইনগুলো পেস্ট করুন…"></textarea><div class="sub" style="margin-top:4px">স্টেটমেন্টের লাইন: <b id="mtLines">0</b></div><label class="pfile" style="margin:8px 0">CSV/টেক্সট ফাইল বেছে নিন<input type="file" accept=".csv,.txt,text/*" id="mtFile"></label><div class="sub">হাতে লিখে যোগ করুন</div><div class="mq"><input class="t" id="mqR" placeholder="রেফারেন্স (কোর্স আইডি)"><input class="t" id="mqT" placeholder="ট্রানজেকশন নম্বর"><input class="t" id="mqA" inputmode="numeric" placeholder="টাকা"><button class="y" onclick="mtAdd()">যোগ</button></div><div id="mtMsg"></div><div id="mtSum"></div><div class="mf" id="mtF"></div><div id="mtRes"></div></div>');
   $('mtFile').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$('mtTx').value=String(r.result);matchRun()};r.readAsText(f)};
   $('mtTx').addEventListener('input',function(){clearTimeout(mT);mT=setTimeout(matchRun,500)});
   matchRender();

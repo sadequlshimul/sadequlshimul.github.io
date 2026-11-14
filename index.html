@@ -45,11 +45,11 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
 </head>
 <body>
 <div class="hero">
-  <div class="top"><button id="bk" class="hide" onclick="go('')">← ফিরে যাও</button><button id="thm" type="button" aria-label="ডার্ক মোড" onclick="toggleTheme()">◐</button></div>
+  <div class="top"><button id="bk" class="hide" onclick="go('')">← ফিরে যান</button><button id="thm" type="button" aria-label="ডার্ক মোড" onclick="toggleTheme()">◐</button></div>
   <div id="hHome">
     <div class="brand">Jabirs Weg</div>
     <div class="hi" id="hi">Hallo!</div>
-    <p class="tag">কোর্স বেছে নাও, জার্মান ভাষার পথে এগিয়ে যাও</p>
+    <p class="tag">কোর্স বেছে নিন, জার্মান ভাষার পথে এগিয়ে যান</p>
   </div>
   <div id="hCourse" class="hide">
     <div class="brand sm">Jabirs Weg</div>
@@ -61,7 +61,7 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
   <div id="hAdm" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi">Admin Panel</div></div>
   <div id="hMy" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">আমার ব্যাচ</div></div>
   <div id="hList" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">সকল কোর্স</div></div>
-  <div id="hGoal" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">তোমার লক্ষ্য</div></div>
+  <div id="hGoal" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">আপনার লক্ষ্য</div></div>
   <div id="hMock" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">মক টেস্ট</div></div>
   <div id="hVocab" class="hide"><div class="brand sm">Jabirs Weg</div><div class="hi" style="margin-top:12px">ভোকাবুলারি</div></div>
 </div>
@@ -71,25 +71,25 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
     <button id="myBtn" class="hide"></button>
     <details class="card wide" id="aboutCard">
       <summary><h2>Jabirs Weg সম্পর্কে</h2></summary>
-      <p style="font-size:15px;line-height:1.7;margin:6px 0 0">Jabirs Weg মানে “জাবিরের পথ”। জার্মান ভাষা শেখার এই পথে আমরা সহজ বাংলায়, ধাপে ধাপে তোমার পাশে আছি। একদম শূন্য থেকে শুরু করে স্বাধীনভাবে কথা বলা ও লেখা পর্যন্ত, নিয়মিত ক্লাস আর অনুশীলনের মাধ্যমে।</p>
+      <p style="font-size:15px;line-height:1.7;margin:6px 0 0">Jabirs Weg মানে “জাবিরের পথ”। জার্মান ভাষা শেখার এই পথে আমরা সহজ বাংলায়, ধাপে ধাপে আপনার পাশে আছি। একদম শূন্য থেকে শুরু করে স্বাধীনভাবে কথা বলা ও লেখা পর্যন্ত, নিয়মিত ক্লাস আর অনুশীলনের মাধ্যমে।</p>
       <div class="abt"><span>ছোট ব্যাচ</span><span>বাংলায় সহজ ব্যাখ্যা</span><span>A1 থেকে B1</span></div>
     </details>
   </section>
   <section id="list" class="hide">
-    <div class="card wide" style="margin-top:14px"><h2>কোর্স বেছে নিন</h2><p class="sub">তোমার পছন্দের একটি কোর্স ট্যাপ করো</p></div>
+    <div class="card wide" style="margin-top:14px"><h2>কোর্স বেছে নিন</h2><p class="sub">আপনার পছন্দের একটি কোর্স ট্যাপ করুন</p></div>
     <div id="cards" style="display:contents"><div class="card wide"><p class="sub">লোড হচ্ছে…</p></div></div>
     <div class="card wide hide" id="chipCard"><div id="fsub0" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
     <div class="card wide hide" id="doneCard"><h2>সম্পন্ন কোর্স</h2><p class="sub">যে ব্যাচগুলো সফলভাবে শেষ হয়েছে</p><div id="doneList"></div></div>
   </section>
   <section id="goal" class="hide">
-    <div class="card wide" id="pathCard" style="margin-top:14px"><h2>তোমার লক্ষ্য কী?</h2><p class="sub">লক্ষ্যটা বেছে নাও, পথের স্টেশনগুলো একে একে খুলে যাবে</p><div class="mv" id="mv"></div><div id="mvTxt"></div></div>
+    <div class="card wide" id="pathCard" style="margin-top:14px"><h2>আপনার লক্ষ্য কী?</h2><p class="sub">লক্ষ্যটা বেছে নিন, পথের স্টেশনগুলো একে একে খুলে যাবে</p><div class="mv" id="mv"></div><div id="mvTxt"></div></div>
   </section>
   <section id="mock" class="hide"><div id="mockBox"></div></section>
   <section id="vocab" class="hide"><div id="vocabBox"></div></section>
 
   <section id="course" class="hide">
     <div class="card">
-      <div id="learnWrap"><h2>এই কোর্সে কী শিখবে</h2><ul class="lrn" id="cList"></ul></div>
+      <div id="learnWrap"><h2>এই কোর্সে কী শিখবেন</h2><ul class="lrn" id="cList"></ul></div>
       <div id="cInfo"></div>
     </div>
     <div class="card">
@@ -101,7 +101,7 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
       <p class="sub">রেজিস্ট্রেশন শুরু হবে</p>
       <div style="font-size:18px;font-weight:700;margin:4px 0" id="waitWhen"></div>
       <div class="cd"><b id="waitCd" style="font-size:26px"></b></div>
-      <p class="sub" style="margin-top:10px">সময় হলে এই পেজেই ফর্ম নিজে থেকে খুলে যাবে। পেজটা খোলা রাখো।</p>
+      <p class="sub" style="margin-top:10px">সময় হলে এই পেজেই ফর্ম নিজে থেকে খুলে যাবে। পেজটা খোলা রাখুন।</p>
     </div>
     <div class="card" id="formCard">
       <h2 id="fTitle"></h2>
@@ -110,24 +110,24 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
       <label class="f">ইমেইল<input class="t" id="em" type="email" autocomplete="email"></label>
       <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>Website<input id="hp" tabindex="-1" autocomplete="off"></label></div>
       <div style="background:var(--soft);border-radius:12px;padding:12px;margin-top:14px">
-        <span class="sub">তুমি মানুষ কি না নিশ্চিত হতে ছোট একটা প্রশ্নের উত্তর দাও:</span>
+        <span class="sub">আপনি মানুষ কি না নিশ্চিত হতে ছোট একটা প্রশ্নের উত্তর দিন:</span>
         <div style="font-size:24px;font-weight:700;margin:6px 0" id="chQ">…</div>
-        <input class="t" id="chA" inputmode="numeric" autocomplete="off" placeholder="উত্তর লেখো">
+        <input class="t" id="chA" inputmode="numeric" autocomplete="off" placeholder="উত্তর লিখুন">
         <button class="g" style="padding:4px 12px;font-size:12px;margin-top:8px" onclick="loadChallenge(true)">অন্য প্রশ্ন</button>
       </div>
-      <button class="w" id="subBtn" onclick="submitReg()">আমার আসন বুক করো →</button>
+      <button class="w" id="subBtn" onclick="submitReg()">আমার আসন বুক করুন →</button>
       <div class="msg" id="err"></div>
     </div>
     <div class="hide" id="okCard">
       <div class="card" style="text-align:center">
         <div>Willkommen! আমার আইডি</div>
         <div class="no2" id="okNo"></div>
-        <p class="sub">আইডিটা সংরক্ষণ করো। পেমেন্ট নিশ্চিত হলে "আমার ব্যাচ" পেজে স্ট্যাটাস Paid হবে।</p>
+        <p class="sub">আইডিটা সংরক্ষণ করুন। পেমেন্ট নিশ্চিত হলে "আমার ব্যাচ" পেজে স্ট্যাটাস Paid হবে।</p>
         <img id="tkImg" class="tkimg" alt="Ticket">
-        <div class="tools" style="justify-content:center"><button onclick="saveTicket()">টিকিট ডাউনলোড</button><button class="g hide" id="shBtn" onclick="shareTicket()">শেয়ার করো</button></div>
-        <p class="sub" style="font-size:12px">ডাউনলোড না হলে ছবিটা চেপে ধরে সেভ করো।</p>
-        <button class="g w" onclick="copyNo()" id="cpBtn">আমার আইডি কপি করো</button>
-        <button class="w" onclick="go('my')">আমার ব্যাচ পেজ দেখো →</button>
+        <div class="tools" style="justify-content:center"><button onclick="saveTicket()">টিকিট ডাউনলোড</button><button class="g hide" id="shBtn" onclick="shareTicket()">শেয়ার করুন</button></div>
+        <p class="sub" style="font-size:12px">ডাউনলোড না হলে ছবিটা চেপে ধরে সেভ করুন।</p>
+        <button class="g w" onclick="copyNo()" id="cpBtn">আমার আইডি কপি করুন</button>
+        <button class="w" onclick="go('my')">আমার ব্যাচ পেজ দেখুন →</button>
       </div>
     </div>
     <div class="card closed hide" id="closedCard">
@@ -138,15 +138,15 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
 
   <section id="my" class="hide">
     <div class="card" id="myLookup">
-      <h2>আমার ব্যাচ দেখো</h2>
+      <h2>আমার ব্যাচ দেখুন</h2>
       <p class="sub">আমার আইডি মনে না থাকলে মোবাইল নম্বর দিলেই হবে</p>
       <label class="f">আমার আইডি অথবা মোবাইল নম্বর<input class="t" id="myKey" placeholder="JW123456 অথবা 01XXXXXXXXX" autocomplete="off" spellcheck="false"></label>
-      <button class="w" onclick="lookupMy()">দেখো</button>
+      <button class="w" onclick="lookupMy()">দেখুন</button>
       <div class="msg" id="myErr"></div>
     </div>
     <div id="myRes" class="hide">
       <div id="myList"></div>
-      <button class="w g" onclick="forgetMy()">অন্য বুকিং দেখো</button>
+      <button class="w g" onclick="forgetMy()">অন্য বুকিং দেখুন</button>
     </div>
   </section>
 
@@ -173,12 +173,12 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
         <div id="ovCourses"></div>
         <h2 class="sh">সাম্প্রতিক বুকিং</h2>
         <div id="ovRecent"></div>
-        <button class="g w" onclick="goTab('bk')">সব বুকিং দেখো →</button>
+        <button class="g w" onclick="goTab('bk')">সব বুকিং দেখুন →</button>
       </div>
 
       <div id="tBk" class="hide">
         <div id="seenBar" class="hide"><span id="seenTxt"></span><button onclick="markSeen()">সব দেখেছি ✓</button></div>
-        <input class="t" id="q" placeholder="নাম, বুকিং নম্বর, ফোন বা ব্যাচ কোড খোঁজো" oninput="qIn()" autocomplete="off" spellcheck="false">
+        <input class="t" id="q" placeholder="নাম, বুকিং নম্বর, ফোন বা ব্যাচ কোড খুঁজুন" oninput="qIn()" autocomplete="off" spellcheck="false">
         <div class="tools" style="margin-top:8px"><button class="g" id="fBtn" onclick="toggleF()">ফিল্টার ▾</button><button onclick="csv()">CSV ডাউনলোড</button></div>
         <div id="fPanel" class="hide">
           <div class="tools">
@@ -191,30 +191,30 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
         </div>
         <div class="sub" id="shown" style="margin:8px 0"></div>
         <div id="bkList"></div>
-        <button class="g w hide" id="moreBtn" onclick="moreBk()">আরও দেখাও</button>
+        <button class="g w hide" id="moreBtn" onclick="moreBk()">আরও দেখান</button>
       </div>
 
       <div id="tCo" class="hide">
-        <button class="y w" style="margin-top:0" onclick="addCourse()">+ নতুন কোর্স যোগ করো</button>
+        <button class="y w" style="margin-top:0" onclick="addCourse()">+ নতুন কোর্স যোগ করুন</button>
         <div id="ctl" style="margin-top:12px"></div>
         <h2 class="sh">সম্পন্ন কোর্স</h2>
-        <p class="sub">"ব্যাচ সম্পন্ন করো" চাপলে এখানে জমা হয় আর হোম পেজেও দেখায়।</p>
+        <p class="sub">"ব্যাচ সম্পন্ন করুন" চাপলে এখানে জমা হয় আর হোম পেজেও দেখায়।</p>
         <div id="doneAdm"></div>
       </div>
     </div>
   </section>
 </main>
-<footer><a class="fbw" href="https://www.facebook.com/share/1PiMuePZN2/" target="_blank" rel="noopener" aria-label="Facebook পেজে যাও"><span>আমাদের সাথে পথ চলো</span><i class="fbl"></i><span class="fb"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg></span></a><div>© Jabirs Weg · Deutsch für die Zukunft</div></footer>
+<footer><a class="fbw" href="https://www.facebook.com/share/1PiMuePZN2/" target="_blank" rel="noopener" aria-label="Facebook পেজে যান"><span>আমাদের সাথে পথ চলুন</span><i class="fbl"></i><span class="fb"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg></span></a><div>© Jabirs Weg · Deutsch für die Zukunft</div></footer>
 <div id="dv" class="hide"><div id="dvh" class="dvh"></div><div id="dvb" class="dvb"></div><div id="dvn" class="dvn"></div></div>
 <script src="config.js"></script>
-<script>window.JW_V='2';</script>
-<script src="core.js?v=1"></script>
-<script src="courses.js?v=1"></script>
-<script src="goal.js?v=2"></script>
-<script src="ticket.js?v=2"></script>
-<script src="payment.js?v=2"></script>
-<script src="my.js?v=2"></script>
-<script src="home2.js?v=2"></script>
+<script>window.JW_V='3';</script>
+<script src="core.js?v=2"></script>
+<script src="courses.js?v=2"></script>
+<script src="goal.js?v=3"></script>
+<script src="ticket.js?v=3"></script>
+<script src="payment.js?v=3"></script>
+<script src="my.js?v=3"></script>
+<script src="home2.js?v=4"></script>
 <script src="boot.js?v=1"></script>
 </body>
 </html>

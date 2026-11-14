@@ -1,4 +1,4 @@
-/* ===== goal.js: তোমার লক্ষ্য (পথের স্টেশন) ===== */
+/* ===== goal.js: আপনার লক্ষ্য (পথের স্টেশন) ===== */
 var MV=[
  {i:'🎓',t:'পড়াশোনা',s:['সার্টিফিকেট ও কাগজপত্র গুছিয়ে নেওয়া','Studienkolleg বা বিশ্ববিদ্যালয়ে আবেদন','ভিসা আবেদন','জার্মানিতে ক্লাস শুরু']},
  {i:'💼',t:'Ausbildung',s:['পেশা ও ক্ষেত্র বেছে নেওয়া','সিভি ও আবেদনপত্র তৈরি','প্রতিষ্ঠানে আবেদন','ভিসা ও কাগজপত্র','নতুন কাজ বা প্রশিক্ষণ শুরু']},
@@ -10,7 +10,7 @@ function renderWg(){
   var m=MV[mv];
   $('mv').innerHTML=MV.map(function(x,i){return '<button class="'+(i===mv?'on':'')+'" onclick="mvSel('+i+')"><span>'+x.i+'</span>'+esc(x.t)+'</button>'}).join('');
   if(mv<0){$('mvTxt').innerHTML='';return}
-  $('mvTxt').innerHTML='<ul class="tl"><li class="me" style="animation-delay:0s"><i>১</i><b>ভাষা শেখা</b><span class="tg">এই ধাপে Jabirs Weg তোমার পাশে</span></li>'+m.s.map(function(t,k){return '<li style="animation-delay:'+((k+1)*0.15)+'s"><i>'+BN[k]+'</i>'+esc(t)+'</li>'}).join('')+'</ul><small class="tn">নিয়ম বদলাতে পারে, আবেদনের আগে অফিসিয়াল সাইট দেখে নাও।</small>';
+  $('mvTxt').innerHTML='<ul class="tl"><li class="me" style="animation-delay:0s"><i>১</i><b>ভাষা শেখা</b><span class="tg">এই ধাপে Jabirs Weg আপনার পাশে</span></li>'+m.s.map(function(t,k){return '<li style="animation-delay:'+((k+1)*0.15)+'s"><i>'+BN[k]+'</i>'+esc(t)+'</li>'}).join('')+'</ul><small class="tn">নিয়ম বদলাতে পারে, আবেদনের আগে অফিসিয়াল সাইট দেখে নিন।</small>';
 }
 
 (function(){

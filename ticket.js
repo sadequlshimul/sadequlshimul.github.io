@@ -60,7 +60,7 @@ W('drawTicket',function(o){return async function(t){
   x.save();x.fillStyle=B[0];var w=290,h=52,px=W0-60-w,py=46;x.beginPath();x.moveTo(px+14,py);x.arcTo(px+w,py,px+w,py+h,14);x.arcTo(px+w,py+h,px,py+h,14);x.arcTo(px,py+h,px,py,14);x.arcTo(px,py,px+w,py,14);x.closePath();x.fill();
   x.fillStyle='#fff';x.textAlign='center';x.font='700 26px "Hind Siliguri",sans-serif';x.fillText(B[1],px+w/2,py+36);x.restore();
   return cv}});
-function gate(){var t=lastT;if(t&&!admView()&&stOf(t)!=='paid'){alert('পেমেন্ট নিশ্চিত হলে কার্ড ডাউনলোড ও শেয়ার করতে পারবে।');return false}return true}
+function gate(){var t=lastT;if(t&&!admView()&&stOf(t)!=='paid'){alert('পেমেন্ট নিশ্চিত হলে কার্ড ডাউনলোড ও শেয়ার করতে পারবেন।');return false}return true}
 W('saveTicket',function(o){return function(){return gate()?o.apply(this,arguments):undefined}});
 W('shareTicket',function(o){return function(){return gate()?o.apply(this,arguments):undefined}});
 })();

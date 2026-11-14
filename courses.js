@@ -12,7 +12,7 @@ async function loadCourses(first){
     lastSig=sg;PC=r.data.map(norm);CBY={};if(typeof loadCompleted==='function')loadCompleted();PC.forEach(function(c){CBY[c.slug]=c});loaded=true;
     if(first)route();else render();
   }else if(!loaded){
-    $('cards').innerHTML='<div class="card wide"><p class="sub">'+(r.error&&r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, পেজ রিফ্রেশ করো।':'কোর্সের তথ্য আনা যায়নি, একটু পরে আবার চেষ্টা করো।')+'</p></div>';
+    $('cards').innerHTML='<div class="card wide"><p class="sub">'+(r.error&&r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, পেজ রিফ্রেশ করুন।':'কোর্সের তথ্য আনা যায়নি, একটু পরে আবার চেষ্টা করুন।')+'</p></div>';
   }
 }
 function route(){
@@ -27,7 +27,7 @@ function route(){
   if(view==='course'){show('okCard',false);$('err').textContent='';formT=Date.now();chal=null}
   if(view==='adm')initAdmin();
   if(view==='my')initMy();
-  var ms=myLS();$('myBtn').textContent=ms&&ms.k?'আমার ব্যাচ দেখো ('+ms.k+') →':'আমার ব্যাচ দেখো →';
+  var ms=myLS();$('myBtn').textContent=ms&&ms.k?'আমার ব্যাচ দেখুন ('+ms.k+') →':'আমার ব্যাচ দেখুন →';
   render();
   if(loaded&&view!=='adm')loadCourses(false);
   window.scrollTo(0,0);
@@ -47,7 +47,7 @@ async function loadChallenge(force){
   chalBusy=true;chal=null;$('chQ').textContent='…';$('chA').value='';
   var r=await SB.rpc('new_challenge');
   chalBusy=false;
-  if(r.error||!r.data||!r.data.length){$('chQ').textContent=r.error&&r.error.message.indexOf('too_many')>=0?'কিছুক্ষণ পরে চেষ্টা করো':'প্রশ্ন আসেনি, "অন্য প্রশ্ন" চাপো';return}
+  if(r.error||!r.data||!r.data.length){$('chQ').textContent=r.error&&r.error.message.indexOf('too_many')>=0?'কিছুক্ষণ পরে চেষ্টা করুন':'প্রশ্ন আসেনি, "অন্য প্রশ্ন" চাপুন';return}
   chal={cid:r.data[0].cid,q:r.data[0].q};$('chQ').textContent=chal.q+' = ?'; 
 }
 async function loadCompleted(){
@@ -89,7 +89,7 @@ function renderCourse(){
   $('fTitle').textContent=c.title+' – রেজিস্ট্রেশন';
   for(var i=0;i<c.cap;i++)h+='<i class="'+(i<c.cnt?'t':'')+'"></i>';
   $('seats').innerHTML=h;$('fn').textContent=left;
-  $('fsub').textContent=left>0&&left<=10?'তাড়াতাড়ি করো, আসন প্রায় শেষ!':c.cap+'টি আসন';
+  $('fsub').textContent=left>0&&left<=10?'তাড়াতাড়ি করুন, আসন প্রায় শেষ!':c.cap+'টি আসন';
   var I=c.i,ri=[['কোর্স ফি',c.price],['ধরন',I.mode],['সময়কাল',I.dur],['সময়',I.time],['বার',I.days],['কবে থেকে শুরু',startTxt(I.sd,I.start)],['বিস্তারিত',I.extra]].filter(function(x){return x[1]});
   $('cInfo').innerHTML=ri.length?'<h2 style="font-size:16px;margin:14px 0 4px">কোর্সের বিস্তারিত</h2>'+ri.map(function(x){return '<div class="irow"><span>'+x[0]+'</span><b>'+esc(lat(x[1]))+'</b></div>'}).join(''):'';
   var ok=!$('okCard').classList.contains('hide'),off=!c.op,wait=c.op&&isWait(c),full=c.op&&!wait&&c.cnt>=c.cap;
@@ -104,38 +104,38 @@ function renderCourse(){
 $('cards').onclick=function(e){var t=e.target,b=t&&t.closest?t.closest('button[data-s]'):null;if(b)go(b.getAttribute('data-s'))};
 function msgOf(e){
   var m=(e&&e.message)||'';
-  if(m==='network')return 'ইন্টারনেট সংযোগ সমস্যা, আবার চেষ্টা করো।';
-  if(m.indexOf('bad_answer')>=0)return 'যোগ-বিয়োগের উত্তর ঠিক হয়নি। নতুন প্রশ্নটা দেখো।';
+  if(m==='network')return 'ইন্টারনেট সংযোগ সমস্যা, আবার চেষ্টা করুন।';
+  if(m.indexOf('bad_answer')>=0)return 'যোগ-বিয়োগের উত্তর ঠিক হয়নি। নতুন প্রশ্নটা দেখুন।';
   if(m.indexOf('not_yet')>=0)return 'এই কোর্সের রেজিস্ট্রেশন এখনো শুরু হয়নি।';
-  if(m.indexOf('too_many')>=0)return 'অল্প সময়ে অনেকবার রেজিস্ট্রেশন হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করো।';
-  if(m.indexOf('busy')>=0)return 'এই মুহূর্তে অনেক রেজিস্ট্রেশন চলছে, ১০ মিনিট পরে আবার চেষ্টা করো।';
+  if(m.indexOf('too_many')>=0)return 'অল্প সময়ে অনেকবার রেজিস্ট্রেশন হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন।';
+  if(m.indexOf('busy')>=0)return 'এই মুহূর্তে অনেক রেজিস্ট্রেশন চলছে, ১০ মিনিট পরে আবার চেষ্টা করুন।';
   if(m.indexOf('reg_off')>=0)return 'এই ব্যাচের রেজিস্ট্রেশন এখন বন্ধ আছে।';
   if(m.indexOf('closed')>=0)return 'দুঃখিত, এই ব্যাচের সব বুকিং পূর্ণ হয়েছে।';
   if(m.indexOf('duplicate')>=0)return 'এই নম্বর দিয়ে আগেই বুকিং আছে।';
-  if(m.indexOf('invalid_name')>=0)return 'সঠিক নাম লেখো।';
-  if(m.indexOf('invalid_phone')>=0)return 'সঠিক মোবাইল নম্বর দাও।';
-  if(m.indexOf('invalid_email')>=0)return 'সঠিক ইমেইল দাও।';
-  return 'একটু সমস্যা হয়েছে, আবার চেষ্টা করো।';
+  if(m.indexOf('invalid_name')>=0)return 'সঠিক নাম লিখুন।';
+  if(m.indexOf('invalid_phone')>=0)return 'সঠিক মোবাইল নম্বর দিন।';
+  if(m.indexOf('invalid_email')>=0)return 'সঠিক ইমেইল দিন।';
+  return 'একটু সমস্যা হয়েছে, আবার চেষ্টা করুন।';
 }
 async function submitReg(){
   var c=CBY[cur];if(!c)return;
   if($('hp').value)return;
   var err=$('err');err.textContent='';
-  if(Date.now()-formT<2000){err.textContent='একটু অপেক্ষা করে আবার চাপো।';return}
+  if(Date.now()-formT<2000){err.textContent='একটু অপেক্ষা করে আবার চাপুন।';return}
   var nm=$('nm').value.trim(),ph=$('ph').value.trim().replace(/[\s-]/g,''),em=$('em').value.trim();
-  if(nm.length<2){err.textContent='সঠিক নাম লেখো।';return}
-  if(!/^(\+?88)?01[3-9]\d{8}$/.test(ph)){err.textContent='সঠিক মোবাইল নম্বর দাও।';return}
-  if(!/^\S+@\S+\.\S+$/.test(em)){err.textContent='সঠিক ইমেইল দাও।';return}
+  if(nm.length<2){err.textContent='সঠিক নাম লিখুন।';return}
+  if(!/^(\+?88)?01[3-9]\d{8}$/.test(ph)){err.textContent='সঠিক মোবাইল নম্বর দিন।';return}
+  if(!/^\S+@\S+\.\S+$/.test(em)){err.textContent='সঠিক ইমেইল দিন।';return}
   var ans=parseInt($('chA').value,10);
-  if(!chal||isNaN(ans)){err.textContent=chal?'নিরাপত্তা প্রশ্নের উত্তর (সংখ্যা) লেখো।':'নিরাপত্তা প্রশ্ন আসেনি, "অন্য প্রশ্ন" চাপো।';return}
-  var b=$('subBtn');b.disabled=true;b.textContent='অপেক্ষা করো…';
+  if(!chal||isNaN(ans)){err.textContent=chal?'নিরাপত্তা প্রশ্নের উত্তর (সংখ্যা) লিখুন।':'নিরাপত্তা প্রশ্ন আসেনি, "অন্য প্রশ্ন" চাপুন।';return}
+  var b=$('subBtn');b.disabled=true;b.textContent='অপেক্ষা করুন…';
   var cid=chal.cid;chal=null;
   var r=await SB.rpc('register_booking',{p_slug:c.slug,p_name:nm,p_phone:ph,p_email:em,p_cid:cid,p_ans:ans});
-  b.disabled=false;b.textContent='আমার আসন বুক করো →';
+  b.disabled=false;b.textContent='আমার আসন বুক করুন →';
   if(r.error){err.textContent=msgOf(r.error);loadChallenge();loadCourses(false);return}
   lastNo=r.data;saveMy(lastNo);
   $('okNo').textContent=lastNo;
-  show('okCard',true);$('cpBtn').textContent='আমার আইডি কপি করো';
+  show('okCard',true);$('cpBtn').textContent='আমার আইডি কপি করুন';
   try{await showTicket(tdata(c,nm,lastNo),'tkImg','shBtn')}catch(e){}
   await loadCourses(false);window.scrollTo({top:0,behavior:'smooth'});
 }

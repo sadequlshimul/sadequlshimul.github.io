@@ -86,7 +86,7 @@ function LJ(src){
 }
 function initAdmin(){
   return LJ('admin.js').then(function(){return LJ('admin-match.js')}).then(function(){return window.initAdmin!==stubInitAdmin?window.initAdmin():null})
-    .catch(function(){alert('অ্যাডমিনের ফাইল লোড হয়নি। ইন্টারনেট দেখে পেজ রিফ্রেশ করো।')});
+    .catch(function(){alert('অ্যাডমিনের ফাইল লোড হয়নি। ইন্টারনেট দেখে পেজ রিফ্রেশ করুন।')});
 }
 var stubInitAdmin=initAdmin;
 /* হোমের কার্ড ট্যাপ করলে নতুন পেজ: হ্যাশ → পেজের নাম */
@@ -95,5 +95,5 @@ var PAGE_MOD={mock:['mock.js','initMock'],vocab:['vocab.js','initVocab']};
 function pageInit(k){
   var m=PAGE_MOD[k];pageInit.d=pageInit.d||{};if(!m||pageInit.d[k])return;pageInit.d[k]=1;
   var box=$(k+'Box');box.innerHTML='<div class="card"><p class="sub">লোড হচ্ছে…</p></div>';
-  LJ(m[0]).then(function(){window[m[1]](box)}).catch(function(){pageInit.d[k]=0;box.innerHTML='<div class="card"><p class="sub">লোড হয়নি, ইন্টারনেট দেখে পেজ রিফ্রেশ করো।</p></div>'});
+  LJ(m[0]).then(function(){window[m[1]](box)}).catch(function(){pageInit.d[k]=0;box.innerHTML='<div class="card"><p class="sub">লোড হয়নি, ইন্টারনেট দেখে পেজ রিফ্রেশ করুন।</p></div>'});
 }

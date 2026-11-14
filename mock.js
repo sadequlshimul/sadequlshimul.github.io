@@ -8,7 +8,7 @@ s3.textContent=''
 document.head.appendChild(s3);
 var LV=[['A1','#1e8e5a'],['A2','#0c8599'],['B1','#6f42c1']],MD=[['','Lesen','পড়া'],['','Hören','শোনা'],['','Schreiben','লেখা'],['','Sprechen','বলা']];
 window.initMock=function(pm){
-  pm.innerHTML='<div class="card"><h2>মক টেস্ট</h2><p class="sub">তোমার লেভেল বেছে নাও</p><div class="lv">'
+  pm.innerHTML='<div class="card"><h2>মক টেস্ট</h2><p class="sub">আপনার লেভেল বেছে নিন</p><div class="lv">'
    +LV.map(function(l){return '<button data-l="'+l[0]+'" style="--c:'+l[1]+'"><i>'+l[0]+'</i><b>মক টেস্ট '+l[0]+'</b></button>'}).join('')+'</div><div id="lvDet"></div></div>';
   pm.addEventListener('click',function(e){
     var b=e.target&&e.target.closest?e.target.closest('.lv button'):null;if(!b)return;

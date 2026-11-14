@@ -10,8 +10,8 @@ async function initAdmin(){
 }
 async function login(){
   var r=await SB.auth.signInWithPassword({email:$('ae').value.trim(),password:$('pw').value});
-  if(r.error){$('lerr').textContent=r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, আবার চেষ্টা করো।':'ইমেইল বা পাসওয়ার্ড ভুল।';return}
-  if(!(await isAdmin())){await SB.auth.signOut();$('lerr').textContent='তুমি অনুমোদিত অ্যাডমিন নও।';return}
+  if(r.error){$('lerr').textContent=r.error.message==='network'?'ইন্টারনেট সংযোগ সমস্যা, আবার চেষ্টা করুন।':'ইমেইল বা পাসওয়ার্ড ভুল।';return}
+  if(!(await isAdmin())){await SB.auth.signOut();$('lerr').textContent='আপনি অনুমোদিত অ্যাডমিন নন।';return}
   $('lerr').textContent='';$('pw').value='';show('loginCard',false);show('panel',true);goTab('ov');loadAdmin();
 }
 async function logout(){await SB.auth.signOut();rows=[];AC=[];openK='';draft=false;show('panel',false);show('loginCard',true)}
@@ -40,7 +40,7 @@ function renderOv(){
   $('ovCourses').innerHTML=AC.map(function(c){
     var n=curCount(c),pc=Math.min(100,Math.round(n/c.capacity*100));
     return '<div class="row" data-k="'+c.id+'" style="cursor:pointer"><div style="flex:1;min-width:0"><b>'+esc(c.title)+'</b> <span class="sub">ব্যাচ '+esc(c.batch_code)+'</span><div class="prog"><i style="width:'+pc+'%;background:'+esc(c.color)+'"></i></div></div><span>'+n+'/'+c.capacity+'</span><span class="pill '+(c.is_open?'pd':'cx')+'">'+(c.is_open?'চালু':'বন্ধ')+'</span>'+(c.is_hidden?'<span class="pill pen">লুকানো</span>':'')+'</div>';
-  }).join('')||'<p class="sub">কোনো কোর্স নেই। "কোর্স" ট্যাবে গিয়ে যোগ করো।</p>';
+  }).join('')||'<p class="sub">কোনো কোর্স নেই। "কোর্স" ট্যাবে গিয়ে যোগ করুন।</p>';
   $('ovRecent').innerHTML=rows.slice(0,5).map(function(s){
     return '<div class="row" data-id="'+s.id+'" style="cursor:pointer"><div style="min-width:0"><b>'+esc(s.name)+'</b>'+(isNew(s)?' <span class="pill pen">নতুন</span>':'')+'<div class="sub">'+esc(cname(s))+' · '+new Date(s.created_at).toLocaleDateString('en-GB')+'</div></div><span class="pill '+(s.paid?'pd':'pen')+'">'+(s.paid?'Paid':'Pending')+'</span></div>';
   }).join('')||'<p class="sub">এখনো কোনো বুকিং নেই।</p>';
@@ -86,10 +86,10 @@ function renderBk(){
      +'<div class="sub">'+esc(s.booking_no)+' · '+esc(cname(s))+' · ব্যাচ '+esc(s.batch_code||s.batch)+'</div>'
      +'<div class="sub"><a href="tel:'+esc(s.phone)+'">'+esc(s.phone)+'</a> · '+esc(s.email)+'</div>'
      +'<div class="sub" style="display:flex;justify-content:space-between;gap:8px"><span>'+new Date(s.created_at).toLocaleString('en-GB')+'</span><span style="color:var(--p);font-weight:600;flex:none">বিস্তারিত ›</span></div>'
-     +'<div class="tools"><button data-i="'+s.id+'" data-k="paid">'+(s.paid?'Pending করো':'Paid করো')+'</button><button class="g" data-i="'+s.id+'" data-k="active">'+(s.active?'বাতিল করো':'সক্রিয় করো')+'</button></div></div>';
+     +'<div class="tools"><button data-i="'+s.id+'" data-k="paid">'+(s.paid?'Pending করুন':'Paid করুন')+'</button><button class="g" data-i="'+s.id+'" data-k="active">'+(s.active?'বাতিল করুন':'সক্রিয় করুন')+'</button></div></div>';
   }).join('')||'<p class="sub">কিছু পাওয়া যায়নি</p>';
   $('shown').textContent=V.length+'টি বুকিং';
-  show('moreBtn',V.length>shownN);$('moreBtn').textContent='আরও দেখাও ('+(V.length-shownN)+')';
+  show('moreBtn',V.length>shownN);$('moreBtn').textContent='আরও দেখান ('+(V.length-shownN)+')';
   var n=['fc','fb','fp','fs'].filter(function(i){return $(i).value}).length;
   $('fBtn').textContent='ফিল্টার'+(n?' ('+n+')':'')+(fOpen?' ▴':' ▾');
 }
@@ -112,7 +112,7 @@ function renderNew(){
   if(!seenAt()){try{localStorage.setItem('jw_seen',new Date().toISOString())}catch(e){}}
   var n=rows.filter(isNew).length,b=$('newBanner');
   b.classList.toggle('hide',n===0);
-  b.textContent=''+n+'টি নতুন রেজিস্ট্রেশন এসেছে (ট্যাপ করে দেখো)';
+  b.textContent=''+n+'টি নতুন রেজিস্ট্রেশন এসেছে (ট্যাপ করে দেখুন)';
   show('seenBar',n>0);$('seenTxt').textContent=''+n+'টি নতুন';
   var c=$('newCnt');c.textContent=n;c.classList.toggle('hide',n===0);
   document.title=(n?'('+n+') ':'')+'Jabirs Weg';
@@ -159,9 +159,9 @@ function renderDetail(){
   var oth=rows.filter(function(x){return x.id!==s.id&&last11(x.phone)===last11(s.phone)});
   if(oth.length)h+='<div class="card"><h2 style="font-size:16px">এই নম্বরের অন্য বুকিং</h2>'+oth.map(function(x){var cc=cby(x.course_id);return '<div class="row" data-d="open" data-i="'+x.id+'" style="cursor:pointer"><div style="min-width:0"><b>'+esc(cc?cc.title:x.level)+'</b><div class="sub">'+esc(x.booking_no)+' · '+esc(x.batch_code||'')+'</div></div><span class="pill '+(x.paid?'pd':'pen')+'">'+(x.paid?'Paid':'Pending')+'</span></div>'}).join('')+'</div>';
   h+='<div class="card" style="text-align:center"><h2 style="font-size:16px;text-align:left">টিকিট</h2><img id="dvtk" class="tkimg" alt="Ticket"><button class="g" data-d="dl">টিকিট ডাউনলোড</button></div>';
-  h+='<button class="g w" data-d="active">'+(s.active?'বুকিং বাতিল করো':'বুকিং সক্রিয় করো')+'</button>';
+  h+='<button class="g w" data-d="active">'+(s.active?'বুকিং বাতিল করুন':'বুকিং সক্রিয় করুন')+'</button>';
   $('dvb').innerHTML=h;
-  $('dvn').innerHTML='<button class="g" data-d="prev"'+(idx<=0?' disabled':'')+'>‹ আগের</button><button class="mid" data-d="paid">'+(s.paid?'Pending করো':'✓ Paid করো')+'</button><button class="g" data-d="next"'+(idx>=tot-1?' disabled':'')+'>পরের ›</button>';
+  $('dvn').innerHTML='<button class="g" data-d="prev"'+(idx<=0?' disabled':'')+'>‹ আগের</button><button class="mid" data-d="paid">'+(s.paid?'Pending করুন':'✓ Paid করুন')+'</button><button class="g" data-d="next"'+(idx>=tot-1?' disabled':'')+'>পরের ›</button>';
   dvT={name:nm,no:s.booking_no,title:c?c.title:s.level,code:c?c.code:s.level,batch:s.batch_code||'',color:col,time:cur?c.info_time:'',days:cur?c.info_days:'',start:cur?(c.start_date?fmtDate(c.start_date):c.info_start):''};
   var want=dvId;
   drawTicket(dvT).then(function(cv){if(dvId===want){var im=$('dvtk');if(im)im.src=cv.toDataURL('image/png')}}).catch(function(){});
@@ -187,7 +187,7 @@ function toLocalInput(iso){if(!iso)return '';var d=new Date(iso);if(isNaN(d))ret
 function blank(){return{price:'',reg_open_at:null,id:null,code:'',title:'',subtitle:'',learn:'',color:'#1e8e5a',capacity:30,note:'',info_mode:'',info_duration:'',info_time:'',info_days:'',info_start:'',info_extra:'',is_open:true,is_hidden:false,current_batch:1,batch_code:'',start_date:''}}
 function colorPick(k,cur){
   var sw=COLORS.map(function(x){return '<button type="button" class="sw'+(x[1].toLowerCase()===String(cur).toLowerCase()?' on':'')+'" data-a="color" data-k="'+k+'" data-c="'+x[1]+'" title="'+x[0]+'" style="background:'+x[1]+'"></button>'}).join('');
-  return '<div class="grp">কোর্সের রঙ</div><div class="sws">'+sw+'<label class="swc" title="নিজের পছন্দের রঙ বেছে নাও">+<input type="color" id="cpk_'+k+'" value="'+esc(cur)+'"></label></div><input type="hidden" id="co_'+k+'" value="'+esc(cur)+'">';
+  return '<div class="grp">কোর্সের রঙ</div><div class="sws">'+sw+'<label class="swc" title="নিজের পছন্দের রঙ বেছে নিন">+<input type="color" id="cpk_'+k+'" value="'+esc(cur)+'"></label></div><input type="hidden" id="co_'+k+'" value="'+esc(cur)+'">';
 }
 function markSw(k,v){var bs=$('ctl').querySelectorAll?$('ctl').querySelectorAll('.sw'):[];Array.prototype.forEach.call(bs,function(el){if(el.getAttribute('data-k')===k)el.classList.toggle('on',el.getAttribute('data-c').toLowerCase()===String(v).toLowerCase())})}
 function setColor(k,v){var h=$('co_'+k);if(h)h.value=v;var pk=$('cpk_'+k);if(pk)pk.value=v;markSw(k,v);dirty[k]=true}
@@ -197,7 +197,7 @@ function editorHtml(c,k,nw){
    +'<div class="tools">'+fld('cd',k,'কোড (যেমন A1)',c.code,6)+fld('ti',k,'কোর্সের নাম (যেমন A1 অনলাইন)',c.title,80)+'</div>'
    +'<div class="tools">'+fld('bc',k,'ব্যাচ কোড (যেমন DFZA122)',c.batch_code,12)+fld('pc',k,'কোর্স ফি (যেমন ৳ 3,500)',c.price,40)+'</div>'
    +'<div class="tools">'+fld('su',k,'ছোট বর্ণনা (ঐচ্ছিক)',c.subtitle,120)+'</div>'+colorPick(k,c.color)
-   +'<textarea class="t" id="le_'+k+'" rows="3" maxlength="600" spellcheck="false" placeholder="কী শিখবে — প্রতি লাইনে একটা করে লেখো">'+esc(c.learn||'')+'</textarea>'
+   +'<textarea class="t" id="le_'+k+'" rows="3" maxlength="600" spellcheck="false" placeholder="কী শিখবেন — প্রতি লাইনে একটা করে লিখুন">'+esc(c.learn||'')+'</textarea>'
    +'<div class="grp">আসন ও বার্তা</div>'
    +'<div class="tools"><input class="t" type="number" min="1" max="100" id="cap_'+k+'" value="'+c.capacity+'" style="max-width:90px" title="আসন সংখ্যা">'+fld('nt',k,'বন্ধ/পূর্ণ হলে যে মেসেজ দেখাবে (ঐচ্ছিক)',c.note,200)+'</div>'
    +'<div class="tools"><label class="sub" style="flex:1;min-width:200px">রেজিস্ট্রেশন শুরুর তারিখ ও সময় (ফাঁকা রাখলে এখনই চালু)<input class="t" type="datetime-local" id="ro_'+k+'" value="'+esc(toLocalInput(c.reg_open_at))+'"></label></div>'
@@ -206,8 +206,8 @@ function editorHtml(c,k,nw){
    +'<div class="tools">'+fld('it',k,'সময় (যেমন রাত ৮টা)',c.info_time,60)+fld('dy',k,'বার (যেমন শনি, সোম, বুধ)',c.info_days,80)+'</div>'
    +'<div class="tools"><label class="sub" style="flex:1;min-width:150px">শুরুর তারিখ (কাউন্টডাউনের জন্য)<input class="t" type="date" id="sd_'+k+'" value="'+esc(c.start_date||'')+'"></label>'+fld('st',k,'শুরু নিয়ে নোট (ঐচ্ছিক)',c.info_start,60)+'</div>'
    +'<div class="tools">'+fld('ix',k,'অন্যান্য তথ্য (ঐচ্ছিক)',c.info_extra,300)+'</div>'
-   +(nw?'':'<div class="grp">নতুন ব্যাচ শুরু করো</div><div class="tools">'+fld('nb',k,'নতুন ব্যাচের কোড (যেমন DFZA123)','',12)+bt('batch',k,'y','শুরু করো')+'</div>')
-   +'<div class="tools" style="margin-top:12px">'+(nw?bt('save',k,'','তৈরি করো')+bt('cancelnew',k,'g','বাতিল'):bt('save',k,'','সংরক্ষণ')+bt('done',k,'g','ব্যাচ সম্পন্ন করো')+bt('del',k,'g','মুছে ফেলো'))+'</div></div>';
+   +(nw?'':'<div class="grp">নতুন ব্যাচ শুরু করুন</div><div class="tools">'+fld('nb',k,'নতুন ব্যাচের কোড (যেমন DFZA123)','',12)+bt('batch',k,'y','শুরু করুন')+'</div>')
+   +'<div class="tools" style="margin-top:12px">'+(nw?bt('save',k,'','তৈরি করুন')+bt('cancelnew',k,'g','বাতিল'):bt('save',k,'','সংরক্ষণ')+bt('done',k,'g','ব্যাচ সম্পন্ন করুন')+bt('del',k,'g','মুছে ফেলুন'))+'</div></div>';
 }
 function rowHtml(c,k,nw){
   var op=openK===k,n=nw?0:curCount(c);
@@ -224,7 +224,7 @@ function renderCtl(force,except){
   if(box.querySelectorAll){Array.prototype.forEach.call(box.querySelectorAll('input,textarea,select'),function(el){var k=el.id.slice(el.id.indexOf('_')+1);if(dirty[k]&&k!==except)keep[el.id]=el.value})}
   var h=draft?rowHtml(blank(),'new',true):'';
   AC.forEach(function(c){h+=rowHtml(c,c.id,false)});
-  box.innerHTML=h||'<p class="sub">কোনো কোর্স নেই। উপরের বাটনে চেপে যোগ করো।</p>';
+  box.innerHTML=h||'<p class="sub">কোনো কোর্স নেই। উপরের বাটনে চেপে যোগ করুন।</p>';
   Object.keys(keep).forEach(function(id){var e=$(id);if(e)e.value=keep[id];if(id.indexOf('co_')===0)markSw(id.slice(3),keep[id])});
   if(except)dirty[except]=false;
 }
@@ -257,7 +257,7 @@ function addCourse(){
 function aerr(e){
   var m=e.message||'';
   if(m==='network')return 'ইন্টারনেট সংযোগ নেই';
-  if(m.indexOf('code_taken')>=0)return 'এই ব্যাচ কোড আগে ব্যবহার হয়েছে, অন্য কোড দাও।';
+  if(m.indexOf('code_taken')>=0)return 'এই ব্যাচ কোড আগে ব্যবহার হয়েছে, অন্য কোড দিন।';
   if(m.indexOf('invalid_batch_code')>=0)return 'ব্যাচ কোডে শুধু ইংরেজি অক্ষর, সংখ্যা ও - থাকবে (৩ থেকে ১২ অক্ষর)।';
   return m;
 }
@@ -271,7 +271,7 @@ function gather(k,c){
 async function pushCourse(k,over){
   over=over||{};var nw=k==='new',c=nw?blank():cby(k);if(!c)return false;
   var a=gather(k,c);
-  if(!(a.p_capacity>=1&&a.p_capacity<=100)){alert('আসন সংখ্যা ১ থেকে ১০০-এর মধ্যে দাও।');return false}
+  if(!(a.p_capacity>=1&&a.p_capacity<=100)){alert('আসন সংখ্যা ১ থেকে ১০০-এর মধ্যে দিন।');return false}
   if(!a.p_code||!a.p_title){alert('কোড ও কোর্সের নাম দিতে হবে।');return false}
   if(nw&&!a.p_bcode){alert('ব্যাচ কোড দিতে হবে (যেমন DFZA122)।');return false}
   a.p_open=over.open!==undefined?over.open:c.is_open;a.p_hidden=over.hidden!==undefined?over.hidden:c.is_hidden;
@@ -284,18 +284,18 @@ async function pushCourse(k,over){
 }
 function renderDoneAdm(){
   var box=$('doneAdm');if(!box)return;
-  box.innerHTML=COMP.map(function(x){return '<div class="row" style="align-items:center"><div style="display:flex;gap:10px;align-items:center;min-width:0"><span class="dc" style="background:'+esc(x.color)+'">'+esc(x.code)+'</span><div style="min-width:0"><b>'+esc(x.title)+'</b><div class="sub">ব্যাচ '+esc(x.batch_code)+' · '+x.students+' জন · '+esc(fmtDate(x.completed_at))+'</div></div></div><button class="g" style="padding:5px 12px;font-size:12px" data-a="deldone" data-i="'+x.id+'">মুছো</button></div>'}).join('')||'<p class="sub">এখনো কোনো ব্যাচ সম্পন্ন করা হয়নি।</p>';
+  box.innerHTML=COMP.map(function(x){return '<div class="row" style="align-items:center"><div style="display:flex;gap:10px;align-items:center;min-width:0"><span class="dc" style="background:'+esc(x.color)+'">'+esc(x.code)+'</span><div style="min-width:0"><b>'+esc(x.title)+'</b><div class="sub">ব্যাচ '+esc(x.batch_code)+' · '+x.students+' জন · '+esc(fmtDate(x.completed_at))+'</div></div></div><button class="g" style="padding:5px 12px;font-size:12px" data-a="deldone" data-i="'+x.id+'">মুছুন</button></div>'}).join('')||'<p class="sub">এখনো কোনো ব্যাচ সম্পন্ন করা হয়নি।</p>';
 }
 $('doneAdm').onclick=function(e){var t=e.target,b=t&&t.closest?t.closest('button[data-i]'):null;if(b)delDone(b.getAttribute('data-i'))};
 async function delDone(id){
-  if(!confirm('এই সম্পন্ন-তালিকার এন্ট্রি মুছবে? কোর্স বা বুকিংয়ের কিছু মুছবে না।'))return;
+  if(!confirm('এই সম্পন্ন-তালিকার এন্ট্রি মুছবেন? কোর্স বা বুকিংয়ের কিছু মুছবে না।'))return;
   var r=await SB.rpc('delete_completion',{p_id:id});
   if(r.error){alert('সমস্যা হয়েছে: '+aerr(r.error));return}
   await loadCompleted();
 }
 async function completeBatch(k){
   var c=cby(k);if(!c)return;
-  if(!confirm('"'+c.title+'" (ব্যাচ '+c.batch_code+') সম্পন্ন হয়েছে বলে চিহ্নিত করবে?\n\n• রেজিস্ট্রেশন বন্ধ হবে\n• কোর্সটা হোম থেকে সরে যাবে\n• "সম্পন্ন কোর্স" তালিকায় দেখাবে\n\nপরে আবার চালাতে চাইলে "+ নতুন ব্যাচ" দিয়ে নতুন কোডে শুরু করতে পারবে।'))return;
+  if(!confirm('"'+c.title+'" (ব্যাচ '+c.batch_code+') সম্পন্ন হয়েছে বলে চিহ্নিত করবেন?\n\n• রেজিস্ট্রেশন বন্ধ হবে\n• কোর্সটা হোম থেকে সরে যাবে\n• "সম্পন্ন কোর্স" তালিকায় দেখাবে\n\nপরে আবার চালাতে চাইলে "+ নতুন ব্যাচ" দিয়ে নতুন কোডে শুরু করতে পারবেন।'))return;
   var r=await SB.rpc('complete_batch',{p_id:k});
   if(r.error){alert(r.error.message.indexOf('already_done')>=0?'এই ব্যাচ আগেই সম্পন্ন করা হয়েছে।':'সমস্যা হয়েছে: '+aerr(r.error));return}
   dirty[k]=false;openK='';
@@ -305,8 +305,8 @@ async function completeBatch(k){
 async function newBatch(k){
   var c=cby(k);if(!c)return;
   var code=($('nb_'+k)?$('nb_'+k).value:'').trim().toUpperCase();
-  if(!/^[A-Z0-9-]{3,12}$/.test(code)){alert('নতুন ব্যাচের কোড দাও (যেমন DFZA123), ৩ থেকে ১২ অক্ষর, শুধু ইংরেজি অক্ষর, সংখ্যা ও -।');return}
-  if(!confirm(c.title+'-এর জন্য নতুন ব্যাচ '+code+' শুরু হবে। আগের সব বুকিং থাকবে, নতুন রেজিস্ট্রেশন নতুন ব্যাচে যাবে। চালিয়ে যাবে?'))return;
+  if(!/^[A-Z0-9-]{3,12}$/.test(code)){alert('নতুন ব্যাচের কোড দিন (যেমন DFZA123), ৩ থেকে ১২ অক্ষর, শুধু ইংরেজি অক্ষর, সংখ্যা ও -।');return}
+  if(!confirm(c.title+'-এর জন্য নতুন ব্যাচ '+code+' শুরু হবে। আগের সব বুকিং থাকবে, নতুন রেজিস্ট্রেশন নতুন ব্যাচে যাবে। চালিয়ে যাবেন?'))return;
   var r=await SB.rpc('new_batch',{p_id:k,p_code:code});
   if(r.error){alert('সমস্যা হয়েছে: '+aerr(r.error));return}
   dirty[k]=false;openK='';
@@ -315,9 +315,9 @@ async function newBatch(k){
 }
 async function delCourse(k){
   var c=cby(k);if(!c)return;
-  if(!confirm('"'+c.title+'" কোর্সটি মুছে ফেলবে? এটা আর ফেরানো যাবে না।'))return;
+  if(!confirm('"'+c.title+'" কোর্সটি মুছে ফেলবেন? এটা আর ফেরানো যাবে না।'))return;
   var r=await SB.rpc('delete_course',{p_id:k});
-  if(r.error){alert(r.error.message.indexOf('has_bookings')>=0?'এই কোর্সে বুকিং আছে, মুছা যাবে না। চাইলে "হোমে লুকানো" করে রাখো।':'সমস্যা হয়েছে: '+aerr(r.error));return}
+  if(r.error){alert(r.error.message.indexOf('has_bookings')>=0?'এই কোর্সে বুকিং আছে, মুছা যাবে না। চাইলে "হোমে লুকানো" করে রাখুন।':'সমস্যা হয়েছে: '+aerr(r.error));return}
   openK='';await loadAdmin(true,k);loadCourses(false);
 }
 setInterval(function(){if(!$('panel').classList.contains('hide')&&!document.hidden){loadAdmin();loadCourses(false)}},30000);
@@ -337,9 +337,9 @@ async function delProof(path){
 }
 window.delBk=async function(id){
   var r=rows.filter(function(x){return x.id===id})[0];if(!r)return;
-  if(!confirm('"'+r.name+'" ('+r.booking_no+') বুকিংটি স্থায়ীভাবে মুছে যাবে। এটা আর ফেরানো যাবে না। শুধু বাতিল করলে ডেটা থাকে। সত্যিই মুছবে?'))return;
-  if(!confirm('শেষবার জিজ্ঞেস করছি: '+r.booking_no+' চিরতরে মুছে ফেলবো?'))return;
-  if(r.proof_path&&!(await delProof(r.proof_path))&&!confirm('পেমেন্টের ছবিটা মোছা যায়নি (ছবি স্টোরেজে থেকে যাবে)। তবুও বুকিং মুছবে?'))return;
+  if(!confirm('"'+r.name+'" ('+r.booking_no+') বুকিংটি স্থায়ীভাবে মুছে যাবে। এটা আর ফেরানো যাবে না। শুধু বাতিল করলে ডেটা থাকে। সত্যিই মুছবেন?'))return;
+  if(!confirm('শেষবার জিজ্ঞেস করছি: '+r.booking_no+' চিরতরে মুছে ফেলবেন?'))return;
+  if(r.proof_path&&!(await delProof(r.proof_path))&&!confirm('পেমেন্টের ছবিটা মোছা যায়নি (ছবি স্টোরেজে থেকে যাবে)। তবুও বুকিং মুছবেন?'))return;
   var x=await rp('delete_booking',{p_id:id});
   if(x.error){alert('সমস্যা হয়েছে: '+x.error.message);return}
   closeDetail();await loadAdmin();loadCourses(false);
@@ -354,20 +354,20 @@ W('renderBk',function(o){return function(){
     var t=el.querySelector('.tools'),tp=el.querySelector('.bk-top span'),stt=s.paid?'':(s.expired_at?'<span class="pill cx">মেয়াদ শেষ</span> ':(s.proof_at?'<span class="pill pen">যাচাই চলছে</span> ':''));
     if(tp&&stt&&el.textContent.indexOf('যাচাই চলছে')<0&&el.textContent.indexOf('মেয়াদ শেষ')<0)tp.insertAdjacentHTML('afterbegin',stt);
     if(t&&s.proof_at&&!t.querySelector('[data-pf]'))t.insertAdjacentHTML('beforeend','<button class="g" data-pf="'+s.id+'">প্রমাণ</button>');
-    if(t&&!t.querySelector('[data-k="del"]'))t.insertAdjacentHTML('beforeend','<button class="g" data-i="'+s.id+'" data-k="del" style="color:#c92a2a">মুছো</button>');
+    if(t&&!t.querySelector('[data-k="del"]'))t.insertAdjacentHTML('beforeend','<button class="g" data-i="'+s.id+'" data-k="del" style="color:#c92a2a">মুছুন</button>');
   })}});
 W('renderDetail',function(o){return function(){
   o();var s=dvRow();if(!s)return;
   var rw=function(k,v){return '<div class="irow cidrow"><span>'+k+'</span><b>'+v+'</b></div>'},pr=bkPrice(s);
   Array.prototype.forEach.call(document.querySelectorAll('#dvb .card'),function(c){
-    if(c.textContent.indexOf('বুকিংয়ের তথ্য')>=0&&c.textContent.indexOf('কোর্স আইডি')<0)c.insertAdjacentHTML('beforeend',rw('কোর্স আইডি (পেমেন্ট রেফ)',esc(s.cid||'—'))+(pr?rw('কোর্স ফি',esc(lat(pr))):'')+(s.proof_at?rw('পেমেন্টের প্রমাণ',esc(s.proof_trx||'স্ক্রিনশট')+' <button class="g" data-pf="'+s.id+'" style="padding:3px 10px;font-size:12px">দেখো</button>'):'')+(s.expired_at?rw('অবস্থা','মেয়াদ শেষে স্বয়ংক্রিয় বাতিল'):''))});
+    if(c.textContent.indexOf('বুকিংয়ের তথ্য')>=0&&c.textContent.indexOf('কোর্স আইডি')<0)c.insertAdjacentHTML('beforeend',rw('কোর্স আইডি (পেমেন্ট রেফ)',esc(s.cid||'—'))+(pr?rw('কোর্স ফি',esc(lat(pr))):'')+(s.proof_at?rw('পেমেন্টের প্রমাণ',esc(s.proof_trx||'স্ক্রিনশট')+' <button class="g" data-pf="'+s.id+'" style="padding:3px 10px;font-size:12px">দেখুন</button>'):'')+(s.expired_at?rw('অবস্থা','মেয়াদ শেষে স্বয়ংক্রিয় বাতিল'):''))});
   var ab=document.querySelector('#dvb button[data-d="active"]');
-  if(ab&&!document.querySelector('#dvb button[data-d="del"]'))ab.insertAdjacentHTML('afterend','<button class="g w" data-d="del" style="color:#c92a2a;margin-bottom:70px">স্থায়ীভাবে মুছে ফেলো</button>');
+  if(ab&&!document.querySelector('#dvb button[data-d="del"]'))ab.insertAdjacentHTML('afterend','<button class="g w" data-d="del" style="color:#c92a2a;margin-bottom:70px">স্থায়ীভাবে মুছে ফেলুন</button>');
 }});
 window.viewProof=async function(id){
   var s=rows.filter(function(x){return x.id===id})[0];if(!s)return;
   var info='ট্রানজেকশন আইডি: '+(s.proof_trx||'—')+'\nকোর্স আইডি: '+(s.cid||'—');
-  var box=function(img){var o=document.createElement('div');o.id='pfv';o.innerHTML=(img?'<img src="'+img+'">':'')+'<div style="white-space:pre-line;text-align:center">'+esc(info)+'</div><button onclick="this.parentNode.remove()">বন্ধ করো</button>';document.body.appendChild(o)};
+  var box=function(img){var o=document.createElement('div');o.id='pfv';o.innerHTML=(img?'<img src="'+img+'">':'')+'<div style="white-space:pre-line;text-align:center">'+esc(info)+'</div><button onclick="this.parentNode.remove()">বন্ধ করুন</button>';document.body.appendChild(o)};
   if(!s.proof_path){box('');return}
   try{
     var tk=await bearer(),r=await fetch(SUPABASE_URL+'/storage/v1/object/sign/proofs/'+s.proof_path,{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({expiresIn:300})}),j=await r.json();
@@ -403,10 +403,10 @@ window.selfCheck=async function(){
     miss.length?no('bookings-এ কলাম নেই: '+miss.join(', ')):ok('বুকিংয়ের নতুন কলামগুলো আছে');
     var q=await rp('pay_info',{p_no:b.bn||b.booking_no});
     if(q.error)no('pay_info এরর: '+q.error.message);
-    else('st' in q.data)?ok('pay_info নতুন ভার্সন'):no('pay_info পুরনো ভার্সন (স্ট্যাটাস ও বাকি সময় নেই)। SQL আবার চালাও।');
+    else('st' in q.data)?ok('pay_info নতুন ভার্সন'):no('pay_info পুরনো ভার্সন (স্ট্যাটাস ও বাকি সময় নেই)। SQL আবার চালান।');
     var nb=rows.filter(function(x){return !x.paid&&x.active})[0];
     if(nb&&!nb.expires_at)out.push('সর্বশেষ Pending বুকিংয়ে শেষ সময় (expires_at) নেই। বুকিংটা SQL চালানোর আগের হলে ঠিক আছে, নতুন বুকিং হলে ট্রিগার আপডেট হয়নি।');
-  }else out.push('কোনো বুকিং নেই। একটা টেস্ট বুকিং করে আবার যাচাই করো।');
+  }else out.push('কোনো বুকিং নেই। একটা টেস্ট বুকিং করে আবার যাচাই করুন।');
   box.innerHTML=out.join('<br>');
 };
 if($('tOv'))$('tOv').insertAdjacentHTML('beforeend','<button class="g w" onclick="selfCheck()">সেটআপ যাচাই</button><div class="sub" id="chkBox" style="margin-top:8px;line-height:1.8"></div>');
