@@ -29,7 +29,7 @@ var CSS=''
 +'.mx-r p{margin:6px 0 0;overflow-wrap:anywhere}.mx-rs{font-size:13px;color:var(--mute)}.mx-ex{font-size:14px;line-height:1.5}'
 +'.mx-sets{display:grid;gap:10px;margin-top:12px}.mx-sets button{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--soft);color:var(--ink);border:2px solid transparent;border-radius:14px;padding:14px;text-align:left}.mx-sets button b{font-size:16px}.mx-sets small{display:block;color:var(--mute);font-size:12px}.mx-sets em{font-style:normal;font-weight:700;color:#1e8e5a;font-size:13px;flex:none}'
 +'.mx-chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.mx-chips span{background:var(--soft);border-radius:99px;padding:4px 12px;font-size:13px}'
-+'.mx-act{display:grid;gap:8px;margin-top:14px}.mx-act button.g{background:transparent;color:var(--ink);border:2px solid var(--line)}.mx-exam .jwn{display:none}';
++'.mx-act{display:grid;gap:8px;margin-top:14px}.mx-act button.g{background:transparent;color:var(--ink);border:2px solid var(--line)}.mx-exam .jwn{display:none}.mx-back{display:none;background:transparent;color:var(--pri);border:0;padding:0 0 8px;font-weight:700;cursor:pointer}@media (hover:hover) and (pointer:fine){.mx-back{display:inline-block}}';
 var st=document.createElement('style');st.textContent=CSS;document.head.appendChild(st);
 
 var LV=[['A1','#1e8e5a'],['A2','#0c8599'],['B1','#6f42c1']];
@@ -59,7 +59,7 @@ function detail(){
 }
 function viewSets(){
   var S=sets();
-  PM.innerHTML='<div class="card"><h2>A1 · Lesen</h2><p class="sub">Goethe-Zertifikat A1: Start Deutsch 1 এর ধাঁচে অনুশীলন</p>'
+  PM.innerHTML='<div class="card"><button class="mx-back" data-act="hist">\u2190 মক টেস্ট</button><h2>A1 · Lesen</h2><p class="sub">Goethe-Zertifikat A1: Start Deutsch 1 এর ধাঁচে অনুশীলন</p>'
    +'<div class="mx-chips"><span>১৫টা প্রশ্ন</span><span>'+nb(MIN)+' মিনিট</span><span>Teil 1 · 2 · 3</span></div>'
    +'<p class="mx-bn">Teil 1: ২টা লেখা, Richtig/Falsch (১–৫)। Teil 2: কোন লেখায় তথ্য আছে, a বা b (৬–১০)। Teil 3: সাইনবোর্ড ও নোটিশ, Richtig/Falsch (১১–১৫)।</p>'
    +'<div class="mx-sets">'+S.map(function(s){var v=saved(s.id);return '<button data-set="'+s.id+'"><span><b>'+esc(s.title)+'</b><small>'+(v?'সেরা ফল: '+nb(v.best)+'/১৫ · '+nb(v.n)+' বার':'এখনো দেওয়া হয়নি')+'</small></span><em>শুরু ›</em></button>'}).join('')+'</div></div>';
@@ -92,7 +92,7 @@ function viewResult(){
   var S=ST.set,A=ST.ans,qs=ST.qs,ok=0,p=[0,0,0,0];
   qs.forEach(function(x){if(A[x.n]===x.k){ok++;p[x.t]++}});
   var pc=Math.round(ok/15*100),used=MIN*60-ST.left;
-  var h='<div class="card"><div class="mx-score"><p class="sub">Lesen · '+esc(S.title)+'</p><div class="mx-big">'+nb(ok)+' / ১৫</div><p class="sub">'+nb(pc)+'% · সময় লেগেছে '+nb(Math.floor(used/60))+' মিনিট '+nb(used%60)+' সেকেন্ড'+(ST.timeup?' (সময় শেষ)':'')+'</p>'
+  var h='<div class="card"><button class="mx-back" data-act="hist">\u2190 মডেল টেস্টের তালিকা</button><div class="mx-score"><p class="sub">Lesen · '+esc(S.title)+'</p><div class="mx-big">'+nb(ok)+' / ১৫</div><p class="sub">'+nb(pc)+'% · সময় লেগেছে '+nb(Math.floor(used/60))+' মিনিট '+nb(used%60)+' সেকেন্ড'+(ST.timeup?' (সময় শেষ)':'')+'</p>'
    +'<span class="mx-pill '+(pc>=60?'ok':'no')+'">'+(pc>=60?'ভালো প্রস্তুতি (৬০% বা বেশি)':'আরও অনুশীলন দরকার (৬০% এর কম)')+'</span></div>'
    +'<div class="mx-parts"><div><b>'+nb(p[1])+'/৫</b>Teil 1</div><div><b>'+nb(p[2])+'/৫</b>Teil 2</div><div><b>'+nb(p[3])+'/৫</b>Teil 3</div></div>'
    +'<p class="mx-bn">পরীক্ষায় পাস করতে মোট ৬০% নম্বর লাগে। এটা অনুশীলনের ফল, আসল পরীক্ষার নম্বর নয়।</p>'
@@ -166,9 +166,10 @@ function onClick(e){
     }
     finish();return}
   if(d.act==='again'&&ST){start(ST.set.id);return}
-  if(d.act==='sets'){history.back();return}
+  if(d.act==='sets'||d.act==='hist'){history.back();return}
 }
 window.addEventListener('hashchange',function(){stop();ST=null;cur='home';if(PM)draw()});
+window.addEventListener('jwnav:again',function(e){if(e.detail!=='mock'||!PM||cur==='home')return;if(cur==='exam'&&ST&&!ST.done&&!confirm('পরীক্ষা মাঝপথে ছেড়ে দেবেন? আপনার উত্তরগুলো মুছে যাবে।'))return;stop();ST=null;go('home')});
 window.addEventListener('beforeunload',function(e){if(ST&&!ST.done&&cur==='exam'){e.preventDefault();e.returnValue=''}});
 
 window.initMock=function(pm){
