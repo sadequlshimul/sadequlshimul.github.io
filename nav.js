@@ -24,6 +24,7 @@ var css='.jwn{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:m
 +'.jwn-i .jic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--c);color:var(--fg,#fff)}.jwn-i .jic svg{width:22px;height:22px}'
 +'.jwn-i .jck{margin-left:auto;display:none;width:22px;height:22px}.jwn-i.jcur{background:color-mix(in srgb,var(--c) 14%,transparent)}.jwn-i.jcur .jck{display:block}'
 +'.jwn-i:active{transform:scale(.98)}body{padding-bottom:104px}'
++'.jwn-back{display:none;margin-right:auto;background:rgba(255,255,255,.18);color:#fff;border:0;border-radius:99px;padding:6px 14px;font:600 13px "Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;min-height:38px;cursor:pointer}@media (hover:hover) and (pointer:fine){.jwn-back{display:inline-block}}'
 +'@media (prefers-reduced-motion:reduce){.jwn-m,.jwn-f,.jwn-f svg,.jwn-i{transition:none!important}}';
 var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
 var box=document.createElement('div');box.className='jwn';
@@ -37,15 +38,20 @@ function fit(){box.classList.toggle('joff',cur()==='')}
 function build(){M.innerHTML=IT.map(function(x,n){return '<button class="jwn-i" type="button" role="menuitem" data-k="'+x.k+'" style="--c:'+x.c+(x.f?';--fg:'+x.f:'')+';--n:'+(IT.length-1-n)+'"><span class="jic">'+S+x.i+'</svg></span><span>'+x.t+'</span>'+S.replace('<svg','<svg class="jck"').replace('stroke-width="2"','stroke-width="2.6"')+'<path d="M5 12l5 5 9-10"/></svg></button>'}).join('')}
 function mark(){var c=cur();[].forEach.call(M.children,function(b){b.classList.toggle('jcur',b.getAttribute('data-k')===c)})}
 function open(o){box.classList.toggle('jon',o);F.setAttribute('aria-expanded',o?'true':'false');if(o)mark()}
-function go(k){open(false);if(k===cur()){return}
- if(INDEX){if(k==='home'){typeof window.go==='function'?window.go(''):(location.hash='');return}
+function again(k){window.dispatchEvent(new CustomEvent('jwnav:again',{detail:k}))}
+var TH={home:'',goal:'goal',courses:'courses',mock:'mock',my:'my'};
+function go(k){open(false);
+ if(INDEX){var h=location.hash.replace('#','');
   if(k==='learn'){location.href='learn.html';return}
-  typeof window.go==='function'?window.go(k):(location.hash=k);return}
- location.href=k==='home'?'index.html':k==='learn'?'learn.html':'index.html#'+k}
+  if(h===TH[k]){again(k);return}
+  typeof window.go==='function'?window.go(TH[k]):(location.hash=TH[k]);return}
+ if(k==='learn'){if(P==='learn.html'){again(k);return}location.href='learn.html';return}
+ location.href=k==='home'?'index.html':'index.html#'+k}
 F.addEventListener('click',function(){open(!box.classList.contains('jon'))});
 box.querySelector('.jwn-bd').addEventListener('click',function(){open(false)});
 M.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('.jwn-i'):null;if(b)go(b.getAttribute('data-k'))});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false)});
 window.addEventListener('hashchange',function(){open(false);fit()});window.addEventListener('popstate',function(){open(false);fit()});
+if(!INDEX){var jt=document.querySelector('.jh .jt');if(jt){var bb=document.createElement('button');bb.type='button';bb.className='jwn-back';bb.textContent='\u2190 ফিরে যান';bb.onclick=function(){if(history.length>1)history.back();else location.href=(P==='vocab.html'?'learn.html':'index.html')};jt.insertBefore(bb,jt.firstChild)}}
 build();fit();
 })();
