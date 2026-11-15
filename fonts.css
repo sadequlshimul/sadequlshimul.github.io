@@ -1,0 +1,5 @@
+/* বাংলা ফন্ট: Noto Sans Bengali (শুধু বাংলা অক্ষর)। ইংরেজি/জার্মান অক্ষর Hind Siliguri থেকে আসে */
+@font-face{font-family:'Noto Sans Bengali';src:url(bn-400.woff) format('woff');font-weight:400 500;font-style:normal;font-display:swap;unicode-range:U+0980-09FF,U+0964-0965,U+200C-200D,U+25CC}
+@font-face{font-family:'Noto Sans Bengali';src:url(bn-600.woff) format('woff');font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0980-09FF,U+0964-0965,U+200C-200D,U+25CC}
+@font-face{font-family:'Noto Sans Bengali';src:url(bn-700.woff) format('woff');font-weight:700;font-style:normal;font-display:swap;unicode-range:U+0980-09FF,U+0964-0965,U+200C-200D,U+25CC}
+@font-face{font-family:'Noto Sans Bengali';src:url(bn-900.woff) format('woff');font-weight:800 900;font-style:normal;font-display:swap;unicode-range:U+0980-09FF,U+0964-0965,U+200C-200D,U+25CC}

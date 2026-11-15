@@ -3,7 +3,7 @@
 :root{--bg:#f4f1ea;--card:#fff;--ink:#14213d;--mute:#6a7385;--line:#e3ded2;--yel:#ffda1a;--p:#0058a3;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1625;--card:#16213a;--ink:#f1f4fa;--mute:#9aa6bf;--line:#2a3860}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'Hind Siliguri',system-ui,sans-serif;line-height:1.5;--soft:color-mix(in srgb,var(--p) 12%,var(--card))}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans Bengali','Hind Siliguri',system-ui,sans-serif;line-height:1.5;--soft:color-mix(in srgb,var(--p) 12%,var(--card))}
 .hero{background:var(--p);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 56px;position:relative;text-align:center;overflow:hidden}
 .hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
 .hero:before{width:200px;height:200px;left:-60px;top:-50px}.hero:after{width:160px;height:160px;right:-40px;bottom:-60px}

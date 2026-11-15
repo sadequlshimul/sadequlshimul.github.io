@@ -10,7 +10,7 @@ var IT=[
  {k:'mock',t:'মক টেস্ট',c:'#6f42c1',i:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/>'},
  {k:'learn',t:'Lernpunkt',c:'#c2255c',i:'<text x="12" y="17.5" text-anchor="middle" font-size="17" font-weight="700" fill="currentColor" stroke="none" font-family="Georgia,serif">A</text>'}
 ];
-var css='.jwn{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:9000;font-family:"Hind Siliguri",system-ui,sans-serif;-webkit-tap-highlight-color:transparent}'
+var css='.jwn{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:9000;font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;-webkit-tap-highlight-color:transparent}'
 +'.jwn *{-webkit-tap-highlight-color:transparent}.jwn.joff{display:none}'
 +'.jwn-f{position:relative;width:68px;height:68px;border-radius:50%;border:0;background:#ffd91f;color:#0b2447;box-shadow:0 6px 18px rgba(0,30,70,.28);cursor:pointer;padding:0;display:block;transition:transform .15s ease}'
 +'.jwn-f:active{transform:scale(.93)}'
@@ -19,7 +19,7 @@ var css='.jwn{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:m
 +'.jwn-bd{position:fixed;left:0;top:0;right:0;bottom:0;display:none}.jwn.jon .jwn-bd{display:block}'
 +'.jwn-m{position:absolute;right:4px;bottom:84px;min-width:224px;background:var(--card,#fff);border-radius:22px;padding:8px;box-shadow:0 10px 30px rgba(0,30,70,.25);opacity:0;transform:translateY(10px) scale(.9);transform-origin:bottom right;pointer-events:none;transition:opacity .16s ease,transform .2s ease}'
 +'.jwn.jon .jwn-m{opacity:1;transform:none;pointer-events:auto}'
-+'.jwn-i{display:flex;align-items:center;gap:14px;width:100%;border:0;background:transparent;color:var(--ink,#14213d);padding:7px 10px;border-radius:16px;font:600 18px "Hind Siliguri",system-ui,sans-serif;text-align:left;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .16s ease,transform .2s ease,background-color .2s}'
++'.jwn-i{display:flex;align-items:center;gap:14px;width:100%;border:0;background:transparent;color:var(--ink,#14213d);padding:7px 10px;border-radius:16px;font:600 18px "Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;text-align:left;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .16s ease,transform .2s ease,background-color .2s}'
 +'.jwn.jon .jwn-i{opacity:1;transform:none;transition-delay:calc(var(--n)*30ms)}'
 +'.jwn-i .jic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--c);color:var(--fg,#fff)}.jwn-i .jic svg{width:22px;height:22px}'
 +'.jwn-i .jck{margin-left:auto;display:none;width:22px;height:22px}.jwn-i.jcur{background:color-mix(in srgb,var(--c) 14%,transparent)}.jwn-i.jcur .jck{display:block}'

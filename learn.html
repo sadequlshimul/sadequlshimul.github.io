@@ -11,8 +11,8 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1424;--card:#13203a;--ink:#eef3fb;--mute:#9fb0c8;--line:#24365a;--soft:#1b2d4d;--pri:#5aaeff;--cN:#5aaeff;--cA:#fb923c;--cD:#22d3ee;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#0b1424;--card:#13203a;--ink:#eef3fb;--mute:#9fb0c8;--line:#24365a;--soft:#1b2d4d;--pri:#5aaeff;--cN:#5aaeff;--cA:#fb923c;--cD:#22d3ee;color-scheme:dark}
 *{box-sizing:border-box}html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:Poppins,'Hind Siliguri',system-ui,sans-serif;font-size:15px;min-height:100vh}
-.bn{font-family:'Hind Siliguri',Poppins,system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink);font-family:Poppins,'Noto Sans Bengali','Hind Siliguri',system-ui,sans-serif;font-size:15px;min-height:100vh}
+.bn{font-family:'Noto Sans Bengali','Hind Siliguri',Poppins,system-ui,sans-serif}
 button{font:inherit;cursor:pointer}
 .wrap{max-width:760px;margin:0 auto;padding:16px}
 .top{background:var(--card);border:2px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 10px 28px rgba(15,31,61,.08)}
@@ -40,7 +40,7 @@ h1{font-size:22px;margin:0}
 .seg .cN{--c:var(--cN)}.seg .cA{--c:var(--cA)}.seg .cD{--c:var(--cD)}
 .box{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:14px;margin-top:12px}
 .box h3{margin:0 0 8px;font-size:17px}
-.q{display:inline-block;font-weight:700;color:#fff;border-radius:8px;padding:2px 10px;margin-right:6px;font-family:Poppins,'Hind Siliguri',sans-serif}
+.q{display:inline-block;font-weight:700;color:#fff;border-radius:8px;padding:2px 10px;margin-right:6px;font-family:Poppins,'Noto Sans Bengali','Hind Siliguri',sans-serif}
 .cN.q,.q.cN{background:var(--cN)}.q.cA{background:var(--cA)}.q.cD{background:var(--cD)}
 table{width:100%;border-collapse:collapse;table-layout:fixed}
 th{padding:10px 4px;font-size:13px;color:#fff;text-align:center}
@@ -98,14 +98,14 @@ td.p{font-size:14px}
 :root{--bg:#f4f1ea;--ink:#14213d;--mute:#6a7385;--line:#e3ded2}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1625;--card:#16213a;--ink:#f1f4fa;--mute:#9aa6bf;--line:#2a3860}}
 :root[data-theme="dark"]{--bg:#0e1625;--card:#16213a;--ink:#f1f4fa;--mute:#9aa6bf;--line:#2a3860}
-body{font-family:'Hind Siliguri',system-ui,sans-serif;line-height:1.5}
+body{font-family:'Noto Sans Bengali','Hind Siliguri',system-ui,sans-serif;line-height:1.5}
 .jh{background:var(--hd);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 56px;position:relative;text-align:center;overflow:hidden}
 .jh:before,.jh:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
 .jh:before{width:200px;height:200px;left:-60px;top:-50px}.jh:after{width:160px;height:160px;right:-40px;bottom:-60px}
 .jt{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;min-height:38px}
-.jb{background:rgba(255,255,255,.18);color:#fff;border:0;border-radius:99px;padding:6px 14px;font:600 13px 'Hind Siliguri',system-ui,sans-serif;min-height:38px}
+.jb{background:rgba(255,255,255,.18);color:#fff;border:0;border-radius:99px;padding:6px 14px;font:600 13px 'Noto Sans Bengali','Hind Siliguri',system-ui,sans-serif;min-height:38px}
 .jt #th{position:static;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:17px;padding:0}
-.jbr{display:inline-block;background:var(--yel);color:#0b2447;font-weight:700;font-size:16px;letter-spacing:1px;text-transform:uppercase;padding:2px 10px;border-radius:6px;position:relative;z-index:1;font-family:'Hind Siliguri',system-ui,sans-serif}
+.jbr{display:inline-block;background:var(--yel);color:#0b2447;font-weight:700;font-size:16px;letter-spacing:1px;text-transform:uppercase;padding:2px 10px;border-radius:6px;position:relative;z-index:1;font-family:'Noto Sans Bengali','Hind Siliguri',system-ui,sans-serif}
 .jhi{font-size:22px;font-weight:600;margin:12px 0 2px;min-height:34px;position:relative;z-index:1}
 .jst{height:6px;background:var(--yel)}
 .wrap{max-width:520px;margin:-34px auto 0;padding:0 14px 20px;position:relative;z-index:2}
@@ -139,6 +139,9 @@ button:active,.hc:active,.cc:active,.ht:active{transform:scale(.97)}
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=1">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
 <meta name="theme-color" content="#0058a3">
+<link rel="preload" href="bn-400.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="bn-700.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="fonts.css?v=1">
 </head>
 <body>
 <div class="jh"><div class="jt"><button id="th" aria-label="theme">◐</button></div><div class="jbr">Jabirs Weg</div><div class="jhi" id="ts">Lernpunkt</div></div>
@@ -151,6 +154,6 @@ button:active,.hc:active,.cc:active,.ht:active{transform:scale(.97)}
 </div>
 <footer><a class="fbw" href="https://www.facebook.com/share/1PiMuePZN2/" target="_blank" rel="noopener" aria-label="Facebook পেজে যান"><span>আমাদের সাথে পথ চলুন</span><i class="fbl"></i><span class="fbi"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg></span></a><div>© Jabirs Weg · Deutsch für die Zukunft</div></footer>
 <script src="learn.js?v=4"></script>
-<script src="nav.js?v=2"></script>
+<script src="nav.js?v=3"></script>
 </body>
 </html>
