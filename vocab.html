@@ -261,6 +261,9 @@ footer{text-align:center;color:var(--mute);font-size:12px;padding:10px}
 .lg .gc{width:11px;height:11px;border-right:3px solid var(--mute);border-bottom:3px solid var(--mute);transform:rotate(-45deg);transition:transform .2s;margin-right:4px;flex:none}
 .lg.on .gc{transform:rotate(45deg)}
 .lgb{display:none;padding-top:12px}.lgb.on{display:block;animation:jwin .28s ease both}
+/* ===== লেখা বক্সের বাইরে যাওয়া ঠেকানো ===== */
+.cards small,.cards b,.cards span,.cards div,.fm{overflow-wrap:anywhere;hyphens:auto}
+.cards>*{min-width:0}
 /* ===== স্মুথ ===== */
 @view-transition{navigation:auto}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.22s}
