@@ -218,3 +218,4 @@ function theme(t){document.documentElement.setAttribute("data-theme",t);try{loca
 $("th").onclick=()=>{const c=document.documentElement.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");theme(c==="dark"?"light":"dark")};
 try{const s=localStorage.getItem("th");if(s)document.documentElement.setAttribute("data-theme",s)}catch(e){}
 render();
+window.addEventListener('jwnav:again',function(e){if(e.detail==='learn'&&view!=='hub'){var d=dep(view);try{history.go(-d)}catch(x){go('hub')}}});
