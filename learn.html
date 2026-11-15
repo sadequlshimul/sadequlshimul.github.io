@@ -121,6 +121,13 @@ footer{text-align:center;color:var(--mute);font-size:12px;padding:10px}
 .seg button{font-size:14px}
 .seg button .g{display:block;font-weight:700;line-height:1.25}
 .seg button small{display:block;font-size:11px;font-weight:500;opacity:.85;line-height:1.25;margin-top:1px}
+/* ===== লেখা বক্সের বাইরে যাওয়া ঠেকানো ===== */
+.seg button{min-width:0;flex:1 1 calc(50% - 8px);overflow-wrap:anywhere;hyphens:auto}
+.seg button .g,.seg button small{overflow-wrap:anywhere;hyphens:auto}
+table{table-layout:auto;min-width:100%}th,td{overflow-wrap:normal;word-break:normal;hyphens:none}td:last-child,th:last-child{overflow-wrap:anywhere}
+.box:has(>table){overflow-x:auto}
+.hc,.card,.tbody,.box,.op,.tile{overflow-wrap:anywhere}
+@media (max-width:360px){th{font-size:12px}td.p{font-size:12px}td b{font-size:14px}}
 /* ===== স্মুথ ===== */
 @view-transition{navigation:auto}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.22s}
