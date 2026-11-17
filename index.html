@@ -129,10 +129,10 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
       <div class="card" style="text-align:center">
         <div>Willkommen! আমার আইডি</div>
         <div class="no2" id="okNo"></div>
-        <p class="sub">আইডিটা সংরক্ষণ করুন। পেমেন্ট নিশ্চিত হলে "আমার ব্যাচ" পেজে স্ট্যাটাস Paid হবে।</p>
-        <img id="tkImg" class="tkimg" alt="Ticket">
-        <div class="tools" style="justify-content:center"><button onclick="saveTicket()">টিকিট ডাউনলোড</button><button class="g hide" id="shBtn" onclick="shareTicket()">শেয়ার করুন</button></div>
-        <p class="sub" style="font-size:12px">ডাউনলোড না হলে ছবিটা চেপে ধরে সেভ করুন।</p>
+        <p class="sub">আইডিটা সংরক্ষণ করুন। পেমেন্ট নিশ্চিত হলে "আমার ব্যাচ" পেজ থেকে আপনার টিকিট নামাতে পারবেন।</p>
+        <img id="tkImg" class="tkimg" alt="Ticket" style="display:none">
+        <div class="tools" id="tkTools" style="justify-content:center;display:none"><button onclick="saveTicket()">টিকিট ডাউনলোড</button><button class="g hide" id="shBtn" onclick="shareTicket()">শেয়ার করুন</button></div>
+        <p class="sub" id="tkHelp" style="font-size:12px;display:none">ডাউনলোড না হলে ছবিটা চেপে ধরে সেভ করুন।</p>
         <button class="g w" onclick="copyNo()" id="cpBtn">আমার আইডি কপি করুন</button>
         <button class="w" onclick="go('my')">আমার ব্যাচ পেজ দেখুন →</button>
       </div>
@@ -218,9 +218,9 @@ function toggleTheme(){var d=document.documentElement,c=d.getAttribute('data-the
 <script src="core.js?v=2"></script>
 <script src="courses.js?v=2"></script>
 <script src="goal.js?v=3"></script>
-<script src="ticket.js?v=3"></script>
+<script src="ticket.js?v=4"></script>
 <script src="payment.js?v=3"></script>
-<script src="my.js?v=3"></script>
+<script src="my.js?v=4"></script>
 <script src="home2.js?v=4"></script>
 <script src="boot.js?v=1"></script>
 <script src="nav.js?v=4"></script>
