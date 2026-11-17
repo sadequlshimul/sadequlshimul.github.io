@@ -43,7 +43,7 @@ async function renderMy(list){
   show('myLookup',false);show('myRes',true);
   var can=false;try{var f=new File([''],'a.png',{type:'image/png'});can=!!(navigator.canShare&&navigator.canShare({files:[f]}))}catch(e){}
   for(var i=0;i<myT.length;i++){
-    if(can)show('msh_'+i,true);
+    if(can&&$('msh_'+i))show('msh_'+i,true);
     try{var cv=await drawTicket(myT[i]);var im=$('mtk_'+i);if(im)im.src=cv.toDataURL('image/png')}catch(e){}
   }
 }
@@ -54,6 +54,8 @@ function shareTicketAt(i){lastT=myT[i];shareTicket()}
 (function(){
 W('cardMy',function(o){return function(m,i){
   var h=o(m,i).replace(/<p class="sub" style="margin-top:8px">পেমেন্ট নিশ্চিত হলে এখানে Paid দেখাবে।<\/p>/,'');
+  if(!m.m_paid){h=h.replace(/<img id="mtk_\d+" class="tkimg" alt="Ticket"><div class="tools"[^>]*>[\s\S]*?<\/div>/,'');
+    if(m.m_active)h=h.replace(/<\/div>$/,'<p class="sub" style="margin-top:8px">পেমেন্ট নিশ্চিত হলে এখানে আপনার টিকিট পাবেন।</p></div>')}
   return h.replace(/<\/div>$/,'<div id="mpay_'+i+'"></div></div>')}});
 W('renderMy',function(o){return function(list){
   var p=o(list);
