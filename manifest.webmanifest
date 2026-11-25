@@ -1,0 +1,22 @@
+{
+  "name": "Jabirs Weg",
+  "short_name": "Jabirs Weg",
+  "description": "Deutsch für die Zukunft",
+  "lang": "bn",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0058a3",
+  "theme_color": "#0058a3",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Lernpunkt", "url": "/learn.html"},
+    {"name": "মক টেস্ট", "url": "/index.html#mock"},
+    {"name": "আমার ব্যাচ", "url": "/index.html#my"}
+  ]
+}
